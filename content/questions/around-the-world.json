@@ -1,0 +1,94 @@
+{
+  "title": "Around the World",
+  "type": "multiple-choice",
+  "tagline": "Global general knowledge. Faster answers score more.",
+  "questions": [
+    {
+      "question": "What is the capital of Australia?",
+      "answer": "Canberra",
+      "wrong": ["Sydney", "Melbourne", "Perth"],
+      "fact": "Canberra was built as a compromise between rivals Sydney and Melbourne."
+    },
+    {
+      "question": "Which river runs through the middle of Paris?",
+      "answer": "The Seine",
+      "wrong": ["The Thames", "The Danube", "The Rhine"]
+    },
+    {
+      "question": "What is the tallest mountain in the world above sea level?",
+      "answer": "Mount Everest",
+      "wrong": ["K2", "Kilimanjaro", "Denali"],
+      "fact": "Everest stands about 29,000 feet tall."
+    },
+    {
+      "question": "Which country gave the Statue of Liberty to the United States?",
+      "answer": "France",
+      "wrong": ["Great Britain", "Spain", "Italy"],
+      "fact": "The statue was dedicated in New York Harbor in 1886."
+    },
+    {
+      "question": "What is the smallest country in the world by area?",
+      "answer": "Vatican City",
+      "wrong": ["Monaco", "San Marino", "Liechtenstein"],
+      "fact": "Vatican City covers only about 109 acres."
+    },
+    {
+      "question": "What is the longest river in South America?",
+      "answer": "The Amazon",
+      "wrong": ["The Paraná", "The Orinoco", "The Magdalena"],
+      "fact": "The Amazon carries more water than any other river on Earth."
+    },
+    {
+      "question": "Which is the largest ocean on Earth?",
+      "answer": "Pacific",
+      "wrong": ["Atlantic", "Indian", "Arctic"],
+      "fact": "The Pacific is bigger than all of Earth's land put together."
+    },
+    {
+      "question": "What is the currency of Japan?",
+      "answer": "Yen",
+      "wrong": ["Won", "Yuan", "Baht"]
+    },
+    {
+      "question": "Machu Picchu is in which country?",
+      "answer": "Peru",
+      "wrong": ["Bolivia", "Chile", "Ecuador"],
+      "fact": "The Inca built Machu Picchu in the 1400s."
+    },
+    {
+      "question": "Mount Kilimanjaro is in which country?",
+      "answer": "Tanzania",
+      "wrong": ["Kenya", "Uganda", "Ethiopia"],
+      "fact": "Kilimanjaro is the tallest mountain in Africa."
+    },
+    {
+      "question": "Which is the largest country in the world by area?",
+      "answer": "Russia",
+      "wrong": ["Canada", "China", "United States"],
+      "fact": "Russia stretches across 11 time zones."
+    },
+    {
+      "question": "The Taj Mahal is in which Indian city?",
+      "answer": "Agra",
+      "wrong": ["Delhi", "Jaipur", "Mumbai"],
+      "fact": "Emperor Shah Jahan built it in memory of his wife, Mumtaz Mahal."
+    },
+    {
+      "question": "What is the largest hot desert in the world?",
+      "answer": "The Sahara",
+      "wrong": ["The Gobi", "The Kalahari", "The Mojave"],
+      "fact": "The Sahara is roughly the size of the United States."
+    },
+    {
+      "question": "What is the capital of Canada?",
+      "answer": "Ottawa",
+      "wrong": ["Toronto", "Montreal", "Vancouver"]
+    },
+    {
+      "question": "The crosswalk on the cover of the Beatles' Abbey Road is in which city?",
+      "answer": "London",
+      "wrong": ["Liverpool", "Manchester", "Dublin"],
+      "fact": "Abbey Road came out in 1969. The crosswalk is still there."
+    }
+  ]
+}

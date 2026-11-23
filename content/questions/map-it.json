@@ -1,0 +1,121 @@
+{
+  "title": "Map It",
+  "type": "map-it",
+  "icon": "🗺️",
+  "tagline": "State shapes, capitals, borders and landmarks.",
+  "questions": [
+    {
+      "question": "Which state is this?",
+      "answer": "Ohio",
+      "wrong": ["Indiana", "Kentucky", "Illinois"],
+      "map": { "show": "outline", "state": "OH" }
+    },
+    {
+      "question": "Which state is this?",
+      "answer": "Pennsylvania",
+      "wrong": ["Tennessee", "Connecticut", "North Dakota"],
+      "map": { "show": "outline", "state": "PA" }
+    },
+    {
+      "question": "Which state is this?",
+      "answer": "Michigan",
+      "wrong": ["Wisconsin", "Minnesota", "Maine"],
+      "map": { "show": "outline", "state": "MI" }
+    },
+    {
+      "question": "Which state is this?",
+      "answer": "Louisiana",
+      "wrong": ["Mississippi", "Arkansas", "Alabama"],
+      "map": { "show": "outline", "state": "LA" },
+      "fact": "People say Louisiana looks like a boot."
+    },
+    {
+      "question": "Which state is this?",
+      "answer": "Oklahoma",
+      "wrong": ["Nebraska", "Texas", "Kansas"],
+      "map": { "show": "outline", "state": "OK" }
+    },
+    {
+      "question": "Which state is this?",
+      "answer": "Idaho",
+      "wrong": ["Montana", "Nevada", "Utah"],
+      "map": { "show": "outline", "state": "ID" }
+    },
+    {
+      "question": "Which state is this?",
+      "answer": "West Virginia",
+      "wrong": ["Virginia", "Maryland", "Kentucky"],
+      "map": { "show": "outline", "state": "WV" }
+    },
+    {
+      "question": "Which state is highlighted?",
+      "answer": "Missouri",
+      "wrong": ["Arkansas", "Iowa", "Kansas"],
+      "map": { "show": "highlight", "state": "MO" }
+    },
+    {
+      "question": "Which state is highlighted?",
+      "answer": "Wyoming",
+      "wrong": ["Colorado", "Montana", "Utah"],
+      "map": { "show": "highlight", "state": "WY" },
+      "fact": "Wyoming and Colorado are both almost perfect rectangles."
+    },
+    {
+      "question": "What is the capital of the highlighted state?",
+      "answer": "Albany",
+      "wrong": ["New York City", "Buffalo", "Syracuse"],
+      "map": { "show": "highlight", "state": "NY" }
+    },
+    {
+      "question": "What is the capital of the highlighted state?",
+      "answer": "Sacramento",
+      "wrong": ["Los Angeles", "San Francisco", "San Diego"],
+      "map": { "show": "highlight", "state": "CA" }
+    },
+    {
+      "question": "What is the capital of the highlighted state?",
+      "answer": "Frankfort",
+      "wrong": ["Louisville", "Lexington", "Bowling Green"],
+      "map": { "show": "highlight", "state": "KY" }
+    },
+    {
+      "question": "Which of these states does NOT border Pennsylvania?",
+      "answer": "Virginia",
+      "wrong": ["Ohio", "Maryland", "Delaware"],
+      "map": { "show": "highlight", "state": "PA", "also": ["NY", "NJ", "DE", "MD", "WV", "OH"] },
+      "fact": "Pennsylvania touches six states: New York, New Jersey, Delaware, Maryland, West Virginia and Ohio."
+    },
+    {
+      "question": "Which state sits directly north of Ohio?",
+      "answer": "Michigan",
+      "wrong": ["Indiana", "Wisconsin", "New York"],
+      "map": { "show": "highlight", "state": "OH", "also": ["MI"] }
+    },
+    {
+      "question": "Which is the only state that borders exactly one other state?",
+      "answer": "Maine",
+      "wrong": ["Florida", "Washington", "Rhode Island"],
+      "map": { "show": "blank", "state": "ME", "also": ["NH"] },
+      "fact": "Maine's only neighbor is New Hampshire."
+    },
+    {
+      "question": "At the Four Corners, Utah, Colorado and Arizona meet which fourth state?",
+      "answer": "New Mexico",
+      "wrong": ["Nevada", "Texas", "Wyoming"],
+      "map": { "show": "blank", "state": "NM", "also": ["UT", "CO", "AZ"] }
+    },
+    {
+      "question": "Mount Rushmore is in which state?",
+      "answer": "South Dakota",
+      "wrong": ["North Dakota", "Wyoming", "Montana"],
+      "map": { "show": "blank", "state": "SD" }
+    },
+    {
+      "question": "Old Faithful erupts in which state?",
+      "answer": "Wyoming",
+      "wrong": ["Montana", "Idaho", "Colorado"],
+      "map": { "show": "blank", "state": "WY" },
+      "fact": "Old Faithful is in the Wyoming part of Yellowstone National Park."
+    }
+  ]
+}

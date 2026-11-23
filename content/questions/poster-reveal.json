@@ -1,0 +1,259 @@
+{
+  "title": "Poster Reveal",
+  "type": "poster-reveal",
+  "icon": "🎬",
+  "tagline": "The picture starts blurry and sharpens. The sooner you get it, the more you score.",
+  "questions": [
+    {
+      "question": "Name this album.",
+      "answer": "Abbey Road",
+      "wrong": [
+        "Let It Be",
+        "Rubber Soul",
+        "Help!"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "Abbey Road The Beatles",
+        "artist": "Beatles"
+      },
+      "fact": "Released in 1969, it was the last album the Beatles recorded together."
+    },
+    {
+      "question": "Name this album.",
+      "answer": "The Dark Side of the Moon",
+      "wrong": [
+        "Wish You Were Here",
+        "The Wall",
+        "Animals"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "Pink Floyd Dark Side of the Moon",
+        "artist": "Pink Floyd",
+        "id": 1665303755
+      },
+      "fact": "Pink Floyd released it in 1973."
+    },
+    {
+      "question": "Name this album.",
+      "answer": "Sgt. Pepper's Lonely Hearts Club Band",
+      "wrong": [
+        "Magical Mystery Tour",
+        "Revolver",
+        "Yellow Submarine"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "Sgt Pepper's Lonely Hearts Club Band Beatles",
+        "match": "Sgt. Pepper",
+        "artist": "Beatles"
+      },
+      "fact": "The Beatles released it in 1967."
+    },
+    {
+      "question": "Name this album.",
+      "answer": "Wish You Were Here",
+      "wrong": [
+        "The Dark Side of the Moon",
+        "Animals",
+        "Meddle"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "Wish You Were Here Pink Floyd",
+        "artist": "Pink Floyd"
+      },
+      "fact": "The 1975 cover shows two businessmen shaking hands, one of them on fire."
+    },
+    {
+      "question": "Name this album.",
+      "answer": "Rumours",
+      "wrong": [
+        "Tusk",
+        "Hotel California",
+        "Tapestry"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "Rumours Fleetwood Mac",
+        "artist": "Fleetwood Mac"
+      },
+      "fact": "Fleetwood Mac released it in 1977."
+    },
+    {
+      "question": "Name this album.",
+      "answer": "Born in the U.S.A.",
+      "wrong": [
+        "Born to Run",
+        "American Fool",
+        "Damn the Torpedoes"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "Born in the U.S.A. Bruce Springsteen",
+        "artist": "Springsteen"
+      },
+      "fact": "Bruce Springsteen released it in 1984."
+    },
+    {
+      "question": "Name this album.",
+      "answer": "Thriller",
+      "wrong": [
+        "Bad",
+        "Off the Wall",
+        "Purple Rain"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "Thriller Michael Jackson",
+        "artist": "Michael Jackson"
+      },
+      "fact": "Released in 1982, it is the best-selling album of all time."
+    },
+    {
+      "question": "Name this album.",
+      "answer": "Hotel California",
+      "wrong": [
+        "Desperado",
+        "Rumours",
+        "Harvest"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "Hotel California Eagles",
+        "artist": "Eagles"
+      },
+      "fact": "The building on the cover is the Beverly Hills Hotel."
+    },
+    {
+      "question": "Name this album.",
+      "answer": "Purple Rain",
+      "wrong": [
+        "1999",
+        "Thriller",
+        "Like a Virgin"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "Purple Rain Prince",
+        "artist": "Prince"
+      },
+      "fact": "Prince released it in 1984."
+    },
+    {
+      "question": "Name this album.",
+      "answer": "The Wall",
+      "wrong": [
+        "The Dark Side of the Moon",
+        "Animals",
+        "The Division Bell"
+      ],
+      "itunes": {
+        "kind": "album",
+        "term": "The Wall Pink Floyd",
+        "artist": "Pink Floyd"
+      },
+      "fact": "Pink Floyd released this double album in 1979."
+    },
+    {
+      "question": "Name this movie.",
+      "answer": "Jaws",
+      "wrong": [
+        "The Abyss",
+        "Deep Blue Sea",
+        "Piranha"
+      ],
+      "fact": "Steven Spielberg's shark thriller came out in 1975.",
+      "wikipedia": "Jaws (film)"
+    },
+    {
+      "question": "Name this movie.",
+      "answer": "Back to the Future",
+      "wrong": [
+        "Ferris Bueller's Day Off",
+        "The Goonies",
+        "Weird Science"
+      ],
+      "fact": "It came out in 1985.",
+      "wikipedia": "Back to the Future"
+    },
+    {
+      "question": "Name this movie.",
+      "answer": "Jurassic Park",
+      "wrong": [
+        "King Kong",
+        "Godzilla",
+        "The Land Before Time"
+      ],
+      "fact": "It came out in 1993.",
+      "wikipedia": "Jurassic Park (film)"
+    },
+    {
+      "question": "Name this movie.",
+      "answer": "Home Alone",
+      "wrong": [
+        "Elf",
+        "The Santa Clause",
+        "Jingle All the Way"
+      ],
+      "fact": "It came out in 1990.",
+      "wikipedia": "Home Alone"
+    },
+    {
+      "question": "Name this movie.",
+      "answer": "Groundhog Day",
+      "wrong": [
+        "Caddyshack",
+        "Ghostbusters",
+        "Stripes"
+      ],
+      "fact": "It is set in Punxsutawney, Pennsylvania, but was filmed in Woodstock, Illinois.",
+      "wikipedia": "Groundhog Day (film)"
+    },
+    {
+      "question": "Name this movie.",
+      "answer": "Rocky",
+      "wrong": [
+        "Raging Bull",
+        "Creed",
+        "The Karate Kid"
+      ],
+      "fact": "Set in Philadelphia, it won the Oscar for Best Picture.",
+      "wikipedia": "Rocky"
+    },
+    {
+      "question": "Name this movie.",
+      "answer": "Forrest Gump",
+      "wrong": [
+        "Cast Away",
+        "Big",
+        "The Green Mile"
+      ],
+      "fact": "It came out in 1994.",
+      "wikipedia": "Forrest Gump"
+    },
+    {
+      "question": "Name this movie.",
+      "answer": "Toy Story",
+      "wrong": [
+        "A Bug's Life",
+        "Monsters, Inc.",
+        "Shrek"
+      ],
+      "fact": "In 1995 it became the first feature film animated entirely by computer.",
+      "wikipedia": "Toy Story"
+    },
+    {
+      "question": "Name this movie.",
+      "answer": "Planes, Trains and Automobiles",
+      "wrong": [
+        "Uncle Buck",
+        "The Great Outdoors",
+        "Tommy Boy"
+      ],
+      "fact": "Steve Martin's character is just trying to get home for Thanksgiving.",
+      "wikipedia": "Planes, Trains and Automobiles"
+    }
+  ]
+}

@@ -1,0 +1,972 @@
+/* The TV during a game: round intro, question, reveal, scores, winner.
+   Sized in --u like host.css (1% of a 16:9 stage). */
+
+#stage {
+  grid-template-rows: auto 1fr auto;
+}
+
+/* A thin line across the top that drains while a screen waits to move on. */
+.autobar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 0;
+  height: calc(var(--u) * 0.5);
+  background: var(--mustard);
+}
+
+.stage-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: calc(var(--u) * 11);
+  padding-top: calc(var(--u) * 1.6);
+}
+
+.round-name {
+  margin: 0;
+  font: 400 calc(var(--u) * 3) / 1.05 var(--display);
+}
+
+.progress {
+  margin: 0.3em 0 0;
+  font-size: calc(var(--u) * 1.9);
+  color: var(--gray);
+}
+
+/* The timer is a pumpkin pie that gets eaten as time runs out. */
+.pie {
+  --p: 100;
+  flex: none;
+  visibility: hidden;
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 8);
+  height: calc(var(--u) * 8);
+  border-radius: 50%;
+  background: conic-gradient(var(--pumpkin) calc(var(--p) * 1%), rgba(255, 243, 220, 0.14) 0);
+  box-shadow:
+    0 0 0 calc(var(--u) * 0.45) #c58a45,
+    0 calc(var(--u) * 0.9) 0 rgba(0, 0, 0, 0.3);
+}
+
+.pie span {
+  display: grid;
+  place-items: center;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--roast);
+  font: 400 calc(var(--u) * 2.8) / 1 var(--display);
+}
+
+#stage[data-phase='question'] .pie {
+  visibility: visible;
+}
+
+.pie.hurry span {
+  color: var(--scarlet);
+}
+
+.stage-main {
+  display: grid;
+  align-content: center;
+  min-height: 0;
+}
+
+/* ---------- Round intro ---------- */
+
+.round-card {
+  text-align: center;
+}
+
+.round-num {
+  margin: 0;
+  font-size: calc(var(--u) * 2.4);
+  color: var(--gray);
+}
+
+.round-title {
+  margin: 0.12em 0 0.25em;
+  font: 400 calc(var(--u) * 7) / 1 var(--display);
+  text-wrap: balance;
+  animation: stamp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.round-tag {
+  max-width: calc(var(--u) * 64);
+  margin: 0 auto;
+  font-size: calc(var(--u) * 2.6);
+}
+
+.round-count {
+  margin: 1.1em 0 0;
+  font-size: calc(var(--u) * 2.2);
+  font-weight: 800;
+  color: var(--mustard);
+}
+
+@keyframes stamp {
+  from {
+    transform: scale(1.5) rotate(-3deg);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- Question ---------- */
+
+.q-text {
+  max-width: calc(var(--u) * 86);
+  margin: 0 0 calc(var(--u) * 2.4);
+  font: 800 calc(var(--u) * 4) / 1.15 var(--body);
+  text-wrap: balance;
+}
+
+.q.long .q-text {
+  font-size: calc(var(--u) * 3.1);
+}
+
+.choices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--u) * 1.5) calc(var(--u) * 2);
+}
+
+.choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.4);
+  min-height: calc(var(--u) * 7.6);
+  padding: calc(var(--u) * 0.9) calc(var(--u) * 1.4) calc(var(--u) * 0.9) calc(var(--u) * 0.9);
+  border-radius: calc(var(--u) * 1.2);
+  background: var(--tone);
+  color: var(--tone-ink);
+  box-shadow: 0 calc(var(--u) * 0.6) 0 rgba(0, 0, 0, 0.35);
+  transition:
+    background-color 0.4s,
+    color 0.4s,
+    transform 0.4s;
+}
+
+.letter {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 5);
+  height: calc(var(--u) * 5);
+  border-radius: calc(var(--u) * 0.8);
+  background: rgba(0, 0, 0, 0.22);
+  font: 400 calc(var(--u) * 3) / 1 var(--display);
+}
+
+.choice-text {
+  flex: 1;
+  min-width: 0;
+  font-size: calc(var(--u) * 2.6);
+  font-weight: 800;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.choice.wordy .choice-text {
+  font-size: calc(var(--u) * 2);
+}
+
+/* Who picked what, shown at the reveal. */
+.pickers {
+  display: flex;
+  gap: calc(var(--u) * 0.5);
+}
+
+.pickers .plate {
+  --size: calc(var(--u) * 4.4);
+  animation: stamp 0.35s both;
+}
+
+.choices.locked .choice {
+  background: color-mix(in srgb, var(--tone) 55%, var(--roast));
+}
+
+.choices.revealed .choice {
+  background: color-mix(in srgb, var(--tone) 22%, var(--roast));
+  color: rgba(255, 243, 220, 0.55);
+  box-shadow: none;
+}
+
+.choices.revealed .choice.correct {
+  background: var(--tone);
+  color: var(--tone-ink);
+  transform: scale(1.03);
+  box-shadow:
+    0 0 0 calc(var(--u) * 0.5) var(--cream),
+    0 calc(var(--u) * 1) 0 rgba(0, 0, 0, 0.4);
+}
+
+.choices.revealed .choice.correct::after {
+  content: '✓';
+  position: absolute;
+  top: calc(var(--u) * -1.6);
+  left: calc(var(--u) * -1.6);
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 3.6);
+  height: calc(var(--u) * 3.6);
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--roast);
+  font-size: calc(var(--u) * 2.4);
+  font-weight: 800;
+}
+
+.q-foot {
+  min-height: calc(var(--u) * 3);
+  margin: calc(var(--u) * 2) 0 0;
+  font-size: calc(var(--u) * 2.2);
+  font-weight: 700;
+  color: var(--mustard);
+}
+
+/* ---------- The players along the bottom ---------- */
+
+.strip {
+  --check: calc(var(--u) * 5.6);
+  padding: calc(var(--u) * 1.5) 0;
+  box-shadow: 0 calc(var(--u) * -0.6) 0 rgba(0, 0, 0, 0.3);
+}
+
+.strip-seats {
+  list-style: none;
+  width: calc(var(--u) * 92);
+  max-width: 94vw;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--u) * 2.2);
+}
+
+.strip-seat {
+  position: relative;
+  flex: 0 1 calc(var(--u) * 17);
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1);
+}
+
+.strip-seat .plate {
+  --size: calc(var(--u) * 6.4);
+}
+
+.strip-who {
+  min-width: 0;
+  display: grid;
+  justify-items: start;
+  gap: calc(var(--u) * 0.4);
+}
+
+.strip-name {
+  max-width: 100%;
+  padding: 0.2em 0.6em;
+  border-radius: 0.25em;
+  background: var(--cream);
+  color: var(--roast);
+  font-size: calc(var(--u) * 1.6);
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.strip-score {
+  padding: 0.2em 0.5em;
+  border-radius: 0.3em;
+  background: rgba(43, 24, 16, 0.88);
+  font: 400 calc(var(--u) * 2.2) / 1 var(--display);
+}
+
+.strip-seat.away .plate {
+  filter: grayscale(0.9);
+  opacity: 0.7;
+}
+
+.badge,
+.gain {
+  position: absolute;
+  background: var(--mustard);
+  color: var(--roast);
+  box-shadow: 0 calc(var(--u) * 0.2) 0 rgba(0, 0, 0, 0.35);
+}
+
+/* A check on the plate once a player has answered. */
+.badge {
+  top: calc(var(--u) * -0.7);
+  left: calc(var(--u) * 4.3);
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 2.7);
+  height: calc(var(--u) * 2.7);
+  border-radius: 50%;
+  font-size: calc(var(--u) * 1.7);
+  font-weight: 800;
+  animation: stamp 0.3s both;
+}
+
+/* Points won on this question. */
+.gain {
+  top: calc(var(--u) * -3);
+  left: calc(var(--u) * 0.4);
+  padding: 0.12em 0.55em;
+  border-radius: 999px;
+  font: 400 calc(var(--u) * 2) / 1.1 var(--display);
+  animation: stamp 0.4s 0.3s both;
+}
+
+#stage[data-phase='scores'] .strip,
+#stage[data-phase='final'] .strip {
+  display: none;
+}
+
+/* ---------- Scoreboard ---------- */
+
+.board-title {
+  margin: 0 0 calc(var(--u) * 2.6);
+  font: 400 calc(var(--u) * 5) / 1 var(--display);
+}
+
+.board {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: calc(var(--u) * 1.3);
+}
+
+.board li {
+  display: grid;
+  grid-template-columns: calc(var(--u) * 4) calc(var(--u) * 6) calc(var(--u) * 22) 1fr calc(var(--u) * 18);
+  align-items: center;
+  gap: calc(var(--u) * 1.6);
+}
+
+.board .rank {
+  font: 400 calc(var(--u) * 3) / 1 var(--display);
+  color: var(--gray);
+  text-align: center;
+}
+
+.board .plate {
+  --size: calc(var(--u) * 6);
+}
+
+.board .who {
+  font-size: calc(var(--u) * 2.6);
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.board .bar {
+  height: calc(var(--u) * 2.8);
+  border-radius: 999px;
+  background: rgba(255, 243, 220, 0.1);
+  overflow: hidden;
+}
+
+.board .bar i {
+  display: block;
+  width: var(--w);
+  height: 100%;
+  border-radius: 999px;
+  background: var(--c);
+  animation: grow 0.9s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes grow {
+  from {
+    width: 0;
+  }
+}
+
+.board .total {
+  text-align: right;
+  font: 400 calc(var(--u) * 3.4) / 1 var(--display);
+}
+
+.board .plus {
+  display: block;
+  margin-top: 0.3em;
+  font: 700 calc(var(--u) * 1.7) / 1 var(--body);
+  color: var(--mustard);
+  white-space: nowrap;
+}
+
+/* ---------- Winner ---------- */
+
+.final {
+  display: grid;
+  justify-items: center;
+  gap: calc(var(--u) * 1.4);
+  text-align: center;
+}
+
+.final .plate.big {
+  --size: calc(var(--u) * 19);
+  animation: land 0.8s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+.final .winners {
+  display: flex;
+  gap: calc(var(--u) * 2);
+}
+
+.final h2 {
+  margin: 0;
+  font: 400 calc(var(--u) * 7) / 1 var(--display);
+}
+
+.final .line {
+  margin: 0;
+  font-size: calc(var(--u) * 2.4);
+  color: var(--gray);
+}
+
+.also {
+  list-style: none;
+  margin: calc(var(--u) * 1.6) 0 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--u) * 4);
+}
+
+.also li {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1);
+  font-size: calc(var(--u) * 2);
+  font-weight: 800;
+  text-align: left;
+}
+
+.also .plate {
+  --size: calc(var(--u) * 5.4);
+}
+
+.also small {
+  display: block;
+  font-size: calc(var(--u) * 1.6);
+  font-weight: 500;
+  color: var(--gray);
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti i {
+  position: absolute;
+  top: -6%;
+  left: var(--x);
+  width: calc(var(--u) * 1.1);
+  height: calc(var(--u) * 1.7);
+  background: var(--c);
+  animation: fall var(--d) linear var(--delay) infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(115vh) rotate(720deg);
+  }
+}
+
+/* ---------- Paused ---------- */
+
+.paused {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  background: rgba(43, 24, 16, 0.82);
+  font: 400 calc(var(--u) * 10) / 1 var(--display);
+}
+
+/* ================================================================
+   Picture, song and map questions: media on the left, answers stacked
+   on the right.
+   ================================================================ */
+
+.q-body {
+  display: block;
+}
+
+.q.has-media .q-text {
+  margin-bottom: calc(var(--u) * 1.6);
+  font-size: calc(var(--u) * 3.3);
+}
+
+.q.has-media.long .q-text {
+  font-size: calc(var(--u) * 2.6);
+}
+
+.q.has-media .q-body {
+  display: grid;
+  grid-template-columns: calc(var(--u) * 36) 1fr;
+  gap: calc(var(--u) * 3);
+  align-items: stretch;
+}
+
+.q.has-media .choices {
+  grid-template-columns: 1fr;
+  gap: calc(var(--u) * 1);
+  align-content: center;
+}
+
+.q.has-media .choice {
+  min-height: calc(var(--u) * 4.9);
+  padding-top: calc(var(--u) * 0.5);
+  padding-bottom: calc(var(--u) * 0.5);
+}
+
+.q.has-media .letter {
+  width: calc(var(--u) * 3.8);
+  height: calc(var(--u) * 3.8);
+  font-size: calc(var(--u) * 2.4);
+}
+
+.q.has-media .choice-text {
+  font-size: calc(var(--u) * 2.3);
+}
+
+.q.has-media .choice.wordy .choice-text {
+  font-size: calc(var(--u) * 1.8);
+}
+
+.q.has-media .pickers .plate {
+  --size: calc(var(--u) * 3.6);
+}
+
+.q.has-media .q-foot {
+  margin-top: calc(var(--u) * 1.2);
+  font-size: calc(var(--u) * 2);
+}
+
+.media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: calc(var(--u) * 22.6);
+  border-radius: calc(var(--u) * 1.2);
+  background: var(--gravy);
+  overflow: hidden;
+}
+
+/* Poster: the picture starts blurred; views.js sharpens it with the timer. */
+.media.poster img {
+  max-width: 100%;
+  height: calc(var(--u) * 22.6);
+  object-fit: contain;
+  transform: scale(1.02);
+  will-change: filter;
+}
+
+/* Song clip: a spinning record. The cover slides out at the reveal. */
+.media.record {
+  background: var(--gravy);
+}
+
+.disc {
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 18);
+  height: calc(var(--u) * 18);
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, #141210 0 calc(var(--u) * 0.18), #24201c calc(var(--u) * 0.18) calc(var(--u) * 0.36));
+  box-shadow: 0 calc(var(--u) * 0.6) 0 rgba(0, 0, 0, 0.35);
+  animation: spin 2.4s linear infinite;
+  animation-play-state: paused;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.disc span {
+  width: 34%;
+  height: 34%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--roast) 0 9%, transparent 10%),
+    conic-gradient(var(--pumpkin) 0 50%, var(--scarlet) 0);
+}
+
+.q.spinning .disc {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.media-note {
+  position: absolute;
+  bottom: calc(var(--u) * 0.8);
+  margin: 0;
+  font-size: calc(var(--u) * 1.6);
+  color: var(--gray);
+}
+
+.sleeve {
+  position: absolute;
+  left: calc(var(--u) * 3);
+  width: calc(var(--u) * 19);
+  height: calc(var(--u) * 19);
+  border-radius: calc(var(--u) * 0.4);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(-30%) rotate(-6deg);
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1),
+    opacity 0.3s;
+  box-shadow: 0 calc(var(--u) * 0.6) 0 rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+.sleeve img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media.opened .sleeve {
+  opacity: 1;
+  transform: none;
+}
+
+.media.opened .disc {
+  transform: translateX(calc(var(--u) * 9));
+}
+
+.media.opened .media-note {
+  display: none;
+}
+
+/* Map */
+.media.map {
+  padding: calc(var(--u) * 1);
+}
+
+.map-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.st {
+  fill: #6d4732;
+  stroke: var(--roast);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.st.hot {
+  fill: var(--pumpkin);
+}
+
+.st.warm {
+  fill: var(--mustard);
+}
+
+.st.solo {
+  fill: var(--cream);
+  stroke: var(--pumpkin);
+  stroke-width: 3;
+}
+
+.map-label {
+  position: absolute;
+  bottom: calc(var(--u) * 0.8);
+  left: calc(var(--u) * 1.2);
+  margin: 0;
+  padding: 0.15em 0.6em;
+  border-radius: 0.3em;
+  background: var(--pumpkin);
+  color: var(--roast);
+  font: 400 calc(var(--u) * 2) / 1.2 var(--display);
+}
+
+/* ---------- Round intro icon ---------- */
+
+.round-icon {
+  margin: 0 0 0.1em;
+  font-size: calc(var(--u) * 9);
+  line-height: 1;
+  animation: stamp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+/* ---------- Bluff ---------- */
+
+.bluff-how {
+  margin: 0 0 calc(var(--u) * 2);
+  font-size: calc(var(--u) * 2.3);
+  color: var(--gray);
+}
+
+.q.bluff .q-text {
+  margin-bottom: calc(var(--u) * 1);
+  font-size: calc(var(--u) * 3.4);
+}
+
+.q.bluff .choice {
+  min-height: calc(var(--u) * 6.4);
+}
+
+.q.bluff .choice-text {
+  font-size: calc(var(--u) * 2.3);
+}
+
+.choice-body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 0.2em;
+}
+
+.tag {
+  font-size: calc(var(--u) * 1.5);
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+/* At the reveal each fake is unmasked in turn, then the truth. */
+.q.bluff .choices.revealed .choice.unmask {
+  animation: unmask 0.5s calc(var(--step) * 1.6s + 0.4s) both;
+}
+
+.q.bluff .choices.revealed .choice.unmask .tag,
+.q.bluff .choices.revealed .choice.unmask .pickers {
+  animation: fade-in 0.4s calc(var(--step) * 1.6s + 0.7s) both;
+}
+
+.q.bluff .choices.revealed .choice.fake {
+  background: color-mix(in srgb, var(--tone) 40%, var(--roast));
+  color: var(--cream);
+}
+
+.q.bluff .choices.revealed .choice.correct::after {
+  animation: fade-in 0.3s calc(var(--step) * 1.6s + 0.7s) both;
+}
+
+@keyframes unmask {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.06) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- Drawing ---------- */
+
+.q.draw {
+  display: grid;
+  grid-template-columns: 1fr calc(var(--u) * 31);
+  gap: calc(var(--u) * 4);
+  align-items: center;
+}
+
+.easel {
+  width: calc(var(--u) * 31);
+  height: calc(var(--u) * 31);
+  border-radius: calc(var(--u) * 1.2);
+  background: var(--cream);
+  box-shadow: calc(var(--u) * 0.7) calc(var(--u) * 0.7) 0 var(--pumpkin);
+}
+
+.draw-artist {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.4);
+  font: 400 calc(var(--u) * 3.6) / 1.05 var(--display);
+}
+
+.draw-artist .plate {
+  --size: calc(var(--u) * 8);
+}
+
+.letters {
+  margin: calc(var(--u) * 2) 0;
+  font: 400 calc(var(--u) * 3.6) / 1.2 var(--display);
+  letter-spacing: 0.08em;
+  color: var(--mustard);
+  white-space: pre-wrap;
+}
+
+.letters.solved {
+  letter-spacing: 0;
+  font-size: calc(var(--u) * 5);
+}
+
+.guesses {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--u) * 0.9);
+  min-height: calc(var(--u) * 9);
+  align-content: flex-start;
+}
+
+.guesses li {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.25em 0.8em 0.25em 0.3em;
+  border-radius: 999px;
+  background: var(--gravy);
+  font-size: calc(var(--u) * 1.9);
+  font-weight: 700;
+  animation: stamp 0.25s both;
+}
+
+.guesses .plate {
+  --size: calc(var(--u) * 3.2);
+}
+
+.badge.pen {
+  background: var(--cream);
+}
+
+/* ---------- Teams ---------- */
+
+.teamed {
+  box-shadow: inset 0 calc(var(--u) * -0.45) 0 var(--team), 0 0.15em 0 rgba(0, 0, 0, 0.35);
+  padding-bottom: 0.45em;
+}
+
+.team-bar {
+  display: flex;
+  gap: calc(var(--u) * 1.4);
+}
+
+.team-chip {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  padding: 0.35em 0.9em;
+  border-radius: 999px;
+  border: calc(var(--u) * 0.3) solid var(--team);
+  font: 400 calc(var(--u) * 2.4) / 1 var(--display);
+}
+
+.team-chip b {
+  font: 700 calc(var(--u) * 1.6) / 1 var(--body);
+  color: var(--gray);
+}
+
+.team-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--u) * 2);
+  margin-bottom: calc(var(--u) * 2.4);
+}
+
+.team-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: calc(var(--u) * 0.4) calc(var(--u) * 2);
+  padding: calc(var(--u) * 1.4) calc(var(--u) * 2);
+  border-radius: calc(var(--u) * 1.2);
+  border: calc(var(--u) * 0.4) solid var(--team);
+  background: var(--gravy);
+}
+
+.team-card.ahead {
+  background: color-mix(in srgb, var(--team) 28%, var(--gravy));
+}
+
+.team-name {
+  font: 400 calc(var(--u) * 2.8) / 1 var(--display);
+}
+
+.team-score {
+  grid-row: span 2;
+  font: 400 calc(var(--u) * 5.4) / 1 var(--display);
+}
+
+.team-plates {
+  display: flex;
+  gap: calc(var(--u) * 0.6);
+}
+
+.team-plates .plate {
+  --size: calc(var(--u) * 4);
+}
+
+.with-teams .board-title {
+  margin-bottom: calc(var(--u) * 1.6);
+  font-size: calc(var(--u) * 4);
+}
+
+.with-teams .board {
+  gap: calc(var(--u) * 0.7);
+}
+
+.with-teams .board .plate {
+  --size: calc(var(--u) * 4.2);
+}
+
+.with-teams .board .who {
+  font-size: calc(var(--u) * 2.1);
+}
+
+.with-teams .board .total {
+  font-size: calc(var(--u) * 2.6);
+}
+
+.with-teams .board .rank {
+  font-size: calc(var(--u) * 2.2);
+}
+
+.final .plate.team-size {
+  --size: calc(var(--u) * 13);
+}
+
+.final .mvp {
+  color: var(--mustard);
+  font-weight: 700;
+}
+
+.team-tag {
+  padding: 0.15em 0.8em;
+  border-radius: 999px;
+  border: calc(var(--u) * 0.25) solid var(--team);
+  font-size: calc(var(--u) * 1.5);
+  font-weight: 800;
+}

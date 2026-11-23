@@ -1,0 +1,181 @@
+{
+  "title": "Buckeyes & Keystone",
+  "type": "multiple-choice",
+  "icon": "🌰",
+  "tagline": "Ohio State football, Pennsylvania, Pittsburgh and Johnstown.",
+  "questions": [
+    {
+      "question": "What is Ohio Stadium's famous nickname?",
+      "answer": "The Horseshoe",
+      "wrong": ["The Big House", "The Swamp", "Death Valley"],
+      "fact": "Ohio Stadium opened in 1922. Fans just call it The Shoe."
+    },
+    {
+      "question": "What does the Ohio State marching band famously spell out on the field?",
+      "answer": "Script Ohio",
+      "wrong": ["O-H-I-O in block letters", "Go Bucks", "Buckeye Nation"],
+      "fact": "A sousaphone player gets the honor of dotting the i."
+    },
+    {
+      "question": "Which instrument does the band member who dots the i in Script Ohio play?",
+      "answer": "Sousaphone",
+      "wrong": ["Trumpet", "Snare drum", "Trombone"]
+    },
+    {
+      "question": "Which coach led Ohio State football from 1951 to 1978?",
+      "answer": "Woody Hayes",
+      "wrong": ["Earle Bruce", "John Cooper", "Paul Brown"]
+    },
+    {
+      "question": "Which Buckeye is the only player ever to win the Heisman Trophy twice?",
+      "answer": "Archie Griffin",
+      "wrong": ["Eddie George", "Troy Smith", "Howard \"Hopalong\" Cassady"],
+      "fact": "Griffin won it back to back, in 1974 and 1975."
+    },
+    {
+      "question": "What do Ohio State players earn as helmet stickers for big plays?",
+      "answer": "Buckeye leaves",
+      "wrong": ["Gold stars", "Scarlet stripes", "Tiny footballs"]
+    },
+    {
+      "question": "What is a buckeye, exactly?",
+      "answer": "A nut from a tree",
+      "wrong": ["A breed of deer", "A kind of hawk", "A river fish"],
+      "fact": "The buckeye is Ohio's state tree. The nut is said to look like a deer's eye."
+    },
+    {
+      "question": "Which song, a favorite of the Ohio State band, is also Ohio's official rock song?",
+      "answer": "Hang On Sloopy",
+      "wrong": ["Louie Louie", "Twist and Shout", "Wild Thing"]
+    },
+    {
+      "question": "What is the name of Ohio State's alma mater song?",
+      "answer": "Carmen Ohio",
+      "wrong": ["Hail to Ohio", "Buckeye Hymn", "Scarlet and Gray Forever"]
+    },
+    {
+      "question": "Woody Hayes refused to say the name of Ohio State's rival. What did he call Michigan instead?",
+      "answer": "That team up north",
+      "wrong": ["The other guys", "Those people in blue", "The enemy"]
+    },
+    {
+      "question": "In what year did the great Johnstown Flood strike?",
+      "answer": "1889",
+      "wrong": ["1869", "1901", "1913"],
+      "fact": "The flood hit on May 31, 1889."
+    },
+    {
+      "question": "The 1889 Johnstown Flood began when which dam failed?",
+      "answer": "The South Fork Dam",
+      "wrong": ["The Quemahoning Dam", "The Conemaugh Dam", "The Kinzua Dam"],
+      "fact": "The dam held a private lake for a club whose members included Andrew Carnegie and Henry Clay Frick."
+    },
+    {
+      "question": "Who led the American Red Cross relief effort in Johnstown after the 1889 flood?",
+      "answer": "Clara Barton",
+      "wrong": ["Florence Nightingale", "Jane Addams", "Dorothea Dix"],
+      "fact": "It was one of the Red Cross's first major disaster relief efforts."
+    },
+    {
+      "question": "The Johnstown Inclined Plane is billed as the world's steepest what?",
+      "answer": "Vehicular inclined plane",
+      "wrong": ["Wooden roller coaster", "Cable car line", "Ski lift"],
+      "fact": "It opened in 1891, two years after the flood, and can carry cars as well as people."
+    },
+    {
+      "question": "Which two rivers meet in Johnstown to form the Conemaugh River?",
+      "answer": "The Little Conemaugh and the Stonycreek",
+      "wrong": [
+        "The Allegheny and the Monongahela",
+        "The Juniata and the Susquehanna",
+        "The Youghiogheny and the Casselman"
+      ]
+    },
+    {
+      "question": "Johnstown has had three great floods: 1889, 1936 and which other year?",
+      "answer": "1977",
+      "wrong": ["1955", "1964", "1985"]
+    },
+    {
+      "question": "Which 1977 Paul Newman hockey comedy was filmed largely in Johnstown?",
+      "answer": "Slap Shot",
+      "wrong": ["The Mighty Ducks", "Youngblood", "Miracle"],
+      "fact": "The Charlestown Chiefs were based on the real Johnstown Jets."
+    },
+    {
+      "question": "Pittsburgh sits where the Allegheny and Monongahela rivers meet to form which river?",
+      "answer": "The Ohio",
+      "wrong": ["The Susquehanna", "The Delaware", "The Potomac"]
+    },
+    {
+      "question": "What do Steelers fans wave in the stands?",
+      "answer": "The Terrible Towel",
+      "wrong": ["The Steel Curtain", "The Gold Rag", "The Iron Flag"],
+      "fact": "Broadcaster Myron Cope came up with it in 1975."
+    },
+    {
+      "question": "The Heinz label famously claims how many varieties?",
+      "answer": "57",
+      "wrong": ["47", "67", "75"]
+    },
+    {
+      "question": "Which Pittsburgh sandwich shop is famous for putting the fries and coleslaw inside the sandwich?",
+      "answer": "Primanti Bros.",
+      "wrong": ["Isaly's", "Eat'n Park", "The O"]
+    },
+    {
+      "question": "Mister Rogers and golfer Arnold Palmer both came from which Pennsylvania town?",
+      "answer": "Latrobe",
+      "wrong": ["Altoona", "Greensburg", "Indiana"]
+    },
+    {
+      "question": "Which Pennsylvania town hosts the famous Groundhog Day ceremony every February 2?",
+      "answer": "Punxsutawney",
+      "wrong": ["Hershey", "Gettysburg", "Lancaster"]
+    },
+    {
+      "question": "What is the capital of Pennsylvania?",
+      "answer": "Harrisburg",
+      "wrong": ["Philadelphia", "Pittsburgh", "Allentown"]
+    },
+    {
+      "verify": true,
+      "question": "Ohio State won the first College Football Playoff national championship by beating which team?",
+      "answer": "Oregon",
+      "wrong": ["Alabama", "Florida State", "Clemson"],
+      "fact": "The Buckeyes won 42-20 to cap the 2014 season."
+    },
+    {
+      "verify": true,
+      "question": "Which team did Ohio State beat to win the national championship for the 2024 season?",
+      "answer": "Notre Dame",
+      "wrong": ["Texas", "Oregon", "Georgia"],
+      "fact": "The Buckeyes won 34-23 in January 2025."
+    },
+    {
+      "verify": true,
+      "question": "How many Super Bowls have the Pittsburgh Steelers won?",
+      "answer": "Six",
+      "wrong": ["Four", "Five", "Seven"]
+    },
+    {
+      "verify": true,
+      "question": "How many Heisman Trophies have Ohio State players won in total?",
+      "answer": "Seven",
+      "wrong": ["Five", "Six", "Eight"],
+      "fact": "Six players have won it, with Archie Griffin winning twice."
+    },
+    {
+      "verify": true,
+      "question": "About how many people died in the 1889 Johnstown Flood?",
+      "answer": "More than 2,200",
+      "wrong": ["About 300", "About 900", "More than 5,000"]
+    },
+    {
+      "verify": true,
+      "question": "Roughly how many fans does Ohio Stadium hold?",
+      "answer": "About 102,000",
+      "wrong": ["About 72,000", "About 88,000", "About 115,000"]
+    }
+  ]
+}

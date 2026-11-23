@@ -1,0 +1,399 @@
+/* The TV. Everything is sized in --u, which is 1% of a 16:9 stage, so the
+   layout scales as one piece on any screen. */
+
+body {
+  --u: min(1vw, 1.7778vh);
+  height: 100vh;
+  overflow: hidden;
+  font-size: calc(var(--u) * 1.8);
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.screen.on {
+  display: grid;
+}
+
+.wrap {
+  width: calc(var(--u) * 92);
+  max-width: 94vw;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0;
+  font: 400 calc(var(--u) * 4.4) / 1 var(--display);
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Gate ---------- */
+
+#gate {
+  place-items: center;
+  text-align: center;
+  z-index: 30;
+  background: var(--roast);
+}
+
+#gate .title {
+  font-size: calc(var(--u) * 8);
+}
+
+#gate p {
+  margin: calc(var(--u) * 2) 0 calc(var(--u) * 4);
+  font-size: calc(var(--u) * 2.2);
+  color: var(--gray);
+}
+
+.big-button {
+  border: 0;
+  border-radius: calc(var(--u) * 1.2);
+  padding: 0.55em 1.3em;
+  background: var(--pumpkin);
+  color: var(--roast);
+  font: 400 calc(var(--u) * 3.2) / 1.1 var(--display);
+  box-shadow: 0 calc(var(--u) * 0.6) 0 var(--pumpkin-deep);
+}
+
+.big-button:active {
+  transform: translateY(calc(var(--u) * 0.4));
+  box-shadow: 0 calc(var(--u) * 0.2) 0 var(--pumpkin-deep);
+}
+
+.gate-error {
+  margin-top: calc(var(--u) * 3);
+  max-width: calc(var(--u) * 70);
+  color: var(--mustard);
+  font-size: calc(var(--u) * 2);
+}
+
+/* ---------- Lobby ---------- */
+
+#lobby {
+  grid-template-rows: auto 1fr auto;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: calc(var(--u) * 3);
+}
+
+.count {
+  font-size: calc(var(--u) * 2);
+  color: var(--gray);
+}
+
+/* The host controls sit in this corner while the mouse is moving. */
+body.show-controls .count {
+  visibility: hidden;
+}
+
+.join {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 5);
+  align-self: center;
+}
+
+.qr {
+  flex: none;
+  width: calc(var(--u) * 20);
+  height: calc(var(--u) * 20);
+  padding: calc(var(--u) * 1);
+  background: var(--cream);
+  border-radius: calc(var(--u) * 1.2);
+  box-shadow: calc(var(--u) * 0.7) calc(var(--u) * 0.7) 0 var(--pumpkin);
+}
+
+.qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.join-lead {
+  margin: 0;
+  font: 400 calc(var(--u) * 5) / 1 var(--display);
+}
+
+.join-how {
+  margin: calc(var(--u) * 1) 0 calc(var(--u) * 1.8);
+  font-size: calc(var(--u) * 2.3);
+}
+
+.join-how b {
+  font-weight: 800;
+  color: var(--mustard);
+  overflow-wrap: anywhere;
+}
+
+/* The room code, one varsity letter patch per character. */
+.code {
+  display: flex;
+  gap: calc(var(--u) * 1.2);
+}
+
+.patch {
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 7.8);
+  height: calc(var(--u) * 8.6);
+  border-radius: calc(var(--u) * 1);
+  background: var(--scarlet);
+  color: var(--cream);
+  font: 400 calc(var(--u) * 6) / 1 var(--display);
+  outline: calc(var(--u) * 0.25) dashed var(--gray);
+  outline-offset: calc(var(--u) * -0.9);
+  box-shadow: 0 calc(var(--u) * 0.6) 0 #6d0000;
+}
+
+.patch:nth-child(odd) {
+  transform: rotate(-2deg);
+}
+
+.patch:nth-child(even) {
+  transform: rotate(1.5deg);
+}
+
+.hint {
+  margin: calc(var(--u) * 1.6) 0 0;
+  font-size: calc(var(--u) * 1.7);
+  color: var(--gray);
+}
+
+.hint.warn {
+  color: var(--mustard);
+}
+
+/* The table: one place setting per character. */
+.table {
+  --check: calc(var(--u) * 7);
+  padding: calc(var(--u) * 2.2) 0 calc(var(--u) * 2.4);
+  box-shadow: 0 calc(var(--u) * -0.6) 0 rgba(0, 0, 0, 0.3);
+}
+
+.seats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--u) * 2);
+}
+
+.seat {
+  position: relative;
+  width: calc(var(--u) * 16);
+  display: grid;
+  justify-items: center;
+  gap: calc(var(--u) * 1.1);
+}
+
+.seat .plate {
+  --size: calc(var(--u) * 11);
+}
+
+.place-card {
+  max-width: 100%;
+  padding: 0.3em 0.7em;
+  border-radius: 0.25em;
+  background: var(--cream);
+  color: var(--roast);
+  font-weight: 800;
+  font-size: calc(var(--u) * 1.9);
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 0.15em 0 rgba(0, 0, 0, 0.35);
+}
+
+.seat.open .plate {
+  background: rgba(43, 24, 16, 0.35);
+  box-shadow: inset 0 0 0 calc(var(--u) * 0.3) rgba(255, 243, 220, 0.55);
+}
+
+.seat.open .plate > * {
+  opacity: 0.5;
+}
+
+.seat.open .place-card {
+  background: rgba(43, 24, 16, 0.8);
+  color: var(--cream);
+  font-weight: 500;
+  box-shadow: none;
+}
+
+.seat.away .plate {
+  filter: grayscale(0.9);
+  opacity: 0.7;
+}
+
+.away-tag {
+  position: absolute;
+  top: calc(var(--u) * 8.4);
+  padding: 0.15em 0.8em;
+  border-radius: 999px;
+  background: var(--mustard);
+  color: var(--roast);
+  font-weight: 800;
+  font-size: calc(var(--u) * 1.5);
+}
+
+.seat.landing .plate {
+  animation: land 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes land {
+  0% {
+    transform: translateY(-150%) rotate(-25deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(6%) rotate(4deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-3%) rotate(-2deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/* ---------- Meet the players ---------- */
+
+#intro {
+  grid-template-rows: auto 1fr auto;
+}
+
+#intro .title {
+  padding-top: calc(var(--u) * 5);
+  font-size: calc(var(--u) * 6.4);
+  text-align: center;
+}
+
+.lineup {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--u) * 3);
+}
+
+.lineup li {
+  width: calc(var(--u) * 17);
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: calc(var(--u) * 1.2);
+}
+
+.lineup .plate {
+  --size: calc(var(--u) * 14);
+}
+
+.lineup .who {
+  font: 400 calc(var(--u) * 3) / 1.1 var(--display);
+  overflow-wrap: anywhere;
+}
+
+.lineup .says {
+  font-size: calc(var(--u) * 1.8);
+  color: var(--gray);
+}
+
+.runner {
+  --check: calc(var(--u) * 7);
+  height: calc(var(--u) * 7);
+}
+
+/* ---------- Host controls (appear when the mouse moves) ---------- */
+
+.controls {
+  position: fixed;
+  top: calc(var(--u) * 1.2);
+  right: calc(var(--u) * 1.2);
+  z-index: 20;
+  display: flex;
+  gap: 0.5em;
+  padding: 0.5em;
+  border-radius: 999px;
+  background: var(--gravy);
+  font-size: max(13px, calc(var(--u) * 1.3));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+body.show-controls .controls,
+.controls:focus-within {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.controls button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.5em 1em;
+  background: var(--cream);
+  color: var(--roast);
+  font-weight: 700;
+}
+
+.controls button.primary {
+  background: var(--pumpkin);
+}
+
+.controls button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ---------- Phone remote overlay ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  background: rgba(43, 24, 16, 0.92);
+}
+
+.overlay-card {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 4);
+  max-width: calc(var(--u) * 70);
+}
+
+.overlay-card h2 {
+  margin: 0 0 0.4em;
+  font: 400 calc(var(--u) * 3.6) / 1.05 var(--display);
+}
+
+.overlay-card p {
+  margin: 0 0 1.2em;
+  font-size: calc(var(--u) * 2);
+  color: var(--gray);
+}
+
+.overlay-card button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.5em 1.2em;
+  background: var(--cream);
+  color: var(--roast);
+  font-weight: 700;
+}

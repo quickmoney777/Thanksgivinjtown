@@ -1,0 +1,88 @@
+{
+  "title": "Bluff Round",
+  "type": "bluff",
+  "icon": "🤥",
+  "tagline": "Make up an answer good enough to fool the table. Then find the real one.",
+  "questions": [
+    {
+      "question": "A group of turkeys is called a ____.",
+      "answer": "Rafter",
+      "decoys": ["Gobble", "Strut", "Waddle"]
+    },
+    {
+      "question": "The fleshy red flap that hangs over a turkey's beak is called a ____.",
+      "answer": "Snood",
+      "decoys": ["Gizzle", "Dewflap", "Wobbler"]
+    },
+    {
+      "question": "The Beatles song \"Yesterday\" started out with the working title ____.",
+      "answer": "Scrambled Eggs",
+      "decoys": ["Apple Pie", "Rainy Tuesday", "Good Morning Mother"],
+      "fact": "Paul McCartney sang \"Scrambled eggs, oh my baby how I love your legs\" until he found real words."
+    },
+    {
+      "question": "Pink Floyd took their name from two blues musicians: Pink Anderson and ____.",
+      "answer": "Floyd Council",
+      "decoys": ["Floyd Patterson", "Blind Floyd Jackson", "Floyd Waters"]
+    },
+    {
+      "question": "When President Franklin Roosevelt moved Thanksgiving a week earlier in 1939, critics nicknamed the new holiday ____.",
+      "answer": "Franksgiving",
+      "decoys": ["New Deal Day", "Rooseturkey", "Thanks-taking"]
+    },
+    {
+      "question": "Before it was renamed for an Olympic legend, the Pennsylvania town of Jim Thorpe was called ____.",
+      "answer": "Mauch Chunk",
+      "decoys": ["Coalport", "Lehigh Gap", "Slatington Falls"]
+    },
+    {
+      "question": "Punxsutawney Phil's full title is \"Seer of Seers, Sage of Sages, Prognosticator of Prognosticators and ____\".",
+      "answer": "Weather Prophet Extraordinary",
+      "decoys": ["Keeper of the Winter", "Lord of the Burrow", "Shadow Master General"]
+    },
+    {
+      "question": "Pennsylvania's official state toy is the ____.",
+      "answer": "Slinky",
+      "decoys": ["Yo-yo", "Crayon", "Toy train"],
+      "fact": "The Slinky was invented in Philadelphia in the 1940s."
+    },
+    {
+      "question": "The Big Mac was invented in 1967 by a McDonald's owner in the Pennsylvania town of ____.",
+      "answer": "Uniontown",
+      "decoys": ["Altoona", "New Castle", "Greensburg"],
+      "fact": "Jim Delligatti created it at his Uniontown restaurant, about an hour south of Pittsburgh."
+    },
+    {
+      "question": "Sarah Josepha Hale, who spent years campaigning to make Thanksgiving a national holiday, also wrote the nursery rhyme ____.",
+      "answer": "Mary Had a Little Lamb",
+      "decoys": ["Twinkle, Twinkle, Little Star", "Humpty Dumpty", "Hickory Dickory Dock"]
+    },
+    {
+      "question": "Ohio's flag is the only U.S. state flag that is not a ____.",
+      "answer": "Rectangle",
+      "decoys": ["Tricolor", "Flag with a seal", "Flag with stars"],
+      "fact": "Ohio's flag is a swallowtail shape called a burgee."
+    },
+    {
+      "question": "The banana split was invented in 1904 in the Pennsylvania town of ____.",
+      "answer": "Latrobe",
+      "decoys": ["Hershey", "Scranton", "Lititz"]
+    },
+    {
+      "question": "In the Beatles song \"Rocky Raccoon\", Rocky checks into his room and finds a copy of ____.",
+      "answer": "Gideon's Bible",
+      "decoys": ["The morning paper", "A wanted poster", "His rival's diary"]
+    },
+    {
+      "question": "Ringo Starr's real name is ____.",
+      "answer": "Richard Starkey",
+      "decoys": ["Ronald Starling", "Richard Ringwald", "Raymond Starr"]
+    },
+    {
+      "question": "The buckeye nut got its name because it looks like the eye of a ____.",
+      "answer": "Deer",
+      "decoys": ["Owl", "Horse", "Squirrel"],
+      "fact": "A buck is a male deer, hence buck-eye."
+    }
+  ]
+}

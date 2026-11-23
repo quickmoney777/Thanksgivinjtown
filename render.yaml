@@ -1,0 +1,13 @@
+# Render reads this file when you create the service from this repository
+# (New > Blueprint). One free web service is all the game needs.
+services:
+  - type: web
+    name: gobble-off
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

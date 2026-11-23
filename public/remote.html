@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2b1810">
+  <meta name="robots" content="noindex">
+  <title>Host remote</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <main class="phone">
+    <div class="banner" id="banner" role="status" hidden>Reconnecting…</div>
+
+    <header class="masthead">
+      <strong>Host remote</strong>
+      <span id="room-label"></span>
+    </header>
+
+    <section id="view-expired" hidden>
+      <h1>This remote isn't linked to a room</h1>
+      <p class="lede">On the host screen, move the mouse, choose "Phone remote" and scan the code again.</p>
+    </section>
+
+    <section id="view-remote" hidden>
+      <p class="note" id="remote-note" role="alert" hidden></p>
+
+      <!-- Before the game: choose rounds and start. -->
+      <div id="lobby-panel" hidden>
+        <h1>Lobby</h1>
+        <p class="lede" id="lobby-help"></p>
+        <h2>Rounds to play</h2>
+        <ul class="rounds" id="rounds"></ul>
+        <p class="fine" id="rounds-fine" hidden></p>
+        <label class="toggle">
+          <input type="checkbox" id="teams-toggle">
+          <span>Play in two teams<small id="teams-help">Points still count per player and add up for each team.</small></span>
+        </label>
+        <button class="action" id="start-button" type="button">Start game</button>
+        <button class="link-button" id="reload-button" type="button">Reload question files</button>
+      </div>
+
+      <!-- During the game: what's on the TV, and the buttons to run it. -->
+      <div id="game-panel" hidden>
+        <div class="status">
+          <p class="status-line" id="status-line"></p>
+          <p class="status-sub" id="status-sub"></p>
+          <p class="status-answer" id="status-answer" hidden></p>
+        </div>
+        <button class="action" id="next-button" type="button">Next</button>
+        <div class="pad" id="pad">
+          <button id="pause-button" type="button">Pause</button>
+          <button id="skip-question" type="button">Skip question</button>
+          <button id="skip-round" type="button">Skip round</button>
+          <button class="danger" id="end-game" type="button">End game</button>
+        </div>
+      </div>
+
+      <h2 class="section-title">Players</h2>
+      <ul class="roster" id="roster"></ul>
+      <p class="empty" id="roster-empty" hidden>Nobody has joined yet.</p>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/shared.js"></script>
+  <script src="/js/remote.js"></script>
+</body>
+</html>

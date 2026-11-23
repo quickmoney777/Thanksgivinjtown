@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Host screen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/host.css">
+  <link rel="stylesheet" href="/css/stage.css">
+</head>
+<body>
+  <!-- A click is needed before the browser will play sound, so we start here. -->
+  <section class="screen on" id="gate">
+    <div>
+      <h1 class="title" id="gate-title">Party trivia</h1>
+      <p>This screen goes on the TV. Everyone else plays from their phone.</p>
+      <button class="big-button" id="open" type="button">Open the room</button>
+      <div class="gate-error" id="gate-error" role="alert" hidden></div>
+    </div>
+  </section>
+
+  <section class="screen" id="lobby">
+    <header class="wrap topline">
+      <h1 class="title" data-title></h1>
+      <span class="count" id="count"></span>
+    </header>
+
+    <div class="wrap join">
+      <div class="qr" id="join-qr"></div>
+      <div>
+        <p class="join-lead">Scan to join</p>
+        <p class="join-how">or open <b id="join-url"></b> and type this code</p>
+        <div class="code" id="code" aria-label="Room code"></div>
+        <p class="hint" id="hint"></p>
+      </div>
+    </div>
+
+    <div class="table cloth">
+      <ol class="seats" id="seats"></ol>
+    </div>
+  </section>
+
+  <section class="screen" id="intro">
+    <h1 class="title">Tonight at the table</h1>
+    <ol class="lineup" id="lineup"></ol>
+    <div class="runner cloth"></div>
+  </section>
+
+  <!-- Everything from the first round to the winner. -->
+  <section class="screen" id="stage">
+    <div class="autobar" id="autobar"></div>
+    <header class="wrap stage-head">
+      <div>
+        <p class="round-name" id="round-name"></p>
+        <p class="progress" id="progress"></p>
+      </div>
+      <div class="team-bar" id="team-bar" hidden></div>
+      <div class="pie" id="pie" aria-hidden="true"><span id="pie-num"></span></div>
+    </header>
+    <div class="wrap stage-main" id="stage-main"></div>
+    <footer class="strip cloth">
+      <ol class="strip-seats" id="strip"></ol>
+    </footer>
+    <div class="paused" id="paused" hidden>Paused</div>
+  </section>
+
+  <nav class="controls" aria-label="Host controls">
+    <button class="primary" id="btn-phase" type="button">Start game</button>
+    <button id="btn-pause" type="button" hidden>Pause</button>
+    <button id="btn-mute" type="button">Mute</button>
+    <button id="btn-remote" type="button">Phone remote</button>
+    <button id="btn-full" type="button">Full screen</button>
+    <button id="btn-new" type="button">New room</button>
+  </nav>
+
+  <div class="overlay" id="remote-overlay" hidden>
+    <div class="overlay-card">
+      <div class="qr" id="remote-qr"></div>
+      <div>
+        <h2>Run the game from your phone</h2>
+        <p>Scan this with the host's phone only. It can start the game, change scores and remove players.</p>
+        <button id="remote-close" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/shared.js"></script>
+  <script src="/js/sfx.js"></script>
+  <script src="/js/views.js"></script>
+  <script src="/js/host.js"></script>
+</body>
+</html>

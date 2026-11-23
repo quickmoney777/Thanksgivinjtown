@@ -1,0 +1,63 @@
+{
+  "gameTitle": "The Great Gobble-Off",
+  "nameMaxLength": 12,
+  "scoreAdjustStep": 100,
+  "questionsPerRound": 5,
+  "autoAdvance": true,
+  "roundOrder": [
+    "buckeyes-keystone",
+    "map-it",
+    "poster-reveal",
+    "name-the-artist",
+    "sketch",
+    "around-the-world",
+    "bluff"
+  ],
+  "bonusRounds": [
+    "bollywood"
+  ],
+  "timers": {
+    "roundIntroSeconds": 6,
+    "questionSeconds": 20,
+    "posterRevealSeconds": 20,
+    "audioSeconds": 25,
+    "bluffWriteSeconds": 60,
+    "bluffVoteSeconds": 30,
+    "lockedSeconds": 2,
+    "revealSeconds": 8,
+    "scoreboardSeconds": 10,
+    "bluffRevealSeconds": 16,
+    "drawSeconds": 75
+  },
+  "points": {
+    "correct": 500,
+    "speedBonusMax": 500,
+    "posterCorrect": 250,
+    "posterSpeedBonusMax": 1000,
+    "bluffFoundTruth": 1000,
+    "bluffFooledPlayer": 500,
+    "drawGuessed": 500,
+    "drawSpeedBonusMax": 500,
+    "drawArtistPerGuess": 300
+  },
+  "teams": {
+    "names": [
+      "Team Scarlet",
+      "Team Gray"
+    ],
+    "colors": [
+      "#BB0000",
+      "#A6B0B5"
+    ]
+  },
+  "lobbyMusic": {
+    "enabled": true,
+    "file": "/media/music/lobby.mp3",
+    "itunes": {
+      "kind": "song",
+      "term": "Here Comes the Sun The Beatles",
+      "id": 1441164589
+    },
+    "volume": 0.5
+  }
+}

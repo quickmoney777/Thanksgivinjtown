@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2b1810">
+  <title>Join the game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <main class="phone">
+    <div class="banner" id="banner" role="status" hidden>Reconnecting…</div>
+
+    <header class="masthead">
+      <strong id="game-title">Party trivia</strong>
+      <span id="room-label"></span>
+    </header>
+
+    <!-- 1. Type the room code (skipped when the QR code was scanned) -->
+    <section id="view-code" hidden>
+      <h1>Join the game</h1>
+      <p class="lede">Type the four letters on the TV.</p>
+      <p class="note" id="code-note" role="alert" hidden></p>
+      <form id="code-form" autocomplete="off">
+        <label for="code-input">Room code</label>
+        <input class="code-input" id="code-input" type="text" inputmode="text" maxlength="4"
+               autocapitalize="characters" autocorrect="off" spellcheck="false">
+        <button class="action" type="submit">Find the room</button>
+      </form>
+    </section>
+
+    <!-- 2. Name and character -->
+    <section id="view-join" hidden>
+      <h1>Take a seat</h1>
+      <p class="lede">Add your name and pick a character.</p>
+      <p class="note" id="join-note" role="alert" hidden></p>
+      <form id="join-form" autocomplete="off">
+        <div class="field">
+          <label for="name-input">Your name</label>
+          <input id="name-input" type="text" autocapitalize="words" autocorrect="off" spellcheck="false"
+                 enterkeyhint="done">
+        </div>
+        <h2 id="picker-label">Your character</h2>
+        <ul class="picker" id="join-picker" aria-labelledby="picker-label"></ul>
+        <button class="action" id="join-button" type="submit" disabled>Take my seat</button>
+      </form>
+    </section>
+
+    <!-- 3. Seated, waiting for the host -->
+    <section id="view-lobby" hidden>
+      <h1>You're in</h1>
+      <p class="lede">Watch the TV. The host starts the game when everyone has a seat.</p>
+      <div class="me cloth" id="lobby-me"></div>
+      <p class="note" id="lobby-note" role="alert" hidden></p>
+      <h2 id="swap-label">Switch character</h2>
+      <ul class="picker" id="lobby-picker" aria-labelledby="swap-label"></ul>
+    </section>
+
+    <!-- 4. The game. What shows here follows the TV, step by step. -->
+    <section id="view-game" hidden>
+      <div class="me-bar" id="me-bar"></div>
+      <div class="timebar" id="timebar" hidden><i></i></div>
+      <p class="note" id="game-note" role="alert" hidden></p>
+      <div id="game-body"></div>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/shared.js"></script>
+  <script src="/js/play.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+{
+  "title": "Bollywood Bonus",
+  "type": "multiple-choice",
+  "icon": "💃",
+  "tagline": "Hits from the 90s and 2000s. Never heard them? Guess anyway.",
+  "questions": [
+    {
+      "question": "This is \"Chaiyya Chaiyya\" from 1998. Its famous dance scene was filmed on top of a moving what?",
+      "answer": "Train",
+      "wrong": [
+        "Elephant",
+        "Bus",
+        "Boat"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Chaiyya Chaiyya Dil Se Sukhwinder Singh",
+        "match": "Chaiyya Chaiyya"
+      },
+      "fact": "Shah Rukh Khan danced on the roof of a moving train."
+    },
+    {
+      "question": "This hit is called \"Kal Ho Naa Ho\". What does the title mean?",
+      "answer": "Tomorrow may never come",
+      "wrong": [
+        "Dance all night",
+        "My heart is yours",
+        "Come back home"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Kal Ho Naa Ho Sonu Nigam",
+        "match": "Kal Ho Naa Ho"
+      },
+      "fact": "It is the title song of a 2003 film set in New York City."
+    },
+    {
+      "question": "This is the title song of \"Kuch Kuch Hota Hai\". What does that phrase roughly mean?",
+      "answer": "Something happens",
+      "wrong": [
+        "Never say goodbye",
+        "Long live love",
+        "Rain is falling"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Kuch Kuch Hota Hai title song",
+        "match": "Kuch Kuch Hota Hai"
+      },
+      "fact": "As in: something happens in my heart. The film came out in 1998."
+    },
+    {
+      "question": "This love song comes from a 1995 film that has played in one Mumbai theater ever since. How long is that?",
+      "answer": "More than 25 years",
+      "wrong": [
+        "About 2 years",
+        "About 5 years",
+        "About 10 years"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Tujhe Dekha To Dilwale Dulhania Le Jayenge",
+        "match": "Tujhe Dekha To"
+      },
+      "fact": "The film is Dilwale Dulhania Le Jayenge, known to fans as DDLJ."
+    },
+    {
+      "question": "\"Jai Ho\" won an Oscar for Best Original Song. Which film is it from?",
+      "answer": "Slumdog Millionaire",
+      "wrong": [
+        "Life of Pi",
+        "Lion",
+        "The Best Exotic Marigold Hotel"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Jai Ho A.R. Rahman Slumdog Millionaire",
+        "match": "Jai Ho"
+      },
+      "fact": "Composer A.R. Rahman took home two Oscars that night."
+    },
+    {
+      "question": "This wedding favorite is \"Bole Chudiyan\". What are chudiyan?",
+      "answer": "Bangles",
+      "wrong": [
+        "Drums",
+        "Sweets",
+        "Peacocks"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Bole Chudiyan Kabhi Khushi Kabhie Gham",
+        "match": "Bole Chudiyan"
+      },
+      "fact": "The title means \"the bangles say\". It is from Kabhi Khushi Kabhie Gham (2001)."
+    },
+    {
+      "question": "This is \"Dhoom Machale\" from the 2004 action hit Dhoom. What do the film's thieves escape on?",
+      "answer": "Motorcycles",
+      "wrong": [
+        "Horses",
+        "Speedboats",
+        "Skateboards"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Dhoom Machale Sunidhi Chauhan",
+        "match": "Dhoom Machale"
+      }
+    },
+    {
+      "question": "This song, \"Mehndi Laga Ke Rakhna\", is played at weddings. What is mehndi?",
+      "answer": "Henna",
+      "wrong": [
+        "A veil",
+        "A drum",
+        "A flower garland"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Mehndi Laga Ke Rakhna Dilwale Dulhania Le Jayenge",
+        "match": "Mehndi Laga Ke Rakhna"
+      },
+      "fact": "Brides have henna designs painted on their hands before the wedding."
+    },
+    {
+      "question": "This is the title song of \"Kabhi Khushi Kabhie Gham\". What does that title mean?",
+      "answer": "Sometimes happiness, sometimes sadness",
+      "wrong": [
+        "Always and forever",
+        "The big fat wedding",
+        "Sing with me"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Kabhi Khushi Kabhie Gham title song Lata Mangeshkar",
+        "match": "Kabhi Khushi Kabhie Gham"
+      }
+    },
+    {
+      "question": "Lots of Bollywood songs have the word \"dil\" in the title. What does dil mean?",
+      "answer": "Heart",
+      "wrong": [
+        "Moon",
+        "Rain",
+        "Dance"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Dil Chahta Hai title song Shankar Mahadevan",
+        "match": "Dil Chahta Hai"
+      },
+      "fact": "This one is \"Dil Chahta Hai\": the heart wants."
+    },
+    {
+      "question": "\"Bollywood\" blends Hollywood with the old name of which Indian city?",
+      "answer": "Bombay",
+      "wrong": [
+        "Bangalore",
+        "Benares",
+        "Bhopal"
+      ],
+      "fact": "Bombay is now called Mumbai."
+    },
+    {
+      "question": "Which actor is known as \"King Khan\", the King of Bollywood?",
+      "answer": "Shah Rukh Khan",
+      "wrong": [
+        "Salman Khan",
+        "Aamir Khan",
+        "Saif Ali Khan"
+      ]
+    },
+    {
+      "question": "In the Oscar-nominated 2001 film Lagaan, villagers take on British officers at which sport?",
+      "answer": "Cricket",
+      "wrong": [
+        "Polo",
+        "Field hockey",
+        "Wrestling"
+      ]
+    }
+  ]
+}
