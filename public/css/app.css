@@ -615,3 +615,254 @@ form + .lede {
   color: var(--gray);
   text-align: center;
 }
+
+/* ---------- Game menu: vote for the next game (phones) and pick it (remote) ---------- */
+
+.game-picks {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.game-pick {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 72px;
+  padding: 10px 14px;
+  border: 3px solid transparent;
+  border-radius: 16px;
+  background: var(--gravy);
+  color: var(--cream);
+  text-align: left;
+}
+
+.game-pick-icon {
+  flex: none;
+  width: 48px;
+  font-size: 34px;
+  line-height: 1;
+  text-align: center;
+}
+
+.game-pick-name {
+  display: block;
+  font-weight: 800;
+  font-size: 19px;
+}
+
+.game-pick-sub {
+  display: block;
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.game-pick[aria-pressed='true'] {
+  border-color: var(--pumpkin);
+  background: var(--crust);
+}
+
+.game-pick:disabled {
+  opacity: 0.6;
+}
+
+#menu-picks h2 {
+  margin: 22px 0 10px;
+}
+
+.menu-picks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.menu-picks button {
+  min-height: 60px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--gravy);
+  color: var(--cream);
+  font-weight: 800;
+  text-align: left;
+}
+
+.menu-picks small {
+  display: block;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--gray);
+}
+
+/* ---------- Instructions, pin drop, suggested fakes ---------- */
+
+.how-to {
+  margin: 16px 0 0;
+  padding: 14px 16px 14px 36px;
+  border-radius: 16px;
+  background: var(--gravy);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.how-to li + li {
+  margin-top: 6px;
+}
+
+.pin-pad {
+  margin: 14px -8px 14px;
+  touch-action: manipulation;
+}
+
+.pin-map {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  touch-action: none;
+}
+
+.pin-map .sea {
+  fill: #33221a;
+}
+
+.pin-map .land {
+  fill: #8a5d42;
+  stroke: var(--roast);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.pin circle {
+  stroke: var(--cream);
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.ideas {
+  margin-top: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.ideas-title {
+  margin: 0 0 2px;
+  font-size: 15px;
+  color: var(--gray);
+}
+
+.idea {
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 2px dashed var(--crust);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--cream);
+  font-weight: 700;
+  font-size: 17px;
+  text-align: left;
+}
+
+.pin-map.zoomed {
+  outline: 3px solid var(--pumpkin);
+}
+
+.pin-pad + .action {
+  margin-bottom: 4px;
+}
+
+.secret-photo {
+  display: block;
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  margin: 10px 0 4px;
+  border-radius: 14px;
+  background: var(--gravy);
+}
+
+/* ---------- Pictionary and Heads Up ---------- */
+
+.got-it {
+  margin-top: 14px;
+}
+
+.headsup-card {
+  display: grid;
+  place-items: center;
+  min-height: 46vh;
+  margin: 8px -8px 12px;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--cream);
+  color: var(--roast);
+  text-align: center;
+}
+
+.headsup-word {
+  font: 400 clamp(40px, 15vw, 120px) / 1.02 var(--display);
+  overflow-wrap: anywhere;
+}
+
+.headsup-card.flash-right {
+  background: #4f7a4a;
+  color: var(--cream);
+}
+
+.headsup-card.flash-pass {
+  background: var(--scarlet);
+  color: var(--cream);
+}
+
+.headsup-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.headsup-btn {
+  min-height: 72px;
+  border: 0;
+  border-radius: 16px;
+  font: 400 22px var(--display);
+  color: var(--cream);
+}
+
+.headsup-btn.right {
+  background: #4f7a4a;
+}
+
+.headsup-btn.pass {
+  background: var(--scarlet);
+}
+
+/* Sideways on a forehead: the word takes the whole screen. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .headsup-card {
+    position: fixed;
+    inset: 0 0 64px 0;
+    z-index: 30;
+    margin: 0;
+    min-height: 0;
+    border-radius: 0;
+  }
+
+  .headsup-word {
+    font-size: clamp(48px, 22vh, 160px);
+  }
+
+  .headsup-btns {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 31;
+    gap: 0;
+  }
+
+  .headsup-btn {
+    min-height: 64px;
+    border-radius: 0;
+  }
+}

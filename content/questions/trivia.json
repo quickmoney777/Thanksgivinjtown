@@ -1,0 +1,681 @@
+{
+  "title": "Trivia",
+  "type": "mixed",
+  "icon": "🧠",
+  "tagline": "Fifteen questions: the wider world, food, Pittsburgh and Ohio State.",
+  "howTo": [
+    "Fifteen questions, a different mix every game.",
+    "Tap your answer fast: quicker right answers score more.",
+    "One answer each. No changing your mind.",
+    "Food questions show a photo of a dish. Name it."
+  ],
+  "questionsPerGame": 15,
+  "mix": {
+    "world": 10,
+    "food": 2,
+    "pittsburgh": 2,
+    "ohio-state": 1
+  },
+  "questions": [
+    {
+      "category": "ohio-state",
+      "question": "Who is the only player to win the Heisman Trophy twice?",
+      "answer": "Archie Griffin",
+      "wrong": [
+        "Eddie George",
+        "Troy Smith",
+        "Howard Cassady"
+      ],
+      "fact": "The Ohio State running back won it in 1974 and 1975."
+    },
+    {
+      "category": "ohio-state",
+      "question": "Which instrument does the band member who dots the i in Script Ohio play?",
+      "answer": "Sousaphone",
+      "wrong": [
+        "Trumpet",
+        "Snare drum",
+        "Trombone"
+      ]
+    },
+    {
+      "category": "ohio-state",
+      "question": "Which coach led Ohio State football from 1951 to 1978?",
+      "answer": "Woody Hayes",
+      "wrong": [
+        "Earle Bruce",
+        "John Cooper",
+        "Paul Brown"
+      ]
+    },
+    {
+      "category": "ohio-state",
+      "question": "Which coach led Ohio State to the 2002 national title, beating Miami in double overtime?",
+      "answer": "Jim Tressel",
+      "wrong": [
+        "Urban Meyer",
+        "John Cooper",
+        "Earle Bruce"
+      ],
+      "fact": "Tressel coached the Buckeyes from 2001 to 2010."
+    },
+    {
+      "category": "ohio-state",
+      "question": "What exactly is a buckeye?",
+      "answer": "The nut of Ohio's state tree",
+      "wrong": [
+        "A breed of white-tailed deer",
+        "A type of hawk",
+        "A river fish"
+      ],
+      "fact": "It is said to look like the eye of a male deer, a buck."
+    },
+    {
+      "category": "pittsburgh",
+      "question": "The Allegheny and the Monongahela meet in downtown Pittsburgh to form which river?",
+      "answer": "The Ohio",
+      "wrong": [
+        "The Susquehanna",
+        "The Delaware",
+        "The Youghiogheny"
+      ]
+    },
+    {
+      "category": "pittsburgh",
+      "question": "Who caught the Immaculate Reception for the Steelers in 1972?",
+      "answer": "Franco Harris",
+      "wrong": [
+        "Lynn Swann",
+        "John Stallworth",
+        "Rocky Bleier"
+      ]
+    },
+    {
+      "category": "pittsburgh",
+      "question": "Which food company was founded in the Pittsburgh area in 1869?",
+      "answer": "Heinz",
+      "wrong": [
+        "Hershey",
+        "Kraft",
+        "Campbell's"
+      ]
+    },
+    {
+      "category": "pittsburgh",
+      "question": "Who developed the first successful polio vaccine at the University of Pittsburgh?",
+      "answer": "Jonas Salk",
+      "wrong": [
+        "Albert Sabin",
+        "Alexander Fleming",
+        "Louis Pasteur"
+      ]
+    },
+    {
+      "category": "pittsburgh",
+      "question": "Which children's TV host filmed his neighborhood show at WQED in Pittsburgh?",
+      "answer": "Fred Rogers",
+      "wrong": [
+        "Bob Keeshan",
+        "Jim Henson",
+        "LeVar Burton"
+      ]
+    },
+    {
+      "category": "pittsburgh",
+      "question": "Which pop artist, famous for painting soup cans, was born in Pittsburgh in 1928?",
+      "answer": "Andy Warhol",
+      "wrong": [
+        "Roy Lichtenstein",
+        "Keith Haring",
+        "Jackson Pollock"
+      ]
+    },
+    {
+      "category": "pittsburgh",
+      "question": "Which Pittsburgh station made what is widely called the first commercial radio broadcast, in 1920?",
+      "answer": "KDKA",
+      "wrong": [
+        "WQED",
+        "WTAE",
+        "KQV"
+      ]
+    },
+    {
+      "category": "pittsburgh",
+      "question": "Which Pittsburgh sandwich shop is famous for putting the fries and coleslaw inside the sandwich?",
+      "answer": "Primanti Bros.",
+      "wrong": [
+        "Geno's",
+        "Katz's",
+        "Jimmy John's"
+      ]
+    },
+    {
+      "category": "pittsburgh",
+      "question": "Which Pirates legend died in a 1972 plane crash while taking relief supplies to Nicaragua?",
+      "answer": "Roberto Clemente",
+      "wrong": [
+        "Willie Stargell",
+        "Honus Wagner",
+        "Bill Mazeroski"
+      ]
+    },
+    {
+      "category": "pittsburgh",
+      "question": "Which McDonald's item was invented by a Pittsburgh-area franchise owner in 1967?",
+      "answer": "The Big Mac",
+      "wrong": [
+        "The Egg McMuffin",
+        "The Filet-O-Fish",
+        "The McRib"
+      ],
+      "fact": "Jim Delligatti first sold it in Uniontown, Pennsylvania."
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Pierogi",
+      "wrong": [
+        "Gyoza",
+        "Ravioli",
+        "Empanadas"
+      ],
+      "fact": "Pierogi comes from Poland.",
+      "wikipedia": "Pierogi"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Paella",
+      "wrong": [
+        "Risotto",
+        "Jambalaya",
+        "Biryani"
+      ],
+      "fact": "Paella comes from Spain.",
+      "wikipedia": "Paella"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Bibimbap",
+      "wrong": [
+        "Poke bowl",
+        "Donburi",
+        "Nasi goreng"
+      ],
+      "fact": "Bibimbap comes from Korea.",
+      "wikipedia": "Bibimbap"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Khachapuri",
+      "wrong": [
+        "Calzone",
+        "Pide",
+        "Focaccia"
+      ],
+      "fact": "Khachapuri comes from Georgia.",
+      "wikipedia": "Khachapuri"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Poutine",
+      "wrong": [
+        "Chili cheese fries",
+        "Nachos",
+        "Disco fries"
+      ],
+      "fact": "Poutine comes from Canada.",
+      "wikipedia": "Poutine"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Ceviche",
+      "wrong": [
+        "Sashimi",
+        "Gazpacho",
+        "Tartare"
+      ],
+      "fact": "Ceviche comes from Peru.",
+      "wikipedia": "Ceviche"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Pavlova",
+      "wrong": [
+        "Meringue pie",
+        "Eton mess",
+        "Trifle"
+      ],
+      "fact": "Pavlova comes from Australia and New Zealand.",
+      "wikipedia": "Pavlova (dessert)"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Falafel",
+      "wrong": [
+        "Arancini",
+        "Hush puppies",
+        "Croquettes"
+      ],
+      "fact": "Falafel comes from the Middle East.",
+      "wikipedia": "Falafel"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Borscht",
+      "wrong": [
+        "Gazpacho",
+        "Goulash",
+        "Minestrone"
+      ],
+      "fact": "Borscht comes from Ukraine.",
+      "wikipedia": "Borscht"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Tagine",
+      "wrong": [
+        "Curry",
+        "Goulash",
+        "Cassoulet"
+      ],
+      "fact": "Tagine comes from Morocco.",
+      "wikipedia": "Tajine"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Wiener schnitzel",
+      "wrong": [
+        "Chicken-fried steak",
+        "Tonkatsu",
+        "Milanesa"
+      ],
+      "fact": "Wiener schnitzel comes from Austria.",
+      "wikipedia": "Wiener schnitzel"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Shakshouka",
+      "wrong": [
+        "Huevos rancheros",
+        "Ratatouille",
+        "Frittata"
+      ],
+      "fact": "Shakshouka comes from North Africa.",
+      "wikipedia": "Shakshouka"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Jollof rice",
+      "wrong": [
+        "Paella",
+        "Fried rice",
+        "Jambalaya"
+      ],
+      "fact": "Jollof rice comes from West Africa.",
+      "wikipedia": "Jollof rice"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Gumbo",
+      "wrong": [
+        "Jambalaya",
+        "Chili",
+        "Étouffée"
+      ],
+      "fact": "Gumbo comes from Louisiana.",
+      "wikipedia": "Gumbo"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Laksa",
+      "wrong": [
+        "Pho",
+        "Ramen",
+        "Tom yum"
+      ],
+      "fact": "Laksa comes from Malaysia and Singapore.",
+      "wikipedia": "Laksa"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Fondue",
+      "wrong": [
+        "Queso dip",
+        "Raclette",
+        "Welsh rarebit"
+      ],
+      "fact": "Fondue comes from Switzerland.",
+      "wikipedia": "Fondue"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Haggis",
+      "wrong": [
+        "Black pudding",
+        "Meatloaf",
+        "Scrapple"
+      ],
+      "fact": "Haggis comes from Scotland.",
+      "wikipedia": "Haggis"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Injera",
+      "wrong": [
+        "Naan",
+        "Crêpe",
+        "Tortilla"
+      ],
+      "fact": "Injera comes from Ethiopia.",
+      "wikipedia": "Injera"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Churros",
+      "wrong": [
+        "Funnel cake",
+        "Beignets",
+        "Crullers"
+      ],
+      "fact": "Churros comes from Spain.",
+      "wikipedia": "Churro"
+    },
+    {
+      "category": "food",
+      "question": "What is this dish called?",
+      "answer": "Bánh mì",
+      "wrong": [
+        "Po' boy",
+        "Cubano",
+        "Hoagie"
+      ],
+      "fact": "Bánh mì comes from Vietnam.",
+      "wikipedia": "Bánh mì"
+    },
+    {
+      "question": "What is the capital of Australia?",
+      "answer": "Canberra",
+      "wrong": [
+        "Sydney",
+        "Melbourne",
+        "Perth"
+      ],
+      "fact": "Canberra was built as a compromise between rivals Sydney and Melbourne.",
+      "category": "world"
+    },
+    {
+      "question": "Which river runs through the middle of Paris?",
+      "answer": "The Seine",
+      "wrong": [
+        "The Thames",
+        "The Danube",
+        "The Rhine"
+      ],
+      "category": "world"
+    },
+    {
+      "question": "What is the tallest mountain in the world above sea level?",
+      "answer": "Mount Everest",
+      "wrong": [
+        "K2",
+        "Kilimanjaro",
+        "Denali"
+      ],
+      "fact": "Everest stands about 29,000 feet tall.",
+      "category": "world"
+    },
+    {
+      "question": "Which country gave the Statue of Liberty to the United States?",
+      "answer": "France",
+      "wrong": [
+        "Great Britain",
+        "Spain",
+        "Italy"
+      ],
+      "fact": "The statue was dedicated in New York Harbor in 1886.",
+      "category": "world"
+    },
+    {
+      "question": "What is the smallest country in the world by area?",
+      "answer": "Vatican City",
+      "wrong": [
+        "Monaco",
+        "San Marino",
+        "Liechtenstein"
+      ],
+      "fact": "Vatican City covers only about 109 acres.",
+      "category": "world"
+    },
+    {
+      "question": "What is the longest river in South America?",
+      "answer": "The Amazon",
+      "wrong": [
+        "The Paraná",
+        "The Orinoco",
+        "The Magdalena"
+      ],
+      "fact": "The Amazon carries more water than any other river on Earth.",
+      "category": "world"
+    },
+    {
+      "question": "Which is the largest ocean on Earth?",
+      "answer": "Pacific",
+      "wrong": [
+        "Atlantic",
+        "Indian",
+        "Arctic"
+      ],
+      "fact": "The Pacific is bigger than all of Earth's land put together.",
+      "category": "world"
+    },
+    {
+      "question": "What is the currency of Japan?",
+      "answer": "Yen",
+      "wrong": [
+        "Won",
+        "Yuan",
+        "Baht"
+      ],
+      "category": "world"
+    },
+    {
+      "question": "Machu Picchu is in which country?",
+      "answer": "Peru",
+      "wrong": [
+        "Bolivia",
+        "Chile",
+        "Ecuador"
+      ],
+      "fact": "The Inca built Machu Picchu in the 1400s.",
+      "category": "world"
+    },
+    {
+      "question": "Mount Kilimanjaro is in which country?",
+      "answer": "Tanzania",
+      "wrong": [
+        "Kenya",
+        "Uganda",
+        "Ethiopia"
+      ],
+      "fact": "Kilimanjaro is the tallest mountain in Africa.",
+      "category": "world"
+    },
+    {
+      "question": "Which is the largest country in the world by area?",
+      "answer": "Russia",
+      "wrong": [
+        "Canada",
+        "China",
+        "United States"
+      ],
+      "fact": "Russia stretches across 11 time zones.",
+      "category": "world"
+    },
+    {
+      "question": "The Taj Mahal is in which Indian city?",
+      "answer": "Agra",
+      "wrong": [
+        "Delhi",
+        "Jaipur",
+        "Mumbai"
+      ],
+      "fact": "Emperor Shah Jahan built it in memory of his wife, Mumtaz Mahal.",
+      "category": "world"
+    },
+    {
+      "question": "What is the largest hot desert in the world?",
+      "answer": "The Sahara",
+      "wrong": [
+        "The Gobi",
+        "The Kalahari",
+        "The Mojave"
+      ],
+      "fact": "The Sahara is roughly the size of the United States.",
+      "category": "world"
+    },
+    {
+      "question": "What is the capital of Canada?",
+      "answer": "Ottawa",
+      "wrong": [
+        "Toronto",
+        "Montreal",
+        "Vancouver"
+      ],
+      "category": "world"
+    },
+    {
+      "question": "The crosswalk on the cover of the Beatles' Abbey Road is in which city?",
+      "answer": "London",
+      "wrong": [
+        "Liverpool",
+        "Manchester",
+        "Dublin"
+      ],
+      "fact": "Abbey Road came out in 1969. The crosswalk is still there.",
+      "category": "world"
+    },
+    {
+      "category": "world",
+      "question": "Counting its overseas territories, which country covers the most time zones?",
+      "answer": "France",
+      "wrong": [
+        "Russia",
+        "United States",
+        "China"
+      ],
+      "fact": "France spans 12, thanks to territories around the world."
+    },
+    {
+      "category": "world",
+      "question": "Which country has the most islands?",
+      "answer": "Sweden",
+      "wrong": [
+        "Indonesia",
+        "The Philippines",
+        "Canada"
+      ],
+      "fact": "Sweden counts well over 200,000."
+    },
+    {
+      "category": "world",
+      "question": "Which language has the most native speakers?",
+      "answer": "Mandarin Chinese",
+      "wrong": [
+        "English",
+        "Spanish",
+        "Hindi"
+      ]
+    },
+    {
+      "category": "world",
+      "question": "Which country has more ancient pyramids than Egypt?",
+      "answer": "Sudan",
+      "wrong": [
+        "Mexico",
+        "Peru",
+        "Iraq"
+      ]
+    },
+    {
+      "category": "world",
+      "question": "Which major city sits on two continents?",
+      "answer": "Istanbul",
+      "wrong": [
+        "Cairo",
+        "Moscow",
+        "Athens"
+      ]
+    },
+    {
+      "category": "world",
+      "question": "Which is the only sea with no coastline?",
+      "answer": "The Sargasso Sea",
+      "wrong": [
+        "The Dead Sea",
+        "The Caspian Sea",
+        "The Coral Sea"
+      ],
+      "fact": "It is bounded by ocean currents in the Atlantic, not by land."
+    },
+    {
+      "category": "world",
+      "question": "What is the capital of New Zealand?",
+      "answer": "Wellington",
+      "wrong": [
+        "Auckland",
+        "Christchurch",
+        "Queenstown"
+      ]
+    },
+    {
+      "category": "world",
+      "question": "Which country is home to the most people?",
+      "answer": "India",
+      "wrong": [
+        "China",
+        "United States",
+        "Indonesia"
+      ],
+      "fact": "India passed China in 2023, by the United Nations' estimate."
+    },
+    {
+      "category": "world",
+      "question": "The Great Barrier Reef lies off the coast of which Australian state?",
+      "answer": "Queensland",
+      "wrong": [
+        "New South Wales",
+        "Victoria",
+        "Western Australia"
+      ]
+    },
+    {
+      "category": "world",
+      "question": "Which two countries share the longest land border in the world?",
+      "answer": "Canada and the United States",
+      "wrong": [
+        "Russia and China",
+        "Chile and Argentina",
+        "India and Bangladesh"
+      ]
+    }
+  ]
+}

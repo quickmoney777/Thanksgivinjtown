@@ -150,7 +150,12 @@ function attach(question, type) {
   const localAudio = localOk(q.audio) ? q.audio : '';
   const localReveal = localOk(q.revealImage) ? q.revealImage : '';
 
-  if (type === 'poster-reveal') {
+  if (q.lookup && q.lookup.kind === 'wiki' && type !== 'poster-reveal') {
+    // A Wikipedia picture (a dish, a face, a gadget) is the question itself: show it.
+    q.image = localImage || found.image || '';
+    q.audio = localAudio;
+    q.revealImage = localReveal;
+  } else if (type === 'poster-reveal') {
     q.image = localImage || found.image || '';
     q.audio = localAudio;
     q.revealImage = localReveal;

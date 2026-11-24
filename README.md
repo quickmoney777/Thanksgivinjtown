@@ -1,4 +1,4 @@
-# The Great Gobble-Off
+# Trivia in Pennsylvania
 
 A party game for the living room. One laptop shows the game on the TV;
 everyone else plays from their phone's browser. No apps, no logins.
@@ -39,8 +39,11 @@ To let phones join from any network, [put it on Render](#put-it-on-the-internet-
 4. Move the mouse, choose **Phone remote**, scan that code with your own
    phone, then close it.
 5. Everyone scans the big code on the TV, types a name and picks a character.
-6. On your remote: tick the rounds you want, switch on **Play in two teams**
-   if you like, and press **Start game**.
+6. On your remote: tick the games you want on offer, switch on **Play in two
+   teams** if you like, and press **Start game**.
+7. Before each game the TV shows the game menu and everyone votes on their
+   phone. When you've played enough, press **End game** on the remote to
+   crown the winner.
 
 A full game with every round takes about 45 minutes. Each round is five
 questions (change `questionsPerRound` in the settings).
@@ -65,20 +68,54 @@ answer to the current question. Nobody else can see that.
 **Phones** that go to sleep or get refreshed come back to the same seat with
 the same score, as long as they use the same browser.
 
-## The rounds
+## Choosing what to play
 
-| Round | File | How it plays |
+With **Players pick each game** on (the default), the TV shows a menu of
+games before every round. Everyone votes on their phone; a vote can be
+changed until the game is picked. The first vote starts a 20-second clock,
+the most votes wins, and a tie is settled by chance. After the round the
+menu comes back, with played games marked. A game can be played again and
+gets new questions.
+
+On the remote you can pick the game yourself, go with the votes so far, or
+end the game and show the winner. Scores carry across every game played.
+
+Switch **Players pick each game** off on the remote to play the ticked
+rounds once each, in order, the way a quiz night runs.
+
+## The games
+
+| Game | File | How it plays |
 | --- | --- | --- |
-| Buckeyes & Keystone | `buckeyes-keystone.json` | Multiple choice. Ohio State, Pennsylvania, Pittsburgh, Johnstown. |
-| Map It | `map-it.json` | A state outline or a lit-up US map. The reveal shows where it is. |
+| Trivia | `trivia.json` | 15 questions drawn from a pool of 60: 10 world trivia, 2 food photos, 2 Pittsburgh and 1 Ohio State. |
+| Pin the USA | `usa-map.json` | 5 places per game. Tap the map on your phone to zoom in, tap again to drop a pin. The closest pin wins. |
+| Pin the World | `world-map.json` | The same on a world map. |
+| Generation Gap | `generations.json` | Mom and Dad against the kids. One side gets the question, the other side writes fake answers to fool them (with ready-made fakes to tap if they're stuck). |
 | Poster Reveal | `poster-reveal.json` | A blurred album cover or movie poster sharpens over 20 seconds. Fast answers score much more. |
 | Name the Artist | `name-the-artist.json` | A 30-second clip plays on the TV. The cover slides out at the reveal. |
-| Sketch It | `sketch.json` | One player draws a secret word on their phone. It appears live on the TV and everyone else types guesses. |
-| Around the World | `around-the-world.json` | Multiple choice, general knowledge. |
+| Heads Up | `headsup.json` | One player holds their phone to their forehead with a word on it; everyone else gives clues. Tip the phone up for right, down to pass. One minute each, a different deck per player. Tilting needs the Render address (phones only allow it on a secure page); on the laptop's own address use the two buttons. |
+| Pictionary | `sketch.json` | Two random teams. One player draws a secret word on their phone, their team shouts guesses, and a tap on "We got it!" stops the clock. One minute per drawing. Remove `"guessing": "aloud"` from the file to go back to typed guesses. |
 | Bluff Round | `bluff.json` | Everyone types a fake answer, then votes for the one they think is real. |
-| Bollywood Bonus | `bollywood.json` | Multiple choice with song clips, written so people who've never heard the songs can guess. Off unless you tick it. |
+| Bollywood Bonus | `bollywood.json` | Multiple choice with song clips. Off unless you tick it. |
 
-**Scoring.** A right answer is 500 points plus up to 500 for speed. Poster
+Every game opens with its instructions on the TV and the phones. They stay
+up for 20 seconds, or until you press Next.
+
+The older `buckeyes-keystone.json`, `map-it.json` and `around-the-world.json`
+files are still in the folder but are no longer in `roundOrder`; their best
+questions moved into Trivia.
+
+**Who is on which side.** In `characters.json`, each family character has
+`"group": "parents"` or `"group": "kids"`. Generation Gap uses that to decide
+who answers and who writes the fakes. The side names are under `groups` in
+the settings.
+
+**Overruling an answer.** While an answer is on the TV, each player on the
+remote has **Mark right** and **Mark wrong**. They give full points for that
+question or take them away. The plus and minus buttons work at any time.
+
+**Scoring.** A right answer is 500 points plus up to 500 for speed. A map
+pin scores up to 750 by distance, plus 250 for the closest. Poster
 Reveal is 250 plus up to 1,000 for speed. In the Bluff Round, finding the
 truth is 1,000 and every player your fake fools is 500. In Sketch It, a right
 guess is 500 plus up to 500 for speed, and the artist gets 300 for each
@@ -106,6 +143,7 @@ of the game still works. A question with a problem is skipped, not shown.
 | `gameTitle` | The name on every screen |
 | `questionsPerRound` | How many questions are drawn from each file |
 | `autoAdvance` | `true`: reveals and scoreboards move on by themselves after a few seconds. `false`: they wait for you to press Next |
+| `playersPickGames` | `true`: players vote for each game from a menu. `false`: the ticked rounds are played in order. The remote can switch this per room |
 | `roundOrder` | Which rounds, in which order (file names without `.json`) |
 | `bonusRounds` | Rounds that are offered on the remote but not ticked |
 | `timers` | Seconds for each kind of question and each pause |
@@ -114,6 +152,10 @@ of the game still works. A question with a problem is skipped, not shown.
 | `lobbyMusic` | The soundtrack for the lobby and winner screen |
 
 ### characters.json
+
+The four family characters are drawings in `public/media/characters/`
+(`papa-hat.svg`, `mama.svg`, `curls.svg`, `sparkle.svg`), plus Gobbles the
+turkey as a spare seat for a guest. Change their names and catchphrases here.
 
 Each character has a `name`, an `emoji` (or an `image`), a `color` and a
 `catchphrase`. There is one seat per character, so a sixth character adds a
@@ -135,7 +177,7 @@ Every file in `content/questions/` starts the same way:
 ```
 
 `type` is one of `multiple-choice`, `poster-reveal`, `name-the-artist`,
-`map-it`, `bluff` or `draw`. To add a whole new round, copy a file, rename it,
+`map-it`, `bluff`, `draw` or `mixed` (each question names its own kind). To add a whole new round, copy a file, rename it,
 and add its name to `roundOrder` in the settings.
 
 **A multiple-choice question** (this shape works in all four choice types):
@@ -166,6 +208,21 @@ Optional extras on any choice question:
 | `"map": { "show": "outline", "state": "OH" }` | `outline` shows the state alone, `highlight` lights it up on the US map, `blank` shows the plain map and lights it at the reveal. `"also": ["MI"]` lights extra states in a second color |
 | `"timeSeconds": 30` | A different timer for this one question |
 | `"verify": true` | Keeps the question out of the game until you remove the line |
+
+**A Trivia question** adds a `category` (used by the file's `mix`, which says
+how many of each category go into a game). A map question looks like this:
+
+```json
+{ "category": "usa-map", "type": "pin", "question": "Where is Mount Rushmore?",
+  "answer": "Mount Rushmore, South Dakota", "map": "usa", "lat": 43.8791, "lon": -103.4591 }
+```
+
+`map` is `usa` or `world`. Get `lat` and `lon` by right-clicking the place in
+Google Maps.
+
+**A Generation Gap question** is a bluff question with `"for": "parents"` or
+`"for": "kids"` (who has to answer), `suggestions` (ready-made fakes offered
+to the writers) and optionally a `wikipedia` picture.
 
 **A bluff question.** Write it with a blank. `decoys` are extra fakes the
 game adds when there are fewer than three player fakes.
@@ -213,7 +270,7 @@ This lets phones join from any network, with no Wi-Fi fuss. It is free.
    ```bash
    git init
    git add .
-   git commit -m "The Great Gobble-Off"
+   git commit -m "Trivia in Pennsylvania"
    ```
    Then create an empty repository on github.com and follow its "push an
    existing repository" steps.

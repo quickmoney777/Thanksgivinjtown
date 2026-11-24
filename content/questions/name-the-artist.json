@@ -3,133 +3,249 @@
   "type": "name-the-artist",
   "icon": "🎸",
   "tagline": "A clip plays. Tell us who recorded it.",
+  "howTo": [
+    "A song clip plays on the TV.",
+    "Tap who recorded it. Faster right answers score more."
+  ],
   "questions": [
     {
       "question": "Who recorded \"Hey Jude\"?",
       "listenQuestion": "Who is this?",
       "answer": "The Beatles",
-      "wrong": ["The Rolling Stones", "The Beach Boys", "The Kinks"],
-      "itunes": { "kind": "song", "term": "Hey Jude The Beatles" },
+      "wrong": [
+        "The Rolling Stones",
+        "The Beach Boys",
+        "The Kinks"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Hey Jude The Beatles"
+      },
       "fact": "\"Hey Jude\". Paul McCartney wrote it for John Lennon's son Julian."
     },
     {
       "question": "Who recorded \"Money\"?",
       "listenQuestion": "Who is this?",
       "answer": "Pink Floyd",
-      "wrong": ["Led Zeppelin", "The Who", "Genesis"],
-      "itunes": { "kind": "song", "term": "Money Pink Floyd Dark Side of the Moon" },
+      "wrong": [
+        "Led Zeppelin",
+        "The Who",
+        "Genesis"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Money Pink Floyd Dark Side of the Moon"
+      },
       "fact": "\"Money\", from The Dark Side of the Moon (1973)."
     },
     {
       "question": "Who recorded \"Hotel California\"?",
       "listenQuestion": "Who is this?",
       "answer": "Eagles",
-      "wrong": ["Fleetwood Mac", "The Doobie Brothers", "America"],
-      "itunes": { "kind": "song", "term": "Hotel California Eagles" },
+      "wrong": [
+        "Fleetwood Mac",
+        "The Doobie Brothers",
+        "America"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Hotel California Eagles"
+      },
       "fact": "\"Hotel California\"."
     },
     {
       "question": "Who recorded \"Bohemian Rhapsody\"?",
       "listenQuestion": "Who is this?",
       "answer": "Queen",
-      "wrong": ["Electric Light Orchestra", "David Bowie", "Elton John"],
-      "itunes": { "kind": "song", "term": "Bohemian Rhapsody Queen" },
+      "wrong": [
+        "Electric Light Orchestra",
+        "David Bowie",
+        "Elton John"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Bohemian Rhapsody Queen"
+      },
       "fact": "\"Bohemian Rhapsody\", released in 1975."
     },
     {
       "question": "Who recorded \"Sweet Caroline\"?",
       "listenQuestion": "Who is this?",
       "answer": "Neil Diamond",
-      "wrong": ["Barry Manilow", "Tom Jones", "Kenny Rogers"],
-      "itunes": { "kind": "song", "term": "Sweet Caroline Neil Diamond" },
+      "wrong": [
+        "Barry Manilow",
+        "Tom Jones",
+        "Kenny Rogers"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Sweet Caroline Neil Diamond"
+      },
       "fact": "\"Sweet Caroline\"."
     },
     {
       "question": "Who recorded \"Hang On Sloopy\"?",
       "listenQuestion": "Who is this?",
       "answer": "The McCoys",
-      "wrong": ["The Kingsmen", "The Monkees", "The Turtles"],
-      "itunes": { "kind": "song", "term": "Hang On Sloopy The McCoys" },
+      "wrong": [
+        "The Kingsmen",
+        "The Monkees",
+        "The Turtles"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Hang On Sloopy The McCoys"
+      },
       "fact": "\"Hang On Sloopy\" is Ohio's official rock song and an Ohio State band favorite."
     },
     {
       "question": "Who recorded \"Go Your Own Way\"?",
       "listenQuestion": "Who is this?",
       "answer": "Fleetwood Mac",
-      "wrong": ["Eagles", "Heart", "Steely Dan"],
-      "itunes": { "kind": "song", "term": "Go Your Own Way Fleetwood Mac" },
+      "wrong": [
+        "Eagles",
+        "Heart",
+        "Steely Dan"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Go Your Own Way Fleetwood Mac"
+      },
       "fact": "\"Go Your Own Way\", from Rumours."
     },
     {
       "question": "Who recorded \"Born to Run\"?",
       "listenQuestion": "Who is this?",
       "answer": "Bruce Springsteen",
-      "wrong": ["Bob Seger", "John Mellencamp", "Tom Petty"],
-      "itunes": { "kind": "song", "term": "Born to Run Bruce Springsteen" },
+      "wrong": [
+        "Bob Seger",
+        "John Mellencamp",
+        "Tom Petty"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Born to Run Bruce Springsteen"
+      },
       "fact": "\"Born to Run\"."
     },
     {
       "question": "Who recorded \"Stairway to Heaven\"?",
       "listenQuestion": "Who is this?",
       "answer": "Led Zeppelin",
-      "wrong": ["Deep Purple", "Black Sabbath", "The Who"],
-      "itunes": { "kind": "song", "term": "Stairway to Heaven Led Zeppelin" },
+      "wrong": [
+        "Deep Purple",
+        "Black Sabbath",
+        "The Who"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Stairway to Heaven Led Zeppelin"
+      },
       "fact": "\"Stairway to Heaven\"."
     },
     {
       "question": "Who recorded \"Superstition\"?",
       "listenQuestion": "Who is this?",
       "answer": "Stevie Wonder",
-      "wrong": ["Marvin Gaye", "Ray Charles", "James Brown"],
-      "itunes": { "kind": "song", "term": "Superstition Stevie Wonder" },
+      "wrong": [
+        "Marvin Gaye",
+        "Ray Charles",
+        "James Brown"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Superstition Stevie Wonder"
+      },
       "fact": "\"Superstition\"."
     },
     {
       "question": "Who recorded \"Piano Man\"?",
       "listenQuestion": "Who is this?",
       "answer": "Billy Joel",
-      "wrong": ["Elton John", "Harry Chapin", "James Taylor"],
-      "itunes": { "kind": "song", "term": "Piano Man Billy Joel" },
+      "wrong": [
+        "Elton John",
+        "Harry Chapin",
+        "James Taylor"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Piano Man Billy Joel"
+      },
       "fact": "\"Piano Man\"."
     },
     {
       "question": "Who recorded \"Comfortably Numb\"?",
       "listenQuestion": "Who is this?",
       "answer": "Pink Floyd",
-      "wrong": ["The Moody Blues", "Yes", "Rush"],
-      "itunes": { "kind": "song", "term": "Comfortably Numb Pink Floyd The Wall" },
+      "wrong": [
+        "The Moody Blues",
+        "Yes",
+        "Rush"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Comfortably Numb Pink Floyd The Wall"
+      },
       "fact": "\"Comfortably Numb\", from The Wall."
     },
     {
       "question": "Who recorded \"Come Together\"?",
       "listenQuestion": "Who is this?",
       "answer": "The Beatles",
-      "wrong": ["Cream", "The Doors", "The Rolling Stones"],
-      "itunes": { "kind": "song", "term": "Come Together The Beatles Abbey Road" },
+      "wrong": [
+        "Cream",
+        "The Doors",
+        "The Rolling Stones"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Come Together The Beatles Abbey Road"
+      },
       "fact": "\"Come Together\" opens the Abbey Road album."
     },
     {
       "question": "Who recorded \"Seven Nation Army\"?",
       "listenQuestion": "Who is this?",
       "answer": "The White Stripes",
-      "wrong": ["The Black Keys", "The Strokes", "Foo Fighters"],
-      "itunes": { "kind": "song", "term": "Seven Nation Army The White Stripes" },
+      "wrong": [
+        "The Black Keys",
+        "The Strokes",
+        "Foo Fighters"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Seven Nation Army The White Stripes"
+      },
       "fact": "\"Seven Nation Army\". Its riff gets chanted in stadiums everywhere."
     },
     {
       "question": "Who recorded \"Mr. Brightside\"?",
       "listenQuestion": "Who is this?",
       "answer": "The Killers",
-      "wrong": ["Fall Out Boy", "Franz Ferdinand", "Arctic Monkeys"],
-      "itunes": { "kind": "song", "term": "Mr. Brightside The Killers" },
+      "wrong": [
+        "Fall Out Boy",
+        "Franz Ferdinand",
+        "Arctic Monkeys"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Mr. Brightside The Killers"
+      },
       "fact": "\"Mr. Brightside\"."
     },
     {
       "question": "Who recorded \"Don't Stop Believin'\"?",
       "listenQuestion": "Who is this?",
       "answer": "Journey",
-      "wrong": ["Foreigner", "Boston", "REO Speedwagon"],
-      "itunes": { "kind": "song", "term": "Don't Stop Believin' Journey" },
+      "wrong": [
+        "Foreigner",
+        "Boston",
+        "REO Speedwagon"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Don't Stop Believin' Journey"
+      },
       "fact": "\"Don't Stop Believin'\"."
     }
   ]

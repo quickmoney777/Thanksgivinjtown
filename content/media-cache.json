@@ -366,5 +366,477 @@
     "artist": "Pink Floyd",
     "id": 1665303755,
     "fetchedAt": "2026-11-23"
+  },
+  "wiki:paella": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/01_Paella_Valenciana_original.jpg/500px-01_Paella_Valenciana_original.jpg",
+    "audio": "",
+    "title": "Paella",
+    "artist": "Rice dish from the Valencian Community, Spain",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:pierogi": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Pierogi_z_mas%C5%82em_-_2023.03.31.jpg/500px-Pierogi_z_mas%C5%82em_-_2023.03.31.jpg",
+    "audio": "",
+    "title": "Pierogi",
+    "artist": "Stuffed Polish dumplings",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:bibimbap": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/500px-Dolsot-bibimbap.jpg",
+    "audio": "",
+    "title": "Bibimbap",
+    "artist": "Korean rice dish",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:pho": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Bowl_of_Meatball_pho.jpg/500px-Bowl_of_Meatball_pho.jpg",
+    "audio": "",
+    "title": "Pho",
+    "artist": "Vietnamese noodle soup dish",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:baklava": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Baklava%281%29.png",
+    "audio": "",
+    "title": "Baklava",
+    "artist": "Layered filo pastry dessert",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:ceviche": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Cebiche_de_corvina.JPG/500px-Cebiche_de_corvina.JPG",
+    "audio": "",
+    "title": "Ceviche",
+    "artist": "Dish of marinated raw seafood",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:poutine": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/Food_at_WIkimanian_2017_02.jpg/500px-Food_at_WIkimanian_2017_02.jpg",
+    "audio": "",
+    "title": "Poutine",
+    "artist": "Quebecois dish",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:falafel": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Falafels_2.jpg/500px-Falafels_2.jpg",
+    "audio": "",
+    "title": "Falafel",
+    "artist": "Middle Eastern fried bean dish",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:olivia rodrigo": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Glasto2025-546_%28cropped%29_2.jpg/500px-Glasto2025-546_%28cropped%29_2.jpg",
+    "audio": "",
+    "title": "Olivia Rodrigo",
+    "artist": "American singer-songwriter and actress (born 2003)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:billie eilish": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/c7/BillieEilishO2140725-39_-_54665577407_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Billie Eilish",
+    "artist": "American singer-songwriter (born 2001)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:dua lipa": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Dua_Lipa-69798_%28cropped%29.jpg/500px-Dua_Lipa-69798_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Dua Lipa",
+    "artist": "English singer and songwriter (born 1995)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:bad bunny": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Bad_Bunny_2019_by_Glenn_Francis_%28cropped%29.jpg/500px-Bad_Bunny_2019_by_Glenn_Francis_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Bad Bunny",
+    "artist": "Puerto Rican rapper (born 1994)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:timothée chalamet": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Timoth%C3%A9e_Chalamet-63482_%28cropped%29.jpg/500px-Timoth%C3%A9e_Chalamet-63482_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Timothée Chalamet",
+    "artist": "American and French actor (born 1995)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:zendaya": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Zendaya-byPhilipRomano.jpg/500px-Zendaya-byPhilipRomano.jpg",
+    "audio": "",
+    "title": "Zendaya",
+    "artist": "American actress and singer (born 1996)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:doja cat": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Doja_Cat_x_Amazon1.1_%28cropped%29.jpg/500px-Doja_Cat_x_Amazon1.1_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Doja Cat",
+    "artist": "American rapper (born 1995)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:sabrina carpenter": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/61/Sabrina_Carpenter_-_O2_Arena_2025_-_086_%28cropped_2%29.jpg",
+    "audio": "",
+    "title": "Sabrina Carpenter",
+    "artist": "American singer, songwriter and actress (born 1999)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:borscht": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Borscht_served.jpg/500px-Borscht_served.jpg",
+    "audio": "",
+    "title": "Borscht",
+    "artist": "Eastern European sour soup",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:moussaka": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/MussakasMeMelitsanesKePatates01.JPG/500px-MussakasMeMelitsanesKePatates01.JPG",
+    "audio": "",
+    "title": "Moussaka",
+    "artist": "Dish of layered vegetables, sauce and meat",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:ramen": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Shoyu_Ramen%EF%BC%88Tokyo_Ramen%EF%BC%89_-_01.jpg/500px-Shoyu_Ramen%EF%BC%88Tokyo_Ramen%EF%BC%89_-_01.jpg",
+    "audio": "",
+    "title": "Ramen",
+    "artist": "Japanese noodle dish",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:pad thai": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/Phat_Thai_kung_Chang_Khien_street_stall.jpg/500px-Phat_Thai_kung_Chang_Khien_street_stall.jpg",
+    "audio": "",
+    "title": "Pad thai",
+    "artist": "Stir-fried noodle dish from Thailand",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:empanada": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Tapa_de_empanadillitas.JPG/500px-Tapa_de_empanadillitas.JPG",
+    "audio": "",
+    "title": "Empanada",
+    "artist": "Baked or fried turnover consisting of pastry and filling",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:jollof rice": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Jollof_Rice_with_Stew.jpg/500px-Jollof_Rice_with_Stew.jpg",
+    "audio": "",
+    "title": "Jollof rice",
+    "artist": "Rice dish from West Africa",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:tiramisu": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Tiramisu_-_Raffaele_Diomede.jpg/500px-Tiramisu_-_Raffaele_Diomede.jpg",
+    "audio": "",
+    "title": "Tiramisu",
+    "artist": "Italian dessert",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:shakshouka": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Shakshuka_by_Calliopejen1.jpg/500px-Shakshuka_by_Calliopejen1.jpg",
+    "audio": "",
+    "title": "Shakshouka",
+    "artist": "Maghrebi dish of eggs poached in a sauce",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:haggis": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Scotland_Haggis.jpg/500px-Scotland_Haggis.jpg",
+    "audio": "",
+    "title": "Haggis",
+    "artist": "Scottish savoury pudding containing sheep's pluck",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:arepa": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Arepitas_Food_Macro.jpg",
+    "audio": "",
+    "title": "Arepa",
+    "artist": "South American corn flatbread",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:injera": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Injera_with_eight_kinds_of_stew.jpg/500px-Injera_with_eight_kinds_of_stew.jpg",
+    "audio": "",
+    "title": "Injera",
+    "artist": "Fermented flatbread from Ethiopia and Eritrea",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:bánh mì": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/0c/B%C3%A1nh_m%C3%AC_th%E1%BB%8Bt_n%C6%B0%E1%BB%9Bng.png",
+    "audio": "",
+    "title": "Bánh mì",
+    "artist": "Vietnamese bread or sandwich",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:khachapuri": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Old_Tbilisi%2C_Georgian_khachapuri%2C_Georgia.jpg/500px-Old_Tbilisi%2C_Georgian_khachapuri%2C_Georgia.jpg",
+    "audio": "",
+    "title": "Khachapuri",
+    "artist": "Georgian cheese-filled bread",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:pavlova (dessert)": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Pavlova_dessert.JPG/500px-Pavlova_dessert.JPG",
+    "audio": "",
+    "title": "Pavlova",
+    "artist": "Meringue-based dessert",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:tajine": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Tajine-marocain-un-plat-varie-et-sain_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Tagine",
+    "artist": "Maghrebi stew",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:wiener schnitzel": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Wiener-Schnitzel02.jpg/500px-Wiener-Schnitzel02.jpg",
+    "audio": "",
+    "title": "Wiener schnitzel",
+    "artist": "Viennese meat dish, breaded veal cutlet",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:gumbo": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Gumbo.JPG/500px-Gumbo.JPG",
+    "audio": "",
+    "title": "Gumbo",
+    "artist": "Louisianan stew",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:laksa": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Nyonya_Laksa.jpg/500px-Nyonya_Laksa.jpg",
+    "audio": "",
+    "title": "Laksa",
+    "artist": "Spicy noodle dish from Southeast Asia",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:fondue": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Fondue_dish.jpg/500px-Fondue_dish.jpg",
+    "audio": "",
+    "title": "Fondue",
+    "artist": "Swiss melted cheese dish",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:churro": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Chocolate_con_churros_%2827343655726%29.jpg/500px-Chocolate_con_churros_%2827343655726%29.jpg",
+    "audio": "",
+    "title": "Churro",
+    "artist": "Fried-dough pastry",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:harry styles": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/HarryStylesWembley170623_%2865_of_93%29_%2852982678051%29_%28cropped_2%29.jpg/500px-HarryStylesWembley170623_%2865_of_93%29_%2852982678051%29_%28cropped_2%29.jpg",
+    "audio": "",
+    "title": "Harry Styles",
+    "artist": "English singer, songwriter, and actor (born 1994)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:mrbeast": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/MrBeast_in_2026_%28cropped_4%29.png/500px-MrBeast_in_2026_%28cropped_4%29.png",
+    "audio": "",
+    "title": "MrBeast",
+    "artist": "American YouTuber and philanthropist (born 1998)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:8-track cartridge": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/e/e3/8track_inside.JPG",
+    "audio": "",
+    "title": "8-track cartridge",
+    "artist": "Magnetic tape sound recording format",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:pager": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/91/GSL_28R.png",
+    "audio": "",
+    "title": "Pager",
+    "artist": "Wireless telecommunications device",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:rotary dial": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Rotarydial.JPG/500px-Rotarydial.JPG",
+    "audio": "",
+    "title": "Rotary dial",
+    "artist": "Device for sending telephone numbers",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:rolodex": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Rolodex.agr.jpg/500px-Rolodex.agr.jpg",
+    "audio": "",
+    "title": "Rolodex",
+    "artist": "Rotating card file device",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:laserdisc": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/LaserDisc.jpg/500px-LaserDisc.jpg",
+    "audio": "",
+    "title": "LaserDisc",
+    "artist": "Optical analog video disc format",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:overhead projector": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/OHP-sch.JPG/500px-OHP-sch.JPG",
+    "audio": "",
+    "title": "Overhead projector",
+    "artist": "Device that projects a transparent image",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:view-master": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/View_Master_-_Model_G_Red.jpg/500px-View_Master_-_Model_G_Red.jpg",
+    "audio": "",
+    "title": "View-Master",
+    "artist": "Trademark name of a line of special-format stereoscopes",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:cassette tape": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/Compactcassette.jpg/500px-Compactcassette.jpg",
+    "audio": "",
+    "title": "Cassette tape",
+    "artist": "Magnetic audio tape recording format",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:mohammed rafi": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/05/Mohammed_Rafi_2016_postcard_of_India_crop-flip.jpg",
+    "audio": "",
+    "title": "Mohammed Rafi",
+    "artist": "Indian playback singer (1924–1980)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:kishore kumar": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Kishore_Kumar_2016_postcard_of_India_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Kishore Kumar",
+    "artist": "Indian singer and actor (1929–1987)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:udit narayan": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Udit-Narayan-2019.jpg",
+    "audio": "",
+    "title": "Udit Narayan",
+    "artist": "Indian playback singer (born 1955)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:mukesh (singer)": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Mukesh_Indian_Singer.jpg",
+    "audio": "",
+    "title": "Mukesh (singer)",
+    "artist": "Indian playback singer (1923–1976)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:manna dey": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Manna_De.jpg/500px-Manna_De.jpg",
+    "audio": "",
+    "title": "Manna Dey",
+    "artist": "Indian singer (1919–2013)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:hemant kumar": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Hemant_Kumar_2016_stamp_of_India_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Hemant Kumar",
+    "artist": "Indian singer and music director (1920–1989)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:dario amodei": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Dario_Amodei_at_TechCrunch_Disrupt_2023_01_%28cropped%29.jpg/500px-Dario_Amodei_at_TechCrunch_Disrupt_2023_01_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Dario Amodei",
+    "artist": "American businessman (born 1983)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:nikesh arora": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Nikesh_Arora_TechCrunch_Disrupt_2015.jpg/500px-Nikesh_Arora_TechCrunch_Disrupt_2015.jpg",
+    "audio": "",
+    "title": "Nikesh Arora",
+    "artist": "Indian-American business executive (born 1968)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:neal mohan": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Neal_Mohan_at_Brandcast_in_May_2026_%28cropped%29.png/500px-Neal_Mohan_at_Brandcast_in_May_2026_%28cropped%29.png",
+    "audio": "",
+    "title": "Neal Mohan",
+    "artist": "American business executive (born 1973)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:shantanu narayen": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Shantanu_Narayen_-_the_CEO_of_Adobe_Inc.jpg/500px-Shantanu_Narayen_-_the_CEO_of_Adobe_Inc.jpg",
+    "audio": "",
+    "title": "Shantanu Narayen",
+    "artist": "Indian-American business executive (born 1963)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:arvind krishna": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/30/Arvind_Krishna_in_2025_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Arvind Krishna",
+    "artist": "Indian American business executive (born 1962)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:sanjay mehrotra": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/d/de/Sanjay_Mehrotra_2025_%28cropped%29.jpg",
+    "audio": "",
+    "title": "Sanjay Mehrotra",
+    "artist": "Indian-American business executive and CEO of Micron",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
+  },
+  "wiki:lisa su": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/SXSW-2024-alih-OB7A0861-Lisa_Su_%28cropped_2%29.jpg/500px-SXSW-2024-alih-OB7A0861-Lisa_Su_%28cropped_2%29.jpg",
+    "audio": "",
+    "title": "Lisa Su",
+    "artist": "Taiwanese and American business executive (born 1969)",
+    "id": 0,
+    "fetchedAt": "2026-11-24"
   }
 }

@@ -36,6 +36,7 @@ function createRoom() {
     game: null, // set by the engine while a game is running
     usedQuestionIds: new Set(), // so a second game gets fresh questions
     teamsOn: false, // two-team play, switched on by the host in the lobby
+    pickOn: settings.playersPickGames, // players vote for each game from a menu
     music: null, // lobby soundtrack { url, title, artist }, filled in by the server
     players: new Map(),
     hostSockets: new Set(),
@@ -164,11 +165,13 @@ function publicState(room) {
         connected: p.sockets.size > 0,
       })),
     teams: room.teamsOn ? room.settings.teams : null,
+    pickGames: room.pickOn,
     music: room.settings.lobbyMusic.enabled ? room.music : null,
     settings: {
       nameMaxLength: room.settings.nameMaxLength,
       scoreAdjustStep: room.settings.scoreAdjustStep,
       autoAdvance: room.settings.autoAdvance,
+      groups: room.settings.groups,
     },
     catalog: room.catalog,
     game: engine.publicGame(room),

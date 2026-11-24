@@ -1,0 +1,85 @@
+{
+  "title": "Pin the USA",
+  "type": "pin",
+  "icon": "📍",
+  "tagline": "Find the place on the map. Closest pin wins.",
+  "howTo": [
+    "No choices here. A place is named, and you find it on the map of the United States on your phone.",
+    "Tap the map to zoom in. Tap again to drop your pin. You can move it until you lock it in.",
+    "The closer your pin, the more you score. The closest pin gets a bonus."
+  ],
+  "questionsPerGame": 5,
+  "questions": [
+    {
+      "question": "Drop your pin on Johnstown, Pennsylvania.",
+      "answer": "Johnstown, Pennsylvania",
+      "map": "usa",
+      "lat": 40.3267,
+      "lon": -78.922
+    },
+    {
+      "question": "Where is Ohio Stadium? Drop your pin on Columbus.",
+      "answer": "Columbus, Ohio",
+      "map": "usa",
+      "lat": 39.9612,
+      "lon": -82.9988
+    },
+    {
+      "question": "Where is Mount Rushmore?",
+      "answer": "Mount Rushmore, South Dakota",
+      "map": "usa",
+      "lat": 43.8791,
+      "lon": -103.4591
+    },
+    {
+      "question": "Four states meet at a single point. Where is Four Corners?",
+      "answer": "Four Corners",
+      "map": "usa",
+      "lat": 36.999,
+      "lon": -109.0452,
+      "fact": "Arizona, New Mexico, Utah and Colorado meet there."
+    },
+    {
+      "question": "Where is the Grand Canyon?",
+      "answer": "The Grand Canyon, Arizona",
+      "map": "usa",
+      "lat": 36.0544,
+      "lon": -112.1401
+    },
+    {
+      "question": "Where is the Statue of Liberty?",
+      "answer": "New York Harbor",
+      "map": "usa",
+      "lat": 40.6892,
+      "lon": -74.0445
+    },
+    {
+      "question": "Where is Las Vegas?",
+      "answer": "Las Vegas, Nevada",
+      "map": "usa",
+      "lat": 36.1699,
+      "lon": -115.1398
+    },
+    {
+      "question": "Where is Old Faithful?",
+      "answer": "Yellowstone, Wyoming",
+      "map": "usa",
+      "lat": 44.4605,
+      "lon": -110.8281
+    },
+    {
+      "question": "Where is the Golden Gate Bridge?",
+      "answer": "San Francisco, California",
+      "map": "usa",
+      "lat": 37.8199,
+      "lon": -122.4783
+    },
+    {
+      "question": "Where is Walt Disney World?",
+      "answer": "Orlando, Florida",
+      "map": "usa",
+      "lat": 28.3852,
+      "lon": -81.5639
+    }
+  ]
+}

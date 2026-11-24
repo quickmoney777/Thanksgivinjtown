@@ -29,12 +29,26 @@ const norm = (s) =>
     .replace(/\s+/g, ' ')
     .trim();
 
-function prepare() {
+// A question marked "for": "parents" (or "kids") is answered by that side
+// only, and the other side writes the fakes. Without both sides at the
+// table it plays the usual way: everyone writes, everyone votes.
+function prepare(raw, ctx) {
+  const players = (ctx && ctx.players) || [];
+  const guessers = raw.for ? players.filter((p) => p.group === raw.for).map((p) => p.id) : [];
+  const writers = raw.for ? players.filter((p) => p.group && p.group !== raw.for).map((p) => p.id) : [];
+  const sided = guessers.length > 0 && writers.length > 0;
+  const groups = (ctx && ctx.settings && ctx.settings.groups) || {};
   return {
+    sided,
+    guessers: sided ? guessers : null,
+    writers: sided ? writers : null,
+    guesserLabel: sided ? groups[raw.for] || raw.for : '',
+    writerLabel: sided ? groups[raw.for === 'parents' ? 'kids' : 'parents'] || '' : '',
     stage: 'write',
     lies: new Map(), // playerId -> text
     options: [], // built when voting starts: { id, text, truth, authors: [playerId], house }
     votes: new Map(), // playerId -> option id
+    voteShare: new Map(), // playerId -> how much of the voting clock was left (0..1)
   };
 }
 
@@ -49,16 +63,27 @@ function revealSeconds(settings) {
 function publicView(q) {
   return {
     text: q.raw.text,
+    // A slow-reveal picture stays off the TV while the fakes are written
+    // (the writers see it on their phones), then sharpens during the vote.
+    image: q.raw.slowReveal && q.data.stage === 'write' ? '' : q.raw.image || '',
+    blur: Boolean(q.raw.slowReveal && q.raw.image && q.data.stage === 'vote'),
+    pictureOnPhones: Boolean(q.raw.slowReveal && q.raw.image && q.data.stage === 'write'),
     stage: q.data.stage,
     maxLength: MAX_LIE,
+    sided: q.data.sided,
+    guessers: q.data.guessers,
+    writers: q.data.writers,
+    guesserLabel: q.data.guesserLabel,
+    writerLabel: q.data.writerLabel,
     // Authors stay secret until the reveal.
     options: q.data.stage === 'vote' ? q.data.options.map((o) => ({ id: o.id, text: o.text })) : [],
   };
 }
 
-function submit(q, playerId, payload) {
+function submit(q, playerId, payload, elapsedMs) {
   const d = q.data;
   if (d.stage === 'write') {
+    if (d.sided && !d.writers.includes(playerId)) return { error: 'The other side is writing fakes for you. Hang tight.' };
     if (d.lies.has(playerId)) return { error: 'Your answer is already in.' };
     const lie = String((payload || {}).text || '')
       .replace(/\s+/g, ' ')
@@ -71,16 +96,25 @@ function submit(q, playerId, payload) {
     d.lies.set(playerId, lie);
     return {};
   }
+  if (d.sided && !d.guessers.includes(playerId)) return { error: 'This one is for the other side to answer.' };
   if (d.votes.has(playerId)) return { error: 'You already voted.' };
   const optionId = String((payload || {}).optionId || '');
   const option = d.options.find((o) => o.id === optionId);
   if (!option) return { error: 'Pick one of the answers.' };
   if (option.authors.includes(playerId)) return { error: "That one's yours. Pick another." };
   d.votes.set(playerId, optionId);
+  d.voteShare.set(playerId, q.totalMs ? Math.max(0, 1 - (elapsedMs || 0) / q.totalMs) : 0); // share of the clock left
   return {};
 }
 
 const answered = (q) => Array.from((q.data.stage === 'write' ? q.data.lies : q.data.votes).keys());
+
+// Who the game is waiting for in this stage.
+function expected(q, players) {
+  if (!q.data.sided) return players;
+  const ids = q.data.stage === 'write' ? q.data.writers : q.data.guessers;
+  return players.filter((p) => ids.includes(p.id));
+}
 
 // After writing comes voting. Returns true if there is another stage.
 function nextStage(q) {
@@ -106,8 +140,14 @@ function nextStage(q) {
 function privateView(q, playerId) {
   const d = q.data;
   const mine = d.options.find((o) => o.authors.includes(playerId));
+  const role = !d.sided ? 'both' : d.writers.includes(playerId) ? 'writer' : d.guessers.includes(playerId) ? 'guesser' : 'watcher';
   return {
     stage: d.stage,
+    role,
+    // Ready-made fakes, only for the people writing.
+    suggestions: d.stage === 'write' && (role === 'both' || role === 'writer') ? (q.raw.suggestions || []).slice(0, 3) : [],
+    // The secret picture, for the people writing fakes about it.
+    image: q.raw.slowReveal && d.stage === 'write' && (role === 'both' || role === 'writer') ? q.raw.image || '' : '',
     lie: d.lies.get(playerId) || '',
     ownOptionId: mine ? mine.id : '',
     voteId: d.votes.get(playerId) || '',
@@ -136,7 +176,13 @@ function finish(q, settings) {
     const option = options.find((o) => o.id === optionId);
     if (!option) continue;
     option.voters.push(playerId);
-    if (option.truth) add(playerId, bluffFoundTruth);
+    if (option.truth) {
+      add(playerId, bluffFoundTruth);
+      // Slow reveal: the sooner you spotted it, the bigger the bonus.
+      if (q.raw.slowReveal) {
+        add(playerId, Math.round(((settings.points.bluffSpeedBonusMax || 0) * (d.voteShare.get(playerId) || 0)) / 10) * 10);
+      }
+    }
     else option.authors.forEach((author) => add(author, bluffFooledPlayer));
   }
   return {
@@ -149,4 +195,6 @@ function peek(q) {
   return q.raw.answer;
 }
 
-module.exports = { prepare, seconds, revealSeconds, publicView, submit, answered, nextStage, privateView, finish, peek };
+const fullPoints = (settings) => settings.points.bluffFoundTruth;
+
+module.exports = { prepare, seconds, revealSeconds, publicView, submit, answered, expected, nextStage, privateView, finish, peek, fullPoints };

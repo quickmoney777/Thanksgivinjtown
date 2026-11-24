@@ -1,42 +1,46 @@
 [
   {
+    "id": "papa-hat",
+    "name": "Papa Hat",
+    "emoji": "🎩",
+    "image": "/media/characters/papa-hat.svg",
+    "color": "#7B6C5D",
+    "catchphrase": "The hat stays on.",
+    "group": "parents"
+  },
+  {
+    "id": "mama",
+    "name": "Mama Glam",
+    "emoji": "👑",
+    "image": "/media/characters/mama.svg",
+    "color": "#A8201A",
+    "catchphrase": "I already know the answer.",
+    "group": "parents"
+  },
+  {
+    "id": "curls",
+    "name": "Curls",
+    "emoji": "🌀",
+    "image": "/media/characters/curls.svg",
+    "color": "#1F5C6B",
+    "catchphrase": "Too easy.",
+    "group": "kids"
+  },
+  {
+    "id": "sparkle",
+    "name": "Sparkle",
+    "emoji": "✨",
+    "image": "/media/characters/sparkle.svg",
+    "color": "#E8742A",
+    "catchphrase": "Watch and learn.",
+    "group": "kids"
+  },
+  {
     "id": "turkey",
     "name": "Gobbles",
     "emoji": "🦃",
     "image": "",
     "color": "#D9622B",
     "catchphrase": "Not on the menu tonight."
-  },
-  {
-    "id": "buckeye",
-    "name": "Nutty Buckeye",
-    "emoji": "🌰",
-    "image": "",
-    "color": "#BB0000",
-    "catchphrase": "O-H! Somebody say I-O!"
-  },
-  {
-    "id": "pierogi",
-    "name": "Pierogi Pete",
-    "emoji": "🥟",
-    "image": "",
-    "color": "#E3A72F",
-    "catchphrase": "Stuffed and ready to rumble."
-  },
-  {
-    "id": "groundhog",
-    "name": "Shadow",
-    "emoji": "🦫",
-    "image": "",
-    "color": "#5B7F4B",
-    "catchphrase": "Six more rounds of winning."
-  },
-  {
-    "id": "pie",
-    "name": "Slice",
-    "emoji": "🥧",
-    "image": "",
-    "color": "#2E8B8B",
-    "catchphrase": "Save room for me."
   }
 ]

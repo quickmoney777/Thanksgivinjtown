@@ -1,28 +1,148 @@
 {
-  "title": "Sketch It",
+  "title": "Pictionary",
   "type": "draw",
   "icon": "✏️",
-  "tagline": "One of you draws on your phone. Everyone else types guesses as fast as they can.",
+  "tagline": "Two random teams. One of you draws, your team shouts guesses. One minute.",
+  "guessing": "aloud",
+  "teams": "random",
+  "turnsPerPlayer": 1,
+  "howTo": [
+    "Everyone is dealt into two teams, new every game.",
+    "One player gets a secret word and draws it on their phone. It shows up on the TV.",
+    "Only the artist's team guesses, out loud. No letters, no numbers, no talking from the artist.",
+    "When the word is said, the artist or a teammate taps the button. Be honest!",
+    "One minute per drawing. The whole team scores, and faster is worth more."
+  ],
   "questions": [
-    { "word": "Turkey", "accept": ["tom turkey", "thanksgiving turkey", "gobbler"] },
-    { "word": "Pumpkin pie", "accept": ["pie", "pumpkin"] },
-    { "word": "Football", "accept": ["foot ball"] },
-    { "word": "Groundhog", "accept": ["ground hog", "woodchuck", "punxsutawney phil"] },
-    { "word": "Guitar", "accept": ["electric guitar", "acoustic guitar"] },
-    { "word": "Bridge", "accept": ["steel bridge"] },
-    { "word": "Ketchup", "accept": ["catsup", "ketchup bottle", "heinz"] },
-    { "word": "Wishbone", "accept": ["wish bone"] },
-    { "word": "Scarecrow", "accept": ["scare crow"] },
-    { "word": "Helmet", "accept": ["football helmet"] },
-    { "word": "Drums", "accept": ["drum", "drum set", "drum kit"] },
-    { "word": "Submarine", "accept": ["yellow submarine", "sub"] },
-    { "word": "Octopus", "accept": [] },
-    { "word": "Walrus", "accept": [] },
-    { "word": "Rainbow", "accept": [] },
-    { "word": "Train", "accept": ["locomotive", "choo choo"] },
-    { "word": "Snowman", "accept": ["snow man", "frosty"] },
-    { "word": "Mashed potatoes", "accept": ["potatoes", "mashed potato", "potato"] },
-    { "word": "Corn", "accept": ["corn on the cob", "corncob"] },
-    { "word": "Touchdown", "accept": ["touch down"] }
+    {
+      "word": "Turkey",
+      "accept": [
+        "tom turkey",
+        "thanksgiving turkey",
+        "gobbler"
+      ]
+    },
+    {
+      "word": "Pumpkin pie",
+      "accept": [
+        "pie",
+        "pumpkin"
+      ]
+    },
+    {
+      "word": "Football",
+      "accept": [
+        "foot ball"
+      ]
+    },
+    {
+      "word": "Groundhog",
+      "accept": [
+        "ground hog",
+        "woodchuck",
+        "punxsutawney phil"
+      ]
+    },
+    {
+      "word": "Guitar",
+      "accept": [
+        "electric guitar",
+        "acoustic guitar"
+      ]
+    },
+    {
+      "word": "Bridge",
+      "accept": [
+        "steel bridge"
+      ]
+    },
+    {
+      "word": "Ketchup",
+      "accept": [
+        "catsup",
+        "ketchup bottle",
+        "heinz"
+      ]
+    },
+    {
+      "word": "Wishbone",
+      "accept": [
+        "wish bone"
+      ]
+    },
+    {
+      "word": "Scarecrow",
+      "accept": [
+        "scare crow"
+      ]
+    },
+    {
+      "word": "Helmet",
+      "accept": [
+        "football helmet"
+      ]
+    },
+    {
+      "word": "Drums",
+      "accept": [
+        "drum",
+        "drum set",
+        "drum kit"
+      ]
+    },
+    {
+      "word": "Submarine",
+      "accept": [
+        "yellow submarine",
+        "sub"
+      ]
+    },
+    {
+      "word": "Octopus",
+      "accept": []
+    },
+    {
+      "word": "Walrus",
+      "accept": []
+    },
+    {
+      "word": "Rainbow",
+      "accept": []
+    },
+    {
+      "word": "Train",
+      "accept": [
+        "locomotive",
+        "choo choo"
+      ]
+    },
+    {
+      "word": "Snowman",
+      "accept": [
+        "snow man",
+        "frosty"
+      ]
+    },
+    {
+      "word": "Mashed potatoes",
+      "accept": [
+        "potatoes",
+        "mashed potato",
+        "potato"
+      ]
+    },
+    {
+      "word": "Corn",
+      "accept": [
+        "corn on the cob",
+        "corncob"
+      ]
+    },
+    {
+      "word": "Touchdown",
+      "accept": [
+        "touch down"
+      ]
+    }
   ]
 }

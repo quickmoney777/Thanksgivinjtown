@@ -100,7 +100,10 @@ async function main() {
     const sizes = [0, 1].map((t) => state.players.filter((p) => p.team === t).length);
     check(sizes[0] === 2 && sizes[1] === 2, 'teams are dealt two and two');
 
-    // ----- Start with every round, bonus included -----
+    // ----- Start with every round, bonus included, played in order -----
+    check(state.pickGames === true, 'players pick each game is on by default');
+    await remote.ask('host:action', { type: 'pickGames', on: false });
+    await waitFor(() => state.pickGames === false, 'pick games off');
     const roundIds = catalog.rounds.map((r) => r.id);
     const started = await remote.ask('host:action', { type: 'start', roundIds });
     check(started.ok, `game starts${started.error ? `: ${started.error}` : ''}`);
@@ -111,6 +114,14 @@ async function main() {
     let lastKey = '';
     let reconnected = false;
     let paused = false;
+    let sawPin = false;
+    let sawSided = false;
+    let sidedTruth = '';
+    let overruled = false;
+    let sawSlow = false;
+    let sawHeadsUp = false;
+    let drawTeam = [];
+    let slowNow = false;
     const seenTypes = new Set();
 
     while (state.phase !== 'final') {
@@ -121,7 +132,38 @@ async function main() {
         await waitFor(() => answer && answerKey === q.key, 'the remote to be told the answer');
         check(state.game.reveal === null, `[${q.type} ${q.key}${q.stage ? ` ${q.stage}` : ''}] nothing revealed while answers are open`);
 
-        if (q.type === 'bluff') {
+        if (q.type === 'pin') {
+          check(!q.choices && ['usa', 'world'].includes(q.mapKind), '  a pin question has a map and no choices');
+          check((await players[0].socket.ask('player:answer', { x: 0.5, y: 0.45 })).ok, '  a pin is accepted');
+          check(!(await players[0].socket.ask('player:answer', { x: 0.2, y: 0.2 })).ok, '  moving a locked pin is refused');
+          check(!(await players[1].socket.ask('player:answer', { x: 7, y: 0.2 })).ok, '  a pin off the map is refused');
+          await players[1].socket.ask('player:answer', { x: 0.05, y: 0.95 });
+          sawPin = true;
+        } else if (q.type === 'bluff' && q.sided) {
+          sawSided = true;
+          const writers = players.filter((p) => q.writers.includes(p.id));
+          const guessers = players.filter((p) => q.guessers.includes(p.id));
+          if (q.stage === 'write') {
+            check(writers.length === 2 && guessers.length === 2, '  one side writes, the other side answers');
+            check(!(await guessers[0].socket.ask('player:answer', { text: 'sneaky' })).ok, '  the answering side cannot write a fake');
+            await waitFor(() => writers[0].mine && writers[0].mine.suggestions, 'suggestions');
+            check(writers[0].mine.suggestions.length > 0 && !(guessers[0].mine && guessers[0].mine.suggestions.length), '  only the writers get suggested fakes');
+            if (q.pictureOnPhones) {
+              sawSlow = true;
+              check(!q.image && writers[0].mine.image && !(guessers[0].mine && guessers[0].mine.image), '  a slow-reveal photo is only on the writers\' phones while fakes are written');
+            }
+            await writers[0].socket.ask('player:answer', { text: writers[0].mine.suggestions[0] });
+            await writers[1].socket.ask('player:answer', { text: 'Totally made up' });
+          } else {
+            const truth = q.options.find((o) => o.text === answer);
+            slowNow = Boolean(q.blur);
+            if (q.blur) check(Boolean(q.image), '  the photo reaches the TV, blurred, when the vote starts');
+            check(!(await writers[0].socket.ask('player:answer', { optionId: truth.id })).ok, '  the writing side cannot vote');
+            await guessers[0].socket.ask('player:answer', { optionId: truth.id });
+            await guessers[1].socket.ask('player:answer', { optionId: q.options.find((o) => o.id !== truth.id).id });
+            sidedTruth = guessers[0].id;
+          }
+        } else if (q.type === 'bluff') {
           if (q.stage === 'write') {
             const truthTry = await players[0].socket.ask('player:answer', { text: answer });
             check(!truthTry.ok, '  writing the real answer as your fake is refused');
@@ -138,6 +180,23 @@ async function main() {
               await p.socket.ask('player:answer', { optionId: pick.id });
             }
           }
+        } else if (q.type === 'headsup') {
+          const holder = players.find((p) => p.id === q.holderId);
+          const other = players.find((p) => p !== holder);
+          if (q.stage === 'ready') {
+            check(!(await other.socket.ask('player:answer', { ready: true })).ok, '  only the holder can start a Heads Up turn');
+            await holder.socket.ask('player:answer', { ready: true });
+          } else {
+            await waitFor(() => holder.mine && holder.mine.word && other.mine && other.mine.word, 'the word');
+            check(!JSON.stringify(state.game.question).includes(holder.mine.word), '  the current word is not on the TV');
+            const first = holder.mine.word;
+            check((await holder.socket.ask('player:answer', { result: 'right' })).ok, '  tipping up counts a word as right');
+            await waitFor(() => holder.mine.word !== first, 'next word');
+            await holder.socket.ask('player:answer', { result: 'pass' });
+            await holder.socket.ask('player:answer', { result: 'right' });
+            check(!(await other.socket.ask('player:answer', { result: 'right' })).ok, '  nobody else can score the holder\'s words');
+            sawHeadsUp = true;
+          }
         } else if (q.type === 'draw') {
           const artist = players.find((p) => p.id === q.artistId);
           check(Boolean(artist) && artist.mine && artist.mine.word === answer, '  only the artist is told the word');
@@ -151,18 +210,18 @@ async function main() {
           remote.off('draw');
           const synced = await remote.ask('draw:sync', null);
           check(strokes === 2 && synced.strokes.length === 1 && synced.strokes[0].points.length === 6, '  strokes reach the TV, and only from the artist');
-          const guessers = players.filter((p) => p !== artist);
-          const miss = await guessers[0].socket.ask('player:answer', { text: 'definitely not it' });
-          check(miss.ok && miss.correct === false, '  a wrong guess is told so');
-          for (const p of guessers) {
-            const hit = await p.socket.ask('player:answer', { text: ` ${answer.toUpperCase()}! ` });
-            check(hit.ok && hit.correct === true, `  ${p.name}'s right guess counts (any capitals or punctuation)`);
-          }
+          const sides = state.game.round.sides;
+          check(q.aloud && sides && q.teamIds.length === 1 && sides.of[q.teamIds[0]] === sides.of[artist.id], '  Pictionary: random teams of two, and the artist\'s teammate guesses');
+          const mate = players.find((p) => p.id === q.teamIds[0]);
+          const rival = players.find((p) => p !== artist && p !== mate);
+          check(!(await rival.socket.ask('player:answer', { gotIt: true })).ok, '  the other team cannot claim the word');
+          check((await mate.socket.ask('player:answer', { gotIt: true })).ok, '  a teammate taps "We got it!"');
+          drawTeam = [artist.id, mate.id];
         } else {
           const right = answer.split(':')[0];
           const wrong = q.choices.find((c) => c.id !== right).id;
           if (q.type === 'poster-reveal') check(Boolean(q.image) && q.blur, '  has a picture to un-blur');
-          if (q.type === 'map-it') check(Boolean(q.map), '  has a map');
+          if (q.type === 'sketch') check(Boolean(q.map), '  has a map');
 
           // Once per game: pause, and check the clock stops and answers wait.
           if (!paused) {
@@ -200,12 +259,31 @@ async function main() {
         const q = state.game.question;
         lastKey = `r:${q.key}`;
         const gains = state.game.reveal.gains;
-        if (q.type === 'bluff') {
+        if (q.type === 'pin') {
+          const r = state.game.reveal;
+          check(r.target && r.pins[players[0].id].miles >= 0 && r.closestId, '  pins are measured in miles and the closest is named');
+          check((gains[r.closestId] || 0) >= 250, '  the closest pin scores');
+        } else if (q.type === 'bluff' && q.sided) {
+          check(gains[sidedTruth] >= 1000, '  the side answering scores for finding the truth');
+          if (slowNow) check(gains[sidedTruth] > 1000 && gains[sidedTruth] <= 1500, `  a fast right answer on a slow reveal earns a bonus (${gains[sidedTruth]})`);
+          if (!overruled) {
+            overruled = true;
+            const loser = players.find((p) => q.guessers.includes(p.id) && p.id !== sidedTruth);
+            const before = state.players.find((p) => p.id === loser.id).score;
+            await remote.ask('host:action', { type: 'overrule', playerId: loser.id, correct: true });
+            await waitFor(() => state.players.find((p) => p.id === loser.id).score === before + 1000, 'overrule right');
+            await remote.ask('host:action', { type: 'overrule', playerId: loser.id, correct: false });
+            await waitFor(() => state.players.find((p) => p.id === loser.id).score === before, 'overrule wrong');
+            check(true, '  the host can mark an answer right or wrong after the reveal');
+          }
+        } else if (q.type === 'bluff') {
           check(gains[players[0].id] >= 1000, '  finding the truth scores');
           const shared = state.game.reveal.options.find((o) => o.authors.length === 2);
           check(Boolean(shared), '  two identical fakes are merged into one');
+        } else if (q.type === 'headsup') {
+          check(gains[q.holderId] === 400 && state.game.reveal.results.length === 3, '  two right and one pass scores 400 for the holder');
         } else if (q.type === 'draw') {
-          check(Object.keys(gains).length === 4, '  guessers and the artist all score');
+          check(Object.keys(gains).sort().join() === drawTeam.slice().sort().join() && gains[drawTeam[0]] === gains[drawTeam[1]], '  the artist and teammate score the same, the other team nothing');
         } else {
           check(gains[players[0].id] > 0 && !gains[players[1].id], '  right answer scores, wrong answer does not');
         }
@@ -214,7 +292,12 @@ async function main() {
     }
 
     check(questions > 0, `played ${questions} question stages across ${state.game.rounds.length} rounds`);
-    for (const type of ['multiple-choice', 'poster-reveal', 'name-the-artist', 'map-it', 'bluff', 'draw']) {
+    check(sawPin, 'played a pin-drop map question');
+    check(sawSided, 'played a parents-against-kids question');
+    check(sawSlow, 'played a slow-reveal photo question');
+    check(sawHeadsUp, 'played a Heads Up turn');
+    check(state.game.rounds.find((r) => r.id === 'trivia') && true, 'the Trivia game was played');
+    for (const type of ['multiple-choice', 'poster-reveal', 'name-the-artist', 'pin', 'bluff', 'draw', 'headsup']) {
       check(seenTypes.has(type), `played a ${type} round`);
     }
     const scores = state.players.map((p) => `${p.name} ${p.score}`).join(', ');
@@ -228,6 +311,45 @@ async function main() {
     await remote.ask('host:action', { type: 'lobby' });
     await waitFor(() => state.phase === 'lobby', 'lobby');
     check(state.game === null, 'back to the lobby for another game');
+
+    // ----- A second game where players vote for each game from a menu -----
+    await remote.ask('host:action', { type: 'pickGames', on: true });
+    const menuIds = ['trivia', 'sketch', 'bluff'];
+    const again = await remote.ask('host:action', { type: 'start', roundIds: menuIds });
+    check(again.ok, `a pick-your-game game starts${again.error ? `: ${again.error}` : ''}`);
+    await waitFor(() => state.phase === 'intro', 'intro');
+    await remote.ask('host:action', { type: 'next' });
+    await waitFor(() => state.phase === 'menu', 'the game menu');
+    check(state.game.menu.options.map((o) => o.id).join() === menuIds.join(), 'the menu lists the ticked games');
+    check(state.game.timer === null, 'no clock runs until someone votes');
+    check(!(await players[0].socket.ask('player:answer', { roundId: 'nope' })).ok, 'a vote for a game not on the menu is refused');
+    await players[0].socket.ask('player:answer', { roundId: 'sketch' });
+    await waitFor(() => state.game.menu.votes[players[0].id] === 'sketch' && state.game.timer, 'first vote');
+    await players[0].socket.ask('player:answer', { roundId: 'trivia' });
+    await waitFor(() => state.game.menu.votes[players[0].id] === 'trivia', 'changed vote');
+    check(true, 'a vote can be changed, and the first vote starts the clock');
+    await players[1].socket.ask('player:answer', { roundId: 'trivia' });
+    await players[2].socket.ask('player:answer', { roundId: 'sketch' });
+    await players[3].socket.ask('player:answer', { roundId: 'trivia' });
+    await waitFor(() => state.game.menu && state.game.menu.chosenId, 'a winner');
+    check(state.game.menu.chosenId === 'trivia', 'the game with the most votes wins');
+    check(!(await players[0].socket.ask('player:answer', { roundId: 'sketch' })).ok, 'votes close once the game is picked');
+    await waitFor(() => state.phase === 'roundIntro', 'the chosen round');
+    check(state.game.round.id === 'trivia' && state.game.round.count === 0, 'the chosen game starts');
+    await remote.ask('host:action', { type: 'skipRound' });
+    await waitFor(() => state.phase === 'menu', 'menu again');
+    check(state.game.menu.options.find((o) => o.id === 'trivia').played === 1, 'after the round the menu comes back and marks it played');
+    const forced = await remote.ask('host:action', { type: 'pickRound', roundId: 'bluff' });
+    await waitFor(() => state.phase === 'roundIntro', 'host pick');
+    check(forced.ok && state.game.round.id === 'bluff', 'the host can pick the game from the remote');
+    await remote.ask('host:action', { type: 'skipRound' });
+    await waitFor(() => state.phase === 'menu', 'menu a third time');
+    await remote.ask('host:action', { type: 'next' });
+    await waitFor(() => state.game.menu && state.game.menu.chosenId, 'surprise pick');
+    check(state.game.menu.chosenId === 'sketch', 'with no votes, a game that has not been played is picked');
+    await remote.ask('host:action', { type: 'endGame' });
+    await waitFor(() => state.phase === 'final', 'final');
+    check(true, 'the host ends the game from the menu and the winner screen shows');
 
     [host, remote, ...players.map((p) => p.socket)].forEach((s) => s.disconnect());
   } catch (err) {

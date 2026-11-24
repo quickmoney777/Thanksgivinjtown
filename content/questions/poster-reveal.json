@@ -3,6 +3,11 @@
   "type": "poster-reveal",
   "icon": "🎬",
   "tagline": "The picture starts blurry and sharpens. The sooner you get it, the more you score.",
+  "howTo": [
+    "A picture starts blurry and sharpens over 20 seconds.",
+    "Tap the right answer as soon as you know it. Early answers score far more.",
+    "One answer each. No changing your mind."
+  ],
   "questions": [
     {
       "question": "Name this album.",

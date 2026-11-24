@@ -3,6 +3,10 @@
   "type": "multiple-choice",
   "icon": "💃",
   "tagline": "Hits from the 90s and 2000s. Never heard them? Guess anyway.",
+  "howTo": [
+    "A Bollywood clip plays on the TV.",
+    "Tap the right answer. Faster right answers score more."
+  ],
   "questions": [
     {
       "question": "This is \"Chaiyya Chaiyya\" from 1998. Its famous dance scene was filmed on top of a moving what?",

@@ -1,23 +1,28 @@
 {
-  "gameTitle": "The Great Gobble-Off",
+  "gameTitle": "Trivia in Pennsylvania",
   "nameMaxLength": 12,
   "scoreAdjustStep": 100,
   "questionsPerRound": 5,
   "autoAdvance": true,
+  "playersPickGames": true,
   "roundOrder": [
-    "buckeyes-keystone",
-    "map-it",
-    "poster-reveal",
-    "name-the-artist",
+    "trivia",
+    "usa-map",
+    "world-map",
+    "generations",
+    "headsup",
     "sketch",
-    "around-the-world",
-    "bluff"
+    "bluff",
+    "poster-reveal",
+    "name-the-artist"
   ],
   "bonusRounds": [
     "bollywood"
   ],
   "timers": {
     "roundIntroSeconds": 6,
+    "menuSeconds": 20,
+    "menuChosenSeconds": 4,
     "questionSeconds": 20,
     "posterRevealSeconds": 20,
     "audioSeconds": 25,
@@ -27,7 +32,12 @@
     "revealSeconds": 8,
     "scoreboardSeconds": 10,
     "bluffRevealSeconds": 16,
-    "drawSeconds": 75
+    "drawSeconds": 75,
+    "instructionsSeconds": 20,
+    "pinSeconds": 30,
+    "pictionarySeconds": 60,
+    "headsUpReadySeconds": 30,
+    "headsUpSeconds": 60
   },
   "points": {
     "correct": 500,
@@ -38,7 +48,11 @@
     "bluffFooledPlayer": 500,
     "drawGuessed": 500,
     "drawSpeedBonusMax": 500,
-    "drawArtistPerGuess": 300
+    "drawArtistPerGuess": 300,
+    "pinMax": 750,
+    "pinClosestBonus": 250,
+    "bluffSpeedBonusMax": 500,
+    "headsUpRight": 200
   },
   "teams": {
     "names": [
@@ -59,5 +73,9 @@
       "id": 1441164589
     },
     "volume": 0.5
+  },
+  "groups": {
+    "parents": "Mom & Dad",
+    "kids": "The Kids"
   }
 }

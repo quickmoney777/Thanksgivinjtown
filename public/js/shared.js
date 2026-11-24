@@ -115,5 +115,46 @@ window.Gobble = (() => {
   }
 
 
-  return { $, h, plate, store, cleanCode, ordinal, ranked, makeClock, points, paint };
+  // The map for pin-drop questions: 'usa' (state shapes) or 'world'.
+  // maps = { usa: us-states.json, world: world.json }. Returns null until loaded.
+  function pinMap(kind, maps) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const data = maps && maps[kind];
+    if (!data) return null;
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', data.viewBox);
+    svg.setAttribute('class', `pin-map ${kind}`);
+    const [, , w, hgt] = data.viewBox.split(' ').map(Number);
+    const sea = document.createElementNS(NS, 'rect');
+    sea.setAttribute('width', w);
+    sea.setAttribute('height', hgt);
+    sea.setAttribute('class', 'sea');
+    svg.append(sea);
+    const shapes = kind === 'usa' ? Object.values(data.states).map((s) => s.d) : [data.d];
+    for (const d of shapes) {
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('class', 'land');
+      svg.append(path);
+    }
+    svg.mapSize = { w, h: hgt };
+    return svg;
+  }
+
+  // A dot on a pin map at a 0..1 position. Returns the SVG group.
+  function pinDot(svg, spot, color, cls, radius) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const { w, h: hgt } = svg.mapSize;
+    const g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', `pin ${cls || ''}`);
+    g.setAttribute('transform', `translate(${spot.x * w} ${spot.y * hgt})`);
+    const dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('r', radius || w / 70);
+    dot.style.fill = color;
+    g.append(dot);
+    svg.append(g);
+    return g;
+  }
+
+  return { $, h, plate, store, cleanCode, ordinal, ranked, makeClock, points, paint, pinMap, pinDot };
 })();

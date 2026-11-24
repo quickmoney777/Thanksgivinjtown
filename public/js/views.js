@@ -151,12 +151,13 @@ window.Views = (() => {
 
   const bluffView = {
     build(q) {
+      const picture = q.image ? h('div', { class: 'media poster' }, h('img', { src: q.image, alt: '' })) : null;
       return h(
         'div',
-        { class: `q bluff${q.text.length > 95 ? ' long' : ''}` },
+        { class: `q bluff${picture ? ' has-media' : ''}${q.text.length > 95 ? ' long' : ''}` },
         h('h2', { class: 'q-text' }, q.text),
         h('p', { class: 'bluff-how' }),
-        h('ol', { class: 'choices' }),
+        h('div', { class: 'q-body' }, picture, h('ol', { class: 'choices' })),
         h('p', { class: 'q-foot' })
       );
     },
@@ -169,10 +170,22 @@ window.Views = (() => {
       const foot = root.querySelector('.q-foot');
 
       if (phase === 'question' && q.stage === 'write') {
-        how.textContent = 'Make something up! Type a fake answer on your phone.';
+        how.textContent = q.pictureOnPhones
+          ? `${q.sided ? q.writerLabel : 'Everyone'}: a secret photo is on your phone. Send a fake name for it${q.sided ? ` to fool ${q.guesserLabel}` : ''}.`
+          : q.sided
+            ? `${q.writerLabel}: send a fake answer from your phone to fool ${q.guesserLabel}.`
+            : 'Make something up! Type a fake answer on your phone.';
         list.replaceChildren();
         foot.textContent = '';
         return;
+      }
+
+      // A slow-reveal picture arrives with the vote: add it, blurred.
+      if (q.image && !root.querySelector('.media')) {
+        root.classList.add('has-media');
+        root.querySelector('.q-body').prepend(
+          h('div', { class: `media poster${q.blur ? ' blurred' : ''}` }, h('img', { src: q.image, alt: '' }))
+        );
       }
 
       // Voting has started (or we skipped straight to the reveal): show the choices.
@@ -209,7 +222,11 @@ window.Views = (() => {
       list.classList.toggle('revealed', phase === 'reveal');
 
       if (phase === 'question') {
-        how.textContent = 'One of these is true. Pick it on your phone.';
+        how.textContent = q.blur
+          ? `${q.sided ? `${q.guesserLabel}: w` : 'W'}ho is it? The photo gets clearer, but faster right answers score more.`
+          : q.sided
+            ? `${q.guesserLabel}: one of these is true. Pick it on your phone.`
+            : 'One of these is true. Pick it on your phone.';
         foot.textContent = '';
       } else if (phase === 'locked') {
         how.textContent = g.lockReason === 'time' ? "Time's up." : 'All votes are in.';
@@ -220,9 +237,55 @@ window.Views = (() => {
     },
   };
 
+  // The slow-reveal photo sharpens through the vote, like Poster Reveal.
+  bluffView.frame = (root, share, ctx) => choiceView.frame(root, share, ctx);
+
   // ---------- Drawing ----------
 
   const paint = Gobble.paint;
+
+  // The team guessing a Pictionary drawing, by name, when teams were dealt.
+  const teamOf = (ctx, q) => {
+    const sides = ctx.state.game && ctx.state.game.round && ctx.state.game.round.sides;
+    return sides && q.side != null ? sides.names[q.side] : '';
+  };
+
+  // ---------- Heads Up ----------
+
+  const headsUpView = {
+    build(q, ctx) {
+      return h(
+        'div',
+        { class: 'q headsup' },
+        h('div', { class: 'hu-head' }, plateFor(ctx, q.holderId), h('h2', { class: 'q-text' }, '')),
+        h('p', { class: 'hu-how' }),
+        h('ul', { class: 'hu-words' }),
+        h('p', { class: 'q-foot' })
+      );
+    },
+
+    update(root, g, ctx) {
+      const phase = ctx.state.phase;
+      const q = g.question;
+      const who = nameOf(ctx, q.holderId);
+      const results = phase === 'reveal' && g.reveal ? g.reveal.results : q.results;
+      const right = results.filter((r) => r.right).length;
+      root.querySelector('.q-text').textContent =
+        phase === 'reveal' ? `${who} got ${right}` : q.stage === 'ready' ? `${who}, phone to your forehead` : `${q.deck}: ${right} right`;
+      root.querySelector('.hu-how').textContent =
+        q.stage === 'ready' && phase === 'question'
+          ? `Deck: ${q.deck}. Everyone else gives clues without saying the word. Tip the phone up for right, down to pass.`
+          : phase === 'question'
+            ? `Help ${who} guess the word on the phone. Don't say it!`
+            : '';
+      const list = root.querySelector('.hu-words');
+      if (list.dataset.n !== String(results.length)) {
+        list.dataset.n = String(results.length);
+        list.replaceChildren(...results.map((r) => h('li', { class: r.right ? 'right' : 'pass' }, `${r.right ? '✓' : '✗'} ${r.word}`)));
+      }
+      root.querySelector('.q-foot').textContent = phase === 'locked' ? "Time's up." : '';
+    },
+  };
 
   const drawView = {
     build(q, ctx) {
@@ -233,7 +296,15 @@ window.Views = (() => {
         h(
           'div',
           { class: 'draw-side' },
-          h('div', { class: 'draw-artist' }, plateFor(ctx, q.artistId), h('span', null, `${nameOf(ctx, q.artistId)} is drawing`)),
+          h(
+            'div',
+            { class: 'draw-artist' },
+            plateFor(ctx, q.artistId),
+            h('span', null, `${nameOf(ctx, q.artistId)} is drawing${teamOf(ctx, q) ? ` for ${teamOf(ctx, q)}` : ''}`)
+          ),
+          q.aloud
+            ? h('p', { class: 'draw-how' }, `${teamOf(ctx, q) || 'Everyone'}: shout your guesses. Tap "We got it!" once it's been said.`)
+            : null,
           h('p', { class: 'letters' }, q.letters.split('').join(' ')),
           h('ul', { class: 'guesses' }),
           h('p', { class: 'q-foot' })
@@ -283,7 +354,72 @@ window.Views = (() => {
     },
   };
 
-  const forType = (type) => (type === 'bluff' ? bluffView : type === 'draw' ? drawView : choiceView);
+  // ---------- Pin drop ----------
+
+  const pinView = {
+    build(q, ctx) {
+      const map = Gobble.pinMap(q.mapKind, ctx.maps);
+      return h(
+        'div',
+        { class: `q pin-q ${q.mapKind}` },
+        h('h2', { class: 'q-text' }, q.text),
+        h('div', { class: 'pin-body' }, h('div', { class: 'pin-stage' }, map), h('ol', { class: 'pin-list' })),
+        h('p', { class: 'q-foot' })
+      );
+    },
+
+    update(root, g, ctx) {
+      const phase = ctx.state.phase;
+      const foot = root.querySelector('.q-foot');
+      const list = root.querySelector('.pin-list');
+      if (phase === 'question') {
+        foot.textContent = 'Tap the spot on your phone. Closest pin wins.';
+      } else if (phase === 'locked') {
+        foot.textContent = g.lockReason === 'time' ? "Time's up." : 'All pins are in.';
+      } else if (phase === 'reveal' && g.reveal) {
+        foot.textContent = g.reveal.fact || '';
+        if (root.dataset.shown) return;
+        root.dataset.shown = '1';
+        const svg = root.querySelector('.pin-map');
+        const ranked = ctx.state.players
+          .filter((p) => g.reveal.pins[p.id])
+          .map((p) => ({ player: p, pin: g.reveal.pins[p.id] }))
+          .sort((a, b) => (a.pin.miles == null ? 1e9 : a.pin.miles) - (b.pin.miles == null ? 1e9 : b.pin.miles));
+        if (svg && g.reveal.target) {
+          const { w, h: hgt } = svg.mapSize;
+          for (const { player, pin } of ranked) {
+            const line = document.createElementNS(SVG, 'line');
+            line.setAttribute('x1', pin.x * w);
+            line.setAttribute('y1', pin.y * hgt);
+            line.setAttribute('x2', g.reveal.target.x * w);
+            line.setAttribute('y2', g.reveal.target.y * hgt);
+            line.setAttribute('class', 'pin-line');
+            svg.append(line);
+          }
+          for (const { player, pin } of ranked) {
+            const character = ctx.characters.get(player.characterId);
+            Gobble.pinDot(svg, pin, character ? character.color : '#a6b0b5', 'guess');
+          }
+          Gobble.pinDot(svg, g.reveal.target, '#f4c542', 'target');
+        }
+        list.replaceChildren(
+          h('li', { class: 'pin-answer' }, g.reveal.place),
+          ...ranked.map(({ player, pin }) =>
+            h(
+              'li',
+              { class: player.id === g.reveal.closestId ? 'closest' : '' },
+              plateFor(ctx, player.id),
+              h('span', { class: 'pin-who' }, player.name),
+              h('span', { class: 'pin-miles' }, pin.miles == null ? 'off the map' : `${Number(pin.miles).toLocaleString('en-US')} mi`)
+            )
+          )
+        );
+      }
+    },
+  };
+
+  const forType = (type) =>
+    type === 'bluff' ? bluffView : type === 'draw' ? drawView : type === 'pin' ? pinView : type === 'headsup' ? headsUpView : choiceView;
 
   return { forType, mapSvg };
 })();

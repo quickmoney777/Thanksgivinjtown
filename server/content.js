@@ -10,7 +10,8 @@ const DIR = path.join(__dirname, '..', 'content');
 
 // Round types the engine can play. Each has a module in server/modes.
 const CHOICE_TYPES = ['multiple-choice', 'poster-reveal', 'name-the-artist', 'map-it'];
-const SUPPORTED_TYPES = [...CHOICE_TYPES, 'bluff', 'draw'];
+const QUESTION_TYPES = [...CHOICE_TYPES, 'bluff', 'draw', 'pin', 'headsup']; // kinds of question
+const SUPPORTED_TYPES = [...QUESTION_TYPES, 'mixed']; // kinds of round file
 
 function readJson(file) {
   const full = path.join(DIR, file);
@@ -50,6 +51,7 @@ function loadCharacters() {
       image: c.image ? String(c.image) : '',
       color: /^#[0-9a-f]{3,8}$/i.test(c.color || '') ? c.color : '#A6B0B5',
       catchphrase: c.catchphrase ? String(c.catchphrase) : '',
+      group: c.group ? String(c.group) : '', // "parents" or "kids", for the Generations game
     };
   });
 }
@@ -62,10 +64,18 @@ const SETTING_DEFAULTS = {
   scoreAdjustStep: 100,
   questionsPerRound: 5,
   autoAdvance: true,
+  playersPickGames: true,
   roundOrder: [],
   bonusRounds: [],
   timers: {
     roundIntroSeconds: 6,
+    instructionsSeconds: 20,
+    pictionarySeconds: 60,
+    headsUpReadySeconds: 30,
+    headsUpSeconds: 60,
+    pinSeconds: 30,
+    menuSeconds: 20,
+    menuChosenSeconds: 4,
     questionSeconds: 20,
     posterRevealSeconds: 20,
     audioSeconds: 25,
@@ -87,6 +97,10 @@ const SETTING_DEFAULTS = {
     drawGuessed: 500,
     drawSpeedBonusMax: 500,
     drawArtistPerGuess: 300,
+    bluffSpeedBonusMax: 500,
+    headsUpRight: 200,
+    pinMax: 750,
+    pinClosestBonus: 250,
   },
   teams: {
     names: ['Team Scarlet', 'Team Gray'],
@@ -130,12 +144,17 @@ function loadSettings() {
     scoreAdjustStep: clampInt(raw.scoreAdjustStep, 1, 10000, SETTING_DEFAULTS.scoreAdjustStep),
     questionsPerRound: clampInt(raw.questionsPerRound, 1, 50, SETTING_DEFAULTS.questionsPerRound),
     autoAdvance: raw.autoAdvance !== false,
+    playersPickGames: raw.playersPickGames !== false,
     roundOrder: idList(raw.roundOrder),
     bonusRounds: idList(raw.bonusRounds),
     timers: numberGroup(raw.timers, SETTING_DEFAULTS.timers, 1, 600),
     points: numberGroup(raw.points, SETTING_DEFAULTS.points, 0, 100000),
     teams: teamSettings(raw.teams),
     lobbyMusic: musicSettings(raw.lobbyMusic),
+    groups: {
+      parents: String((raw.groups && raw.groups.parents) || 'The Parents'),
+      kids: String((raw.groups && raw.groups.kids) || 'The Kids'),
+    },
   };
 }
 
@@ -185,11 +204,32 @@ const same = (a, b) => a.toLowerCase() === b.toLowerCase();
 // Returns { question }, { error } or { held: true }. A bad question is
 // skipped with a warning rather than stopping the game. A question marked
 // "verify": true is held back until you've checked it and removed the flag.
-function normalizeQuestion(q, index, file, type) {
+function normalizeQuestion(q, index, file, roundType) {
   const where = `content/${file}, question ${index + 1}`;
   if (!q || typeof q !== 'object') return { error: `${where} is not an object.` };
   if (q.verify) return { held: true };
-  const id = text(q.id) || `${file}#${index + 1}`;
+  // In a "mixed" round every question says what kind it is.
+  const type = roundType === 'mixed' ? text(q.type) || 'multiple-choice' : roundType;
+  if (roundType === 'mixed' && !QUESTION_TYPES.includes(type)) {
+    return { error: `${where}: "${type}" is not a kind of question.` };
+  }
+  const result = normalizeOne(q, where, text(q.id) || `${file}#${index + 1}`, type);
+  if (result.question) {
+    if (roundType === 'mixed') result.question.type = type;
+    result.question.category = text(q.category);
+  }
+  return result;
+}
+
+function normalizeOne(q, where, id, type) {
+
+  if (type === 'headsup') {
+    const deck = text(q.deck);
+    const words = Array.from(new Set((Array.isArray(q.words) ? q.words : []).map(text).filter(Boolean)));
+    if (!deck) return { error: `${where} needs a "deck" name.` };
+    if (words.length < 5) return { error: `${where} needs at least 5 "words".` };
+    return { question: { id, deck, words } };
+  }
 
   if (type === 'draw') {
     const word = text(q.word);
@@ -204,15 +244,42 @@ function normalizeQuestion(q, index, file, type) {
   if (!answer) return { error: `${where} needs an "answer".` };
 
   if (type === 'bluff') {
-    const decoys = (Array.isArray(q.decoys) ? q.decoys : []).map(text).filter((d) => d && !same(d, answer));
+    const clean = (list) => (Array.isArray(list) ? list : []).map(text).filter((d) => d && !same(d, answer));
     return {
       question: {
         id,
         text: prompt,
         answer,
-        decoys,
+        decoys: clean(q.decoys),
+        suggestions: clean(q.suggestions), // ready-made fakes offered to whoever is writing
+        for: ['parents', 'kids'].includes(q.for) ? q.for : '', // who has to answer; the other side writes the fakes
+        slowReveal: Boolean(q.slowReveal), // the picture sharpens while they choose; faster right answers score more
         fact: text(q.fact),
+        image: text(q.image),
+        lookup: lookupSpec(q.itunes, q.wikipedia),
         timeSeconds: 0,
+      },
+    };
+  }
+
+  if (type === 'pin') {
+    const lat = Number(q.lat);
+    const lon = Number(q.lon);
+    const mapKind = q.map === 'world' ? 'world' : 'usa';
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return { error: `${where} needs "lat" and "lon" numbers.` };
+    if (mapKind === 'usa' && !require('./modes/pin').toMap('usa', lon, lat)) {
+      return { error: `${where}: that spot isn't on the USA map.` };
+    }
+    return {
+      question: {
+        id,
+        text: prompt,
+        answer,
+        mapKind,
+        lat,
+        lon,
+        fact: text(q.fact),
+        timeSeconds: q.timeSeconds ? clampInt(q.timeSeconds, 5, 600, 0) : 0,
       },
     };
   }
@@ -293,16 +360,32 @@ function loadRounds(settings) {
       const result = normalizeQuestion(q, i, file, type);
       if (result.held) held += 1;
       else if (result.error) warnings.push(result.error);
-      else questions.push(result.question);
+      else {
+        // Pictionary style: guesses are shouted out, and a tap says "got it".
+        if (type === 'draw' && raw.guessing === 'aloud') result.question.aloud = true;
+        questions.push(result.question);
+      }
     });
     if (questions.length === 0) {
       warnings.push(`content/${file} has no usable questions.`);
       continue;
     }
+    // "mix": { "food": 4, "pittsburgh": 2 } draws that many from each category per game.
+    const mix = {};
+    if (raw.mix && typeof raw.mix === 'object') {
+      for (const [category, count] of Object.entries(raw.mix)) {
+        if (Number(count) > 0) mix[category] = Math.floor(Number(count));
+      }
+    }
     rounds.set(id, {
       id,
       title: text(raw.title) || id,
       tagline: text(raw.tagline),
+      howTo: (Array.isArray(raw.howTo) ? raw.howTo : []).map(text).filter(Boolean), // instructions shown before the game
+      mix: Object.keys(mix).length ? mix : null,
+      perGame: raw.questionsPerGame ? clampInt(raw.questionsPerGame, 1, 100, 0) : 0,
+      perPlayer: raw.turnsPerPlayer ? clampInt(raw.turnsPerPlayer, 1, 5, 0) : 0, // turns each player gets, instead of a fixed count
+      teams: raw.teams === 'random' ? 'random' : '', // deal everyone into two random teams for this game
       icon: text(raw.icon),
       type,
       bonus: !settings.roundOrder.includes(id),

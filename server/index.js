@@ -151,6 +151,14 @@ function hostAction(room, action) {
     case 'endGame':
       engine.endGame(room);
       return {};
+    case 'overrule':
+      return engine.overrule(room, action.playerId, action.correct);
+    case 'pickRound':
+      return engine.pickRound(room, action.roundId);
+    case 'pickGames':
+      if (room.phase !== 'lobby') return { error: 'This can only be changed in the lobby.' };
+      room.pickOn = Boolean(action.on);
+      return {};
     case 'reload':
       // Re-read the question files, for edits made while the room is open.
       if (room.phase !== 'lobby') return { error: 'Go back to the lobby first.' };

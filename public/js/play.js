@@ -32,6 +32,22 @@
     el.hidden = !message;
   }
 
+  // Maps for the pin-drop questions.
+  const maps = { usa: null, world: null };
+  for (const [kind, url] of [['usa', '/data/us-states.json'], ['world', '/data/world.json']]) {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        maps[kind] = data;
+        if (state && state.game && state.game.question && state.game.question.type === 'pin') {
+          gameKey = '';
+          render();
+        }
+      })
+      .catch(() => {});
+  }
+  let myPin = null; // where this player has tapped, before locking it in
+
   // Show the game's name on the code screen, before we're in a room.
   fetch('/api/info')
     .then((res) => res.json())
@@ -245,9 +261,12 @@
     // One view per step. Rebuilding only when the step changes means a tap,
     // or half-typed text, can't be lost because someone else's answer
     // triggered a redraw.
+    const menu = g && g.menu;
     const key = q
       ? `${phase}:${q.key}:${q.stage || ''}:${stepOf(q, my)}`
-      : `${phase}:${g && g.round ? g.round.number : ''}`;
+      : menu
+        ? `menu:${g.rounds.length}:${menu.votes[me.id] || ''}:${menu.chosenId || ''}`
+        : `${phase}:${g && g.round ? g.round.number : ''}`;
     if (key !== gameKey) problem = '';
     note('#game-note', g && g.paused ? 'The host paused the game.' : problem);
     if (key === gameKey) return;
@@ -257,7 +276,14 @@
 
   // Is the game still waiting for this player to do something?
   function needsInput(q, my) {
-    if (q.type === 'bluff') return q.stage === 'write' ? !(my && my.lie) : !(my && my.voteId);
+    if (q.type === 'bluff') {
+      const role = (my && my.role) || 'both';
+      if (q.stage === 'write') return (role === 'both' || role === 'writer') && !(my && my.lie);
+      return (role === 'both' || role === 'guesser') && !(my && my.voteId);
+    }
+    if (q.type === 'pin') return !(my && my.pin);
+    if (q.type === 'headsup') return Boolean(my && my.holder);
+    if (q.type === 'draw' && q.aloud) return Boolean(my && (my.artist || my.onTeam) && !my.correct);
     if (q.type === 'draw') return !(my && (my.artist || my.correct));
     return !(my && my.choiceId);
   }
@@ -265,7 +291,10 @@
   // Where this player is within the question, for deciding when to redraw.
   function stepOf(q, my) {
     if (!my) return 'open';
-    if (q.type === 'bluff') return `${my.lie ? 'L' : ''}${my.voteId ? 'V' : ''}${my.ownOptionId}`;
+    if (q.type === 'bluff') return `${my.role || ''}${my.lie ? 'L' : ''}${my.voteId ? 'V' : ''}${my.ownOptionId}${my.image ? 'P' : ''}`;
+    if (q.type === 'pin') return my.pin ? 'pinned' : 'open';
+    if (q.type === 'headsup') return `${my.holder ? 'H' : 'C'}:${my.stage}:${my.index}`;
+    if (q.type === 'draw' && q.aloud) return my.artist ? 'artist' : `${my.onTeam ? 'team' : 'other'}${my.correct ? ':got' : ''}`;
     if (q.type === 'draw') return my.artist ? 'artist' : my.correct ? 'got' : 'open';
     return my.choiceId ? 'done' : 'open';
   }
@@ -274,18 +303,64 @@
     if (phase === 'intro' || !g) {
       return [h('h1', null, 'Game on'), h('p', { class: 'lede' }, 'Eyes on the TV. Your buttons will show up here.')];
     }
+    if (phase === 'menu' && g.menu) return buildMenu(me, g.menu);
     if (phase === 'roundIntro') {
       return [
-        h('p', { class: 'kicker' }, `Round ${g.round.number} of ${g.round.count}`),
+        h('p', { class: 'kicker' }, g.round.count ? `Round ${g.round.number} of ${g.round.count}` : `Game ${g.round.number}`),
         h('h1', null, `${g.round.icon ? `${g.round.icon} ` : ''}${g.round.title}`),
         h('p', { class: 'lede' }, g.round.tagline || 'Get ready.'),
+        g.round.sides && g.round.sides.of[me.id] != null
+          ? h('p', { class: 'win' }, `You're on ${g.round.sides.names[g.round.sides.of[me.id]]}`)
+          : null,
+        g.round.howTo && g.round.howTo.length
+          ? h('ol', { class: 'how-to' }, ...g.round.howTo.map((line) => h('li', null, line)))
+          : null,
       ];
     }
     if (phase === 'scores' || phase === 'final') return buildStanding(me, g, phase);
     if (!q) return [h('p', { class: 'lede' }, 'Watch the TV.')];
     if (q.type === 'bluff') return buildBluff(me, g, phase, q, my);
+    if (q.type === 'pin') return buildPin(me, g, phase, q, my);
+    if (q.type === 'headsup') return buildHeadsUp(me, g, phase, q, my);
     if (q.type === 'draw') return buildDraw(me, g, phase, q, my);
     return buildChoice(me, g, phase, q, my);
+  }
+
+  // ----- The game menu: vote for what to play next -----
+
+  function buildMenu(me, menu) {
+    const chosen = menu.options.find((o) => o.id === menu.chosenId);
+    if (chosen) {
+      return [
+        h('p', { class: 'kicker' }, 'Next up'),
+        h('h1', null, `${chosen.icon ? `${chosen.icon} ` : ''}${chosen.title}`),
+        h('p', { class: 'lede' }, chosen.tagline || 'Get ready.'),
+      ];
+    }
+    const myVote = menu.votes[me.id];
+    const buttons = menu.options.map((option) =>
+      h(
+        'button',
+        {
+          class: 'game-pick',
+          type: 'button',
+          'aria-pressed': String(myVote === option.id),
+          onclick: () => send({ roundId: option.id }, buttons),
+        },
+        h('span', { class: 'game-pick-icon', 'aria-hidden': 'true' }, option.icon || '🎲'),
+        h(
+          'span',
+          null,
+          h('span', { class: 'game-pick-name' }, option.title),
+          h('span', { class: 'game-pick-sub' }, option.played ? 'Played already. New questions.' : option.tagline || '')
+        )
+      )
+    );
+    return [
+      h('h1', null, myVote ? 'Vote in' : 'Pick the next game'),
+      h('p', { class: 'lede' }, myVote ? 'Tap another game to change your vote.' : 'Most votes wins.'),
+      h('div', { class: 'game-picks' }, ...buttons),
+    ];
   }
 
   function gainLine(me, g) {
@@ -354,9 +429,202 @@
     });
   }
 
+  // ----- Pin drop -----
+
+  function buildPin(me, g, phase, q, my) {
+    if (phase === 'question' && !(my && my.pin)) {
+      myPin = null;
+      const svg = Gobble.pinMap(q.mapKind, maps);
+      if (!svg) return [h('p', { class: 'ask' }, q.text), h('p', { class: 'lede' }, 'Loading the map…')];
+      const button = h('button', { class: 'action', type: 'button', disabled: true }, 'Zoom in, then drop your pin');
+      const hint = h('p', { class: 'lede' }, 'Tap the map to zoom in on an area.');
+      const zoomOut = h('button', { class: 'link-button', type: 'button', hidden: true }, 'Zoom out');
+      const { w: W, h: H } = svg.mapSize;
+      const ZOOM = 4; // how far one tap zooms in
+      let view = { x: 0, y: 0, w: W, h: H };
+      let dot = null;
+      const drawDot = () => {
+        if (dot) dot.remove();
+        // Keep the pin the same size on screen whether zoomed in or out.
+        dot = myPin ? Gobble.pinDot(svg, myPin, '#f28c28', 'mine', view.w / 55) : null;
+      };
+      const show = (next) => {
+        view = next;
+        svg.setAttribute('viewBox', `${view.x} ${view.y} ${view.w} ${view.h}`);
+        const zoomed = view.w < W;
+        zoomOut.hidden = !zoomed;
+        svg.classList.toggle('zoomed', zoomed);
+        hint.textContent = zoomed
+          ? 'Tap the exact spot to drop your pin. Tap again to move it.'
+          : 'Tap the map to zoom in on an area.';
+        drawDot();
+      };
+      svg.addEventListener('pointerdown', (event) => {
+        const box = svg.getBoundingClientRect();
+        const fx = (event.clientX - box.left) / box.width;
+        const fy = (event.clientY - box.top) / box.height;
+        if (!(fx >= 0 && fx <= 1 && fy >= 0 && fy <= 1)) return;
+        const mx = view.x + fx * view.w;
+        const my = view.y + fy * view.h;
+        if (view.w === W) {
+          // First tap: zoom in around the tapped spot.
+          const w = W / ZOOM;
+          const hgt = H / ZOOM;
+          show({ x: Math.min(W - w, Math.max(0, mx - w / 2)), y: Math.min(H - hgt, Math.max(0, my - hgt / 2)), w, h: hgt });
+          return;
+        }
+        myPin = { x: mx / W, y: my / H };
+        drawDot();
+        button.disabled = false;
+        button.textContent = 'Lock in my pin';
+      });
+      zoomOut.addEventListener('click', () => show({ x: 0, y: 0, w: W, h: H }));
+      button.addEventListener('click', () => {
+        if (myPin) send({ x: myPin.x, y: myPin.y }, [button]);
+      });
+      return [h('p', { class: 'ask' }, q.text), hint, h('div', { class: 'pin-pad' }, svg), button, zoomOut];
+    }
+    if (phase === 'question' || phase === 'locked') {
+      if (!(my && my.pin)) return [h('h1', null, "Time's up"), h('p', { class: 'lede' }, 'No pin from you this time. Watch the TV.')];
+      return [h('h1', null, 'Pin dropped'), h('p', { class: 'lede' }, phase === 'locked' ? 'Watch the TV.' : 'Waiting for everyone else.')];
+    }
+    if (!g.reveal) return [];
+    const mine = g.reveal.pins[me.id];
+    return [
+      h('h1', { class: g.reveal.closestId === me.id ? 'good' : '' }, g.reveal.closestId === me.id ? 'Closest!' : g.reveal.place),
+      mine
+        ? h('p', { class: 'lede' }, mine.miles == null ? 'Your pin was off the map.' : `You were ${Number(mine.miles).toLocaleString('en-US')} miles away. It was ${g.reveal.place}.`)
+        : h('p', { class: 'lede' }, `No pin from you. It was ${g.reveal.place}.`),
+      gainLine(me, g),
+    ];
+  }
+
+  // ----- Heads Up -----
+
+  // Tilt detection. The phone is on the player's forehead, screen out.
+  // Screen tipped up to the ceiling = right. Tipped down to the floor = pass.
+  const IOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  let tiltAction = null; // set while a Heads Up word is on this phone
+  let tiltArmed = false; // the phone must come back upright between words
+  let tiltListening = false;
+  function onMotion(event) {
+    const a = event.accelerationIncludingGravity;
+    if (!a || a.z == null || !tiltAction) return;
+    // Android reports +z with the screen facing up; iPhones report the opposite.
+    const z = IOS ? -a.z : a.z;
+    if (Math.abs(z) < 3.5) {
+      tiltArmed = true;
+      return;
+    }
+    if (!tiltArmed || Math.abs(z) < 6.5) return;
+    tiltArmed = false;
+    tiltAction(z > 0 ? 'right' : 'pass');
+  }
+  async function startTilt() {
+    if (tiltListening) return true;
+    try {
+      // iPhones ask the player for permission, and only from a tap.
+      if (window.DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function') {
+        if ((await DeviceMotionEvent.requestPermission()) !== 'granted') return false;
+      }
+      if (!window.DeviceMotionEvent) return false;
+      window.addEventListener('devicemotion', onMotion);
+      tiltListening = true;
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function buildHeadsUp(me, g, phase, q, my) {
+    const holder = Boolean(my && my.holder);
+    const who = nameOf(q.holderId);
+    tiltAction = null;
+    if (phase === 'reveal' && g.reveal) {
+      return [
+        h('h1', { class: holder && g.reveal.right ? 'good' : '' }, holder ? `You got ${g.reveal.right}` : `${who} got ${g.reveal.right}`),
+        holder ? gainLine(me, g) : null,
+        h('p', { class: 'lede' }, g.reveal.results.map((r) => `${r.right ? '✓' : '✗'} ${r.word}`).join('   ')),
+      ];
+    }
+    if (phase === 'locked') return [h('h1', null, "Time's up"), h('p', { class: 'lede' }, 'Watch the TV.')];
+
+    if (!holder) {
+      if (q.stage === 'ready') {
+        return [
+          h('p', { class: 'kicker' }, q.deck),
+          h('h1', null, `${who} is up`),
+          h('p', { class: 'lede' }, `When the word appears, help ${who} guess it. Describe it or act it out, but never say the word itself.`),
+        ];
+      }
+      return [
+        h('p', { class: 'kicker' }, `Help ${who} guess this. Don't say it!`),
+        h('h1', { class: 'good' }, (my && my.word) || 'Look at the phone'),
+        h('p', { class: 'lede' }, `${q.right} right so far.`),
+      ];
+    }
+
+    if (q.stage === 'ready') {
+      const button = h('button', { class: 'action', type: 'button' }, "I'm ready");
+      const warn = h('p', { class: 'lede tight' }, '');
+      button.addEventListener('click', async () => {
+        const ok = await startTilt();
+        if (!ok) warn.textContent = "Tilting isn't available on this phone, so use the two buttons instead.";
+        send({ ready: true }, [button]);
+      });
+      return [
+        h('p', { class: 'kicker' }, `Heads Up: ${q.deck}`),
+        h('h1', null, "You're holding the phone"),
+        h(
+          'ol',
+          { class: 'how-to' },
+          h('li', null, 'Turn your phone sideways and hold it to your forehead, screen facing everyone else.'),
+          h('li', null, 'They give you clues. You guess the word on the screen.'),
+          h('li', null, 'Tip the screen UP to the ceiling when you get it right.'),
+          h('li', null, 'Tip it DOWN to the floor to pass.')
+        ),
+        button,
+        warn,
+      ];
+    }
+
+    // The word, as big as the screen allows, with buttons as a fallback.
+    const card = h('div', { class: 'headsup-card' }, h('span', { class: 'headsup-word' }, (my && my.word) || ''));
+    const right = h('button', { class: 'headsup-btn right', type: 'button' }, '▲ Right');
+    const pass = h('button', { class: 'headsup-btn pass', type: 'button' }, '▼ Pass');
+    let sent = false;
+    const answer = (result) => {
+      if (sent) return;
+      sent = true;
+      card.classList.add(result === 'right' ? 'flash-right' : 'flash-pass');
+      if (navigator.vibrate) navigator.vibrate(result === 'right' ? 60 : [40, 60, 40]);
+      send({ result }, [right, pass]);
+    };
+    right.addEventListener('click', () => answer('right'));
+    pass.addEventListener('click', () => answer('pass'));
+    tiltAction = answer;
+    tiltArmed = false; // wait for the phone to come back upright first
+    startTilt();
+    return [card, h('div', { class: 'headsup-btns' }, right, pass)];
+  }
+
   // ----- Bluff -----
 
   function buildBluff(me, g, phase, q, my) {
+    const role = (my && my.role) || 'both';
+    if (phase === 'question' && q.stage === 'write' && (role === 'guesser' || role === 'watcher')) {
+      return [
+        h('h1', null, 'Hang tight'),
+        h('p', { class: 'lede' }, `${q.writerLabel || 'The other side'} are making up fake answers for you. Don't look at their phones.`),
+      ];
+    }
+    if (phase === 'question' && q.stage === 'vote' && (role === 'writer' || role === 'watcher')) {
+      return [
+        h('h1', null, 'Watch them guess'),
+        h('p', { class: 'lede' }, `${q.guesserLabel || 'The other side'} are choosing. You score for every one of them your fake fools.`),
+        my && my.lie ? h('p', { class: 'quote' }, `“${my.lie}”`) : null,
+      ];
+    }
     if (phase === 'question' && q.stage === 'write') {
       if (my && my.lie) {
         return [
@@ -386,10 +654,39 @@
         input,
         button
       );
+      const ideas = (my && my.suggestions) || [];
       return [
         h('p', { class: 'ask' }, q.text),
-        h('p', { class: 'lede' }, 'Make up an answer that sounds real enough to fool everyone.'),
+        my && my.image ? h('img', { class: 'secret-photo', src: my.image, alt: 'The secret photo' }) : null,
+        h(
+          'p',
+          { class: 'lede' },
+          q.sided
+            ? `Make up an answer that sounds real enough to fool ${q.guesserLabel}.`
+            : 'Make up an answer that sounds real enough to fool everyone.'
+        ),
         form,
+        ideas.length
+          ? h(
+              'div',
+              { class: 'ideas' },
+              h('p', { class: 'ideas-title' }, 'Stuck? Tap one of these, then send it or change it.'),
+              ...ideas.map((idea) =>
+                h(
+                  'button',
+                  {
+                    class: 'idea',
+                    type: 'button',
+                    onclick: () => {
+                      input.value = idea;
+                      input.focus();
+                    },
+                  },
+                  idea
+                )
+              )
+            )
+          : null,
       ];
     }
 
@@ -421,7 +718,7 @@
       });
       return [
         h('p', { class: 'ask' }, q.text),
-        h('p', { class: 'lede' }, 'Which one is the truth?'),
+        h('p', { class: 'lede' }, q.blur ? 'Watch the photo on the TV get clearer. Faster right answers score more.' : 'Which one is the truth?'),
         h('div', { class: 'answers' }, ...buttons),
       ];
     }
@@ -468,6 +765,30 @@
       ];
     }
     if (phase === 'locked') return [h('h1', null, 'Pencils down'), h('p', { class: 'lede' }, 'Watch the TV.')];
+
+    if (q.aloud) {
+      // Pictionary: guesses are shouted out, and a tap says it's been guessed.
+      const sides = g.round && g.round.sides;
+      const teamName = sides && q.side != null ? sides.names[q.side] : '';
+      const got = (label) => {
+        const button = h('button', { class: 'action got-it', type: 'button' }, label);
+        button.addEventListener('click', () => send({ gotIt: true }, [button]));
+        return button;
+      };
+      if (artist) return [...buildPad(my.word), got('They said it!')];
+      if (my && my.onTeam) {
+        return [
+          h('p', { class: 'kicker' }, teamName ? `${teamName}, you're up` : "You're guessing"),
+          h('h1', null, `Shout what ${nameOf(q.artistId)} is drawing`),
+          h('p', { class: 'lede' }, `Watch the TV and call out your guesses. Tap the button only once ${nameOf(q.artistId)} says you got it.`),
+          got('We got it!'),
+        ];
+      }
+      return [
+        h('h1', null, 'Shhh'),
+        h('p', { class: 'lede' }, `${teamName || 'The other team'} is guessing this one. No helping!`),
+      ];
+    }
 
     if (artist) return buildPad(my.word);
 

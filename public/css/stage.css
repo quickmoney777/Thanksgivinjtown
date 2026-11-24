@@ -970,3 +970,441 @@
   font-size: calc(var(--u) * 1.5);
   font-weight: 800;
 }
+
+/* ---------- Game menu: everyone votes for the next game ---------- */
+
+.menu {
+  width: 100%;
+  text-align: center;
+}
+
+.menu-title {
+  margin: 0;
+  font: 400 calc(var(--u) * 3.6) / 1 var(--display);
+}
+
+.menu-help {
+  margin: 0.35em 0 0.9em;
+  font-size: calc(var(--u) * 1.9);
+  color: var(--gray);
+}
+
+.menu-help.decided {
+  color: var(--mustard);
+  font-weight: 800;
+}
+
+.menu-grid {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0 0 calc(var(--u) * 1.6);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: calc(var(--u) * 2.4) calc(var(--u) * 1.6);
+  max-width: calc(var(--u) * 86);
+}
+
+.menu-grid.n9,
+.menu-grid.n10 {
+  grid-template-columns: repeat(5, 1fr);
+  max-width: calc(var(--u) * 92);
+}
+
+.menu-grid.n9 .menu-name,
+.menu-grid.n10 .menu-name {
+  font-size: calc(var(--u) * 1.8);
+}
+
+.menu-grid.n1,
+.menu-grid.n2,
+.menu-grid.n3,
+.menu-grid.n5,
+.menu-grid.n6 {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: calc(var(--u) * 68);
+}
+
+.menu-card {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: calc(var(--u) * 0.4);
+  min-height: calc(var(--u) * 10.4);
+  padding: calc(var(--u) * 0.9) calc(var(--u) * 1) calc(var(--u) * 1.5);
+  border: calc(var(--u) * 0.3) solid var(--crust);
+  border-radius: calc(var(--u) * 1.6);
+  background: var(--gravy);
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2),
+    opacity 0.35s,
+    border-color 0.2s;
+}
+
+.menu-icon {
+  font-size: calc(var(--u) * 3.4);
+  line-height: 1;
+}
+
+.menu-name {
+  font: 400 calc(var(--u) * 2.05) / 1.1 var(--display);
+  text-wrap: balance;
+}
+
+.menu-played {
+  position: absolute;
+  top: calc(var(--u) * 0.7);
+  right: calc(var(--u) * 0.7);
+  padding: 0.15em 0.6em;
+  border-radius: 99px;
+  background: var(--crust);
+  color: var(--gray);
+  font-size: calc(var(--u) * 1.1);
+  font-weight: 800;
+}
+
+/* Voters' plates sit on the bottom edge of the card they picked. */
+.menu-votes {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--u) * -1.7);
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--u) * 0.3);
+}
+
+.menu-votes .plate {
+  --size: calc(var(--u) * 3.3);
+  animation: stamp 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.menu-card.chosen {
+  border-color: var(--mustard);
+  background: var(--crust);
+  transform: scale(1.07);
+  z-index: 1;
+}
+
+.menu-card.passed {
+  opacity: 0.35;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-card {
+    transition: none;
+  }
+  .menu-votes .plate {
+    animation: none;
+  }
+}
+
+/* ---------- Instructions before a game ---------- */
+
+.round-card.with-how .round-icon {
+  font-size: calc(var(--u) * 5);
+}
+
+.round-card.with-how .round-title {
+  font-size: calc(var(--u) * 5);
+}
+
+.round-card.with-how .round-tag {
+  font-size: calc(var(--u) * 2.1);
+}
+
+.how-to {
+  max-width: calc(var(--u) * 70);
+  margin: calc(var(--u) * 1.6) auto 0;
+  padding: calc(var(--u) * 1.4) calc(var(--u) * 2) calc(var(--u) * 1.4) calc(var(--u) * 4.4);
+  border-radius: calc(var(--u) * 1.6);
+  background: var(--gravy);
+  text-align: left;
+  font-size: calc(var(--u) * 2.1);
+  line-height: 1.35;
+}
+
+.how-to li + li {
+  margin-top: 0.35em;
+}
+
+.how-to li::marker {
+  color: var(--mustard);
+  font-weight: 800;
+}
+
+.side-line {
+  margin: calc(var(--u) * -1.4) 0 calc(var(--u) * 1.6);
+  font-size: calc(var(--u) * 2.2);
+  font-weight: 800;
+  color: var(--mustard);
+  white-space: pre;
+}
+
+/* ---------- Bluff with a picture ---------- */
+
+.q.bluff.has-media .q-body {
+  grid-template-columns: calc(var(--u) * 26) 1fr;
+}
+
+.q.bluff.has-media .media.poster img {
+  height: calc(var(--u) * 21);
+  border-radius: calc(var(--u) * 1.2);
+}
+
+/* ---------- Pin drop ---------- */
+
+.pin-q .q-text {
+  margin-bottom: calc(var(--u) * 1);
+  font-size: calc(var(--u) * 3);
+}
+
+.pin-q .q-foot {
+  margin-top: calc(var(--u) * 0.8);
+  font-size: calc(var(--u) * 1.9);
+}
+
+.pin-body {
+  display: grid;
+  grid-template-columns: 1fr calc(var(--u) * 24);
+  gap: calc(var(--u) * 2.4);
+  align-items: center;
+}
+
+.pin-stage {
+  display: grid;
+  place-items: center;
+}
+
+.pin-map {
+  display: block;
+  width: 100%;
+  max-height: calc(var(--u) * 21.5);
+  border-radius: calc(var(--u) * 1.2);
+}
+
+.pin-map .sea {
+  fill: #33221a;
+}
+
+.pin-map.usa .sea {
+  fill: transparent;
+}
+
+.pin-map .land {
+  fill: #7a5139;
+  stroke: var(--roast);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.pin-map.world .land {
+  stroke-width: 0.6;
+}
+
+.pin circle {
+  stroke: var(--cream);
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.pin.target circle {
+  stroke: var(--roast);
+  animation: stamp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.pin-line {
+  stroke: var(--cream);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+  opacity: 0.6;
+  vector-effect: non-scaling-stroke;
+}
+
+.pin-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: calc(var(--u) * 0.9);
+}
+
+.pin-list li {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1);
+  padding: calc(var(--u) * 0.6) calc(var(--u) * 1.2);
+  border-radius: calc(var(--u) * 1.2);
+  background: var(--gravy);
+  font-size: calc(var(--u) * 1.9);
+  font-weight: 800;
+}
+
+.pin-list li.closest {
+  background: var(--crust);
+  box-shadow: inset 0 0 0 calc(var(--u) * 0.3) var(--mustard);
+}
+
+.pin-list .pin-answer {
+  justify-content: center;
+  background: var(--mustard);
+  color: var(--roast);
+  font: 400 calc(var(--u) * 2.2) / 1.1 var(--display);
+  text-align: center;
+}
+
+.pin-list .plate {
+  --size: calc(var(--u) * 3.4);
+}
+
+.pin-who {
+  flex: 1;
+  text-align: left;
+}
+
+.pin-miles {
+  color: var(--mustard);
+}
+
+/* With instructions on screen, the card keeps only the title and the steps. */
+.round-card.with-how .round-icon,
+.round-card.with-how .round-num,
+.round-card.with-how .round-tag,
+.round-card.with-how .round-count {
+  display: none;
+}
+
+.round-card.with-how .round-title {
+  margin: 0;
+  font-size: calc(var(--u) * 4.2);
+}
+
+.round-card.with-how .how-to {
+  max-width: calc(var(--u) * 84);
+  margin-top: calc(var(--u) * 1.4);
+  padding: calc(var(--u) * 1.2) calc(var(--u) * 2) calc(var(--u) * 1.2) calc(var(--u) * 4.2);
+  font-size: calc(var(--u) * 1.85);
+  line-height: 1.3;
+}
+
+/* A picture next to the fakes: keep everything above the player strip. */
+.q.bluff.has-media .q-text {
+  margin-bottom: calc(var(--u) * 0.4);
+  font-size: calc(var(--u) * 2.8);
+}
+
+.q.bluff.has-media .bluff-how {
+  margin-bottom: calc(var(--u) * 1.1);
+  font-size: calc(var(--u) * 1.9);
+}
+
+.q.bluff.has-media .media.poster img {
+  height: calc(var(--u) * 18.5);
+}
+
+.q.bluff.has-media .choices {
+  gap: calc(var(--u) * 0.7);
+}
+
+.q.bluff.has-media .choice {
+  min-height: calc(var(--u) * 4.3);
+}
+
+.q.bluff.has-media .choice-text {
+  font-size: calc(var(--u) * 2);
+}
+
+.q.bluff.has-media .q-foot {
+  margin-top: calc(var(--u) * 0.8);
+  font-size: calc(var(--u) * 1.7);
+}
+
+/* ---------- Random teams on the instructions card ---------- */
+
+.deal {
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--u) * 2);
+  margin: calc(var(--u) * 1.4) 0 0;
+  font-size: calc(var(--u) * 2);
+}
+
+.deal-team {
+  padding: 0.3em 1em;
+  border-radius: 99px;
+  background: var(--gravy);
+  box-shadow: inset 0 0 0 calc(var(--u) * 0.3) var(--team);
+}
+
+.deal-team b {
+  margin-right: 0.6em;
+  font-family: var(--display);
+  font-weight: 400;
+}
+
+.draw-how {
+  margin: calc(var(--u) * 1) 0 0;
+  font-size: calc(var(--u) * 1.9);
+  color: var(--gray);
+}
+
+/* ---------- Heads Up ---------- */
+
+.q.headsup {
+  text-align: center;
+}
+
+.hu-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 2);
+}
+
+.hu-head .plate {
+  --size: calc(var(--u) * 9);
+}
+
+.hu-head .q-text {
+  margin: 0;
+  font-size: calc(var(--u) * 4.4);
+}
+
+.hu-how {
+  max-width: calc(var(--u) * 70);
+  margin: calc(var(--u) * 1.4) auto;
+  font-size: calc(var(--u) * 2.2);
+  color: var(--gray);
+}
+
+.hu-words {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: calc(var(--u) * 84);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(var(--u) * 0.8);
+}
+
+.hu-words li {
+  padding: 0.25em 0.8em;
+  border-radius: 99px;
+  font-size: calc(var(--u) * 1.9);
+  font-weight: 800;
+  animation: stamp 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.hu-words li.right {
+  background: #4f7a4a;
+  color: var(--cream);
+}
+
+.hu-words li.pass {
+  background: var(--crust);
+  color: var(--gray);
+}

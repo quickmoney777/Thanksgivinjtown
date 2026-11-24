@@ -33,12 +33,16 @@
       <div id="lobby-panel" hidden>
         <h1>Lobby</h1>
         <p class="lede" id="lobby-help"></p>
-        <h2>Rounds to play</h2>
+        <h2 id="rounds-heading">Rounds to play</h2>
         <ul class="rounds" id="rounds"></ul>
         <p class="fine" id="rounds-fine" hidden></p>
         <label class="toggle">
           <input type="checkbox" id="teams-toggle">
           <span>Play in two teams<small id="teams-help">Points still count per player and add up for each team.</small></span>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="pick-toggle">
+          <span>Players pick each game<small id="pick-help"></small></span>
         </label>
         <button class="action" id="start-button" type="button">Start game</button>
         <button class="link-button" id="reload-button" type="button">Reload question files</button>
@@ -52,6 +56,10 @@
           <p class="status-answer" id="status-answer" hidden></p>
         </div>
         <button class="action" id="next-button" type="button">Next</button>
+        <div id="menu-picks" hidden>
+          <h2>Or pick the game yourself</h2>
+          <div class="menu-picks" id="menu-pick-list"></div>
+        </div>
         <div class="pad" id="pad">
           <button id="pause-button" type="button">Pause</button>
           <button id="skip-question" type="button">Skip question</button>

@@ -1,0 +1,86 @@
+{
+  "title": "Pin the World",
+  "type": "pin",
+  "icon": "🌍",
+  "tagline": "Find the place on the world map. Closest pin wins.",
+  "howTo": [
+    "No choices here. A place is named, and you find it on the map of the world on your phone.",
+    "Tap the map to zoom in. Tap again to drop your pin. You can move it until you lock it in.",
+    "The closer your pin, the more you score. The closest pin gets a bonus."
+  ],
+  "questionsPerGame": 5,
+  "questions": [
+    {
+      "question": "Drop your pin on Mumbai.",
+      "answer": "Mumbai, India",
+      "map": "world",
+      "lat": 19.076,
+      "lon": 72.8777
+    },
+    {
+      "question": "Where is Mount Everest?",
+      "answer": "Mount Everest",
+      "map": "world",
+      "lat": 27.9881,
+      "lon": 86.925,
+      "fact": "It sits on the border of Nepal and China."
+    },
+    {
+      "question": "Where is Machu Picchu?",
+      "answer": "Machu Picchu, Peru",
+      "map": "world",
+      "lat": -13.1631,
+      "lon": -72.545
+    },
+    {
+      "question": "Where is Reykjavik?",
+      "answer": "Reykjavik, Iceland",
+      "map": "world",
+      "lat": 64.1466,
+      "lon": -21.9426
+    },
+    {
+      "question": "Where is Timbuktu?",
+      "answer": "Timbuktu, Mali",
+      "map": "world",
+      "lat": 16.7666,
+      "lon": -3.0026
+    },
+    {
+      "question": "Where is Cape Town?",
+      "answer": "Cape Town, South Africa",
+      "map": "world",
+      "lat": -33.9249,
+      "lon": 18.4241
+    },
+    {
+      "question": "Where is the Taj Mahal?",
+      "answer": "Agra, India",
+      "map": "world",
+      "lat": 27.1751,
+      "lon": 78.0421
+    },
+    {
+      "question": "Where is Istanbul?",
+      "answer": "Istanbul, Turkey",
+      "map": "world",
+      "lat": 41.0082,
+      "lon": 28.9784
+    },
+    {
+      "question": "Where is Easter Island?",
+      "answer": "Easter Island",
+      "map": "world",
+      "lat": -27.1127,
+      "lon": -109.3497,
+      "fact": "It belongs to Chile, about 2,200 miles off its coast."
+    },
+    {
+      "question": "Where is Singapore?",
+      "answer": "Singapore",
+      "map": "world",
+      "lat": 1.3521,
+      "lon": 103.8198
+    }
+  ]
+}

@@ -1,0 +1,901 @@
+{
+  "title": "Generation Gap",
+  "type": "bluff",
+  "icon": "👵",
+  "tagline": "Mom and Dad against the kids. Each side tries to trick the other.",
+  "howTo": [
+    "Two sides: Mom and Dad against the kids.",
+    "When a question is for Mom and Dad, the kids each send a fake answer from their phone. Type your own or tap a suggestion.",
+    "Mom and Dad then see the real answer mixed in with the fakes and pick one each.",
+    "Photo questions: the photo starts blurry on the TV and sharpens. Answer early for up to 500 bonus points.",
+    "Then it flips: questions for the kids, fakes from Mom and Dad.",
+    "1,000 points for finding the truth. 500 for every person your fake fools."
+  ],
+  "questionsPerGame": 14,
+  "mix": {
+    "slang": 4,
+    "celebs": 3,
+    "retro": 4,
+    "singers": 1,
+    "micro": 1,
+    "tech": 1
+  },
+  "questions": [
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “rizz” mean?",
+      "answer": "Charm, especially at flirting",
+      "decoys": [
+        "Leftover rice",
+        "A loud argument",
+        "Being very tired"
+      ],
+      "suggestions": [
+        "A fizzy drink",
+        "Risky behavior",
+        "A bad haircut"
+      ],
+      "fact": "Short for charisma. It was Oxford's word of the year for 2023."
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “no cap” mean?",
+      "answer": "No lie, I'm serious",
+      "decoys": [
+        "No limit on spending",
+        "Not wearing a hat",
+        "No more room"
+      ],
+      "suggestions": [
+        "Without a filter",
+        "No time left",
+        "Bare-headed and proud"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “delulu” mean?",
+      "answer": "Delusional",
+      "decoys": [
+        "Delicious",
+        "A lullaby",
+        "Fancy and expensive"
+      ],
+      "suggestions": [
+        "A lazy Sunday",
+        "Double the fun",
+        "A dance move"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “mid” mean?",
+      "answer": "Mediocre, nothing special",
+      "decoys": [
+        "In the middle of a text",
+        "Medium spicy",
+        "Half asleep"
+      ],
+      "suggestions": [
+        "Midnight snack",
+        "A close friend",
+        "Halfway done"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does it mean if someone “ate”?",
+      "answer": "They did something extremely well",
+      "decoys": [
+        "They overslept",
+        "They got caught lying",
+        "They are full"
+      ],
+      "suggestions": [
+        "They lost badly",
+        "They spent all their money",
+        "They left early"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “bussin” mean?",
+      "answer": "Really good, usually about food",
+      "decoys": [
+        "Riding the bus",
+        "Very busy",
+        "Broken"
+      ],
+      "suggestions": [
+        "Arguing loudly",
+        "Running late",
+        "Kissing"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “the ick” mean?",
+      "answer": "A sudden turn-off about someone",
+      "decoys": [
+        "A bad cold",
+        "Sticky fingers",
+        "A boring class"
+      ],
+      "suggestions": [
+        "A hiccup that won't stop",
+        "An itchy sweater",
+        "Monday morning feeling"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what are you being told if someone says “touch grass”?",
+      "answer": "Get offline and go outside",
+      "decoys": [
+        "Mow the lawn",
+        "Calm down and apologize",
+        "Go to sleep"
+      ],
+      "suggestions": [
+        "Play football",
+        "Take your shoes off",
+        "Start gardening"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “it's giving” mean?",
+      "answer": "It has the vibe of",
+      "decoys": [
+        "It is a gift",
+        "It is too generous",
+        "It is falling apart"
+      ],
+      "suggestions": [
+        "It is on sale",
+        "It is giving up",
+        "It is contagious"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “ghosting” mean?",
+      "answer": "Cutting off contact with no explanation",
+      "decoys": [
+        "Dressing all in white",
+        "Staying up all night",
+        "Scaring someone on purpose"
+      ],
+      "suggestions": [
+        "Sneaking out of a party",
+        "Losing phone signal",
+        "Looking very pale"
+      ]
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "Dua Lipa",
+      "decoys": [
+        "Rita Ora",
+        "Camila Cabello",
+        "Selena Gomez"
+      ],
+      "suggestions": [
+        "Ariana Grande",
+        "Miley Cyrus",
+        "Taylor Swift"
+      ],
+      "wikipedia": "Dua Lipa",
+      "slowReveal": true
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "Billie Eilish",
+      "decoys": [
+        "Lorde",
+        "Halsey",
+        "Avril Lavigne"
+      ],
+      "suggestions": [
+        "Ariana Grande",
+        "Miley Cyrus",
+        "Taylor Swift"
+      ],
+      "wikipedia": "Billie Eilish",
+      "slowReveal": true
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "Olivia Rodrigo",
+      "decoys": [
+        "Selena Gomez",
+        "Sabrina Carpenter",
+        "Hailee Steinfeld"
+      ],
+      "suggestions": [
+        "Ariana Grande",
+        "Miley Cyrus",
+        "Taylor Swift"
+      ],
+      "wikipedia": "Olivia Rodrigo",
+      "slowReveal": true
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "Zendaya",
+      "decoys": [
+        "Rihanna",
+        "Yara Shahidi",
+        "Tessa Thompson"
+      ],
+      "suggestions": [
+        "Ariana Grande",
+        "Miley Cyrus",
+        "Taylor Swift"
+      ],
+      "wikipedia": "Zendaya",
+      "slowReveal": true
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "Timothée Chalamet",
+      "decoys": [
+        "Tom Holland",
+        "Harry Styles",
+        "Finn Wolfhard"
+      ],
+      "suggestions": [
+        "Ed Sheeran",
+        "Justin Bieber",
+        "Post Malone"
+      ],
+      "wikipedia": "Timothée Chalamet",
+      "slowReveal": true
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "Bad Bunny",
+      "decoys": [
+        "Drake",
+        "J Balvin",
+        "Pitbull"
+      ],
+      "suggestions": [
+        "Ed Sheeran",
+        "Justin Bieber",
+        "Post Malone"
+      ],
+      "wikipedia": "Bad Bunny",
+      "slowReveal": true
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "Doja Cat",
+      "decoys": [
+        "Cardi B",
+        "SZA",
+        "Nicki Minaj"
+      ],
+      "suggestions": [
+        "Ariana Grande",
+        "Miley Cyrus",
+        "Taylor Swift"
+      ],
+      "wikipedia": "Doja Cat",
+      "slowReveal": true
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "Sabrina Carpenter",
+      "decoys": [
+        "Taylor Swift",
+        "Dove Cameron",
+        "Ariana Grande"
+      ],
+      "suggestions": [
+        "Miley Cyrus",
+        "Selena Gomez",
+        "Rihanna"
+      ],
+      "wikipedia": "Sabrina Carpenter",
+      "slowReveal": true
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "Harry Styles",
+      "decoys": [
+        "Shawn Mendes",
+        "Zayn Malik",
+        "Niall Horan"
+      ],
+      "suggestions": [
+        "Ed Sheeran",
+        "Justin Bieber",
+        "Post Malone"
+      ],
+      "wikipedia": "Harry Styles",
+      "slowReveal": true
+    },
+    {
+      "category": "celebs",
+      "for": "parents",
+      "question": "Who is this?",
+      "answer": "MrBeast",
+      "decoys": [
+        "Logan Paul",
+        "PewDiePie",
+        "David Dobrik"
+      ],
+      "suggestions": [
+        "Ed Sheeran",
+        "Justin Bieber",
+        "Post Malone"
+      ],
+      "wikipedia": "MrBeast",
+      "slowReveal": true
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "What is this, and what did it play?",
+      "answer": "An 8-track tape. It played music",
+      "decoys": [
+        "A video game cartridge",
+        "A film reel for home movies",
+        "A tape for answering machines"
+      ],
+      "suggestions": [
+        "A VHS tape for kids",
+        "A car phone battery",
+        "A camcorder cassette"
+      ],
+      "fact": "8-track tapes were the way to play albums in the car in the 1970s.",
+      "wikipedia": "8-track cartridge"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "What is this?",
+      "answer": "A pager",
+      "decoys": [
+        "A garage door opener",
+        "A pocket calculator",
+        "A step counter"
+      ],
+      "suggestions": [
+        "A tiny radio",
+        "A car alarm remote",
+        "A digital watch without a strap"
+      ],
+      "fact": "Also called a beeper. It showed a phone number for you to call back.",
+      "wikipedia": "Pager"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "What is this round thing with finger holes for?",
+      "answer": "Dialing a phone number",
+      "decoys": [
+        "Opening a safe",
+        "Tuning a radio",
+        "Setting a kitchen timer"
+      ],
+      "suggestions": [
+        "Sharpening pencils",
+        "Winding a clock",
+        "Playing a party game"
+      ],
+      "fact": "A rotary dial. You turned it once for each digit.",
+      "wikipedia": "Rotary dial"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "What is this desk gadget?",
+      "answer": "A Rolodex",
+      "decoys": [
+        "A recipe box",
+        "A receipt printer",
+        "A slide viewer"
+      ],
+      "suggestions": [
+        "A label maker",
+        "A desk calendar",
+        "A coupon sorter"
+      ],
+      "fact": "A spinning file of cards with names and phone numbers.",
+      "wikipedia": "Rolodex"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "This shiny disc is the size of a vinyl record. What did it play?",
+      "answer": "Movies. It is a LaserDisc",
+      "decoys": [
+        "Music. It is a giant CD",
+        "Video games",
+        "Computer backups"
+      ],
+      "suggestions": [
+        "Karaoke only",
+        "Radio shows",
+        "Photo slideshows"
+      ],
+      "fact": "LaserDiscs came out in 1978, long before DVDs.",
+      "wikipedia": "LaserDisc"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "What is this classroom machine?",
+      "answer": "An overhead projector",
+      "decoys": [
+        "A photocopier",
+        "A film developer",
+        "A microfilm reader"
+      ],
+      "suggestions": [
+        "A slide warmer",
+        "A fax machine",
+        "A laminator"
+      ],
+      "fact": "Teachers wrote on clear sheets and it lit them up on the wall.",
+      "wikipedia": "Overhead projector"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "What is this toy?",
+      "answer": "A View-Master",
+      "decoys": [
+        "Toy binoculars",
+        "A kaleidoscope",
+        "A toy camera"
+      ],
+      "suggestions": [
+        "A bug viewer",
+        "Night vision goggles",
+        "A pair of 3D glasses"
+      ],
+      "fact": "You clicked through a wheel of 3D pictures.",
+      "wikipedia": "View-Master"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "Why did people keep a pencil next to these?",
+      "answer": "To wind the tape back in",
+      "decoys": [
+        "To write the song names",
+        "To press the tiny buttons",
+        "To clean the dust out"
+      ],
+      "suggestions": [
+        "To prop it open",
+        "To mark the good songs",
+        "To stop it rattling"
+      ],
+      "fact": "A pencil fits the spool of a cassette tape perfectly.",
+      "wikipedia": "Cassette tape"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "Rented video tapes carried a sticker that said “Be kind, ____.”",
+      "answer": "Rewind",
+      "decoys": [
+        "Return",
+        "Rate us",
+        "Pay cash"
+      ],
+      "suggestions": [
+        "Refrigerate",
+        "Recycle",
+        "Be quiet"
+      ]
+    },
+    {
+      "category": "singers",
+      "for": "kids",
+      "question": "Which legendary Bollywood singer is this?",
+      "answer": "Mohammed Rafi",
+      "decoys": [
+        "Kishore Kumar",
+        "Mukesh",
+        "Manna Dey"
+      ],
+      "suggestions": [
+        "Hemant Kumar",
+        "Talat Mahmood",
+        "Shaan"
+      ],
+      "wikipedia": "Mohammed Rafi"
+    },
+    {
+      "category": "singers",
+      "for": "kids",
+      "question": "Which legendary Bollywood singer is this?",
+      "answer": "Kishore Kumar",
+      "decoys": [
+        "Mohammed Rafi",
+        "R. D. Burman",
+        "Mukesh"
+      ],
+      "suggestions": [
+        "Hemant Kumar",
+        "Talat Mahmood",
+        "Shaan"
+      ],
+      "wikipedia": "Kishore Kumar"
+    },
+    {
+      "category": "singers",
+      "for": "kids",
+      "question": "Which legendary Bollywood singer is this?",
+      "answer": "Udit Narayan",
+      "decoys": [
+        "Kumar Sanu",
+        "Sonu Nigam",
+        "Abhijeet"
+      ],
+      "suggestions": [
+        "Hemant Kumar",
+        "Talat Mahmood",
+        "Shaan"
+      ],
+      "wikipedia": "Udit Narayan"
+    },
+    {
+      "category": "singers",
+      "for": "kids",
+      "question": "Which legendary Bollywood singer is this?",
+      "answer": "Mukesh",
+      "decoys": [
+        "Kishore Kumar",
+        "Talat Mahmood",
+        "Hemant Kumar"
+      ],
+      "suggestions": [
+        "Mahendra Kapoor",
+        "Manna Dey",
+        "Mohammed Rafi"
+      ],
+      "wikipedia": "Mukesh (singer)"
+    },
+    {
+      "category": "singers",
+      "for": "kids",
+      "question": "Which legendary Bollywood singer is this?",
+      "answer": "Manna Dey",
+      "decoys": [
+        "Mohammed Rafi",
+        "Mahendra Kapoor",
+        "Mukesh"
+      ],
+      "suggestions": [
+        "Hemant Kumar",
+        "Talat Mahmood"
+      ],
+      "wikipedia": "Manna Dey"
+    },
+    {
+      "category": "singers",
+      "for": "kids",
+      "question": "Which legendary Bollywood singer is this?",
+      "answer": "Hemant Kumar",
+      "decoys": [
+        "Talat Mahmood",
+        "Manna Dey",
+        "S. D. Burman"
+      ],
+      "suggestions": [
+        "Mahendra Kapoor",
+        "Mukesh",
+        "Mohammed Rafi"
+      ],
+      "wikipedia": "Hemant Kumar"
+    },
+    {
+      "category": "micro",
+      "for": "kids",
+      "question": "Round bacteria are called cocci. What are rod-shaped bacteria called?",
+      "answer": "Bacilli",
+      "decoys": [
+        "Spirilla",
+        "Vibrios",
+        "Flagella"
+      ],
+      "suggestions": [
+        "Cylindri",
+        "Rodococci",
+        "Bactons"
+      ]
+    },
+    {
+      "category": "micro",
+      "for": "kids",
+      "question": "Who discovered penicillin in 1928?",
+      "answer": "Alexander Fleming",
+      "decoys": [
+        "Louis Pasteur",
+        "Robert Koch",
+        "Joseph Lister"
+      ],
+      "suggestions": [
+        "Marie Curie",
+        "Jonas Salk",
+        "Edward Jenner"
+      ]
+    },
+    {
+      "category": "micro",
+      "for": "kids",
+      "question": "In a Gram stain, what color do Gram-positive bacteria turn?",
+      "answer": "Purple",
+      "decoys": [
+        "Pink",
+        "Green",
+        "Blue"
+      ],
+      "suggestions": [
+        "Orange",
+        "Yellow",
+        "Red"
+      ],
+      "fact": "Gram-negative bacteria come out pink."
+    },
+    {
+      "category": "micro",
+      "for": "kids",
+      "question": "What is the jelly in a Petri dish called?",
+      "answer": "Agar",
+      "decoys": [
+        "Gelatin",
+        "Pectin",
+        "Culture gel"
+      ],
+      "suggestions": [
+        "Plasma",
+        "Petri gel",
+        "Growth jam"
+      ],
+      "fact": "It is made from seaweed."
+    },
+    {
+      "category": "micro",
+      "for": "kids",
+      "question": "What is a virus that infects bacteria called?",
+      "answer": "A bacteriophage",
+      "decoys": [
+        "A retrovirus",
+        "A prion",
+        "A plasmid"
+      ],
+      "suggestions": [
+        "A bactovirus",
+        "A microphage",
+        "A germ eater"
+      ]
+    },
+    {
+      "category": "micro",
+      "for": "kids",
+      "question": "What does the E. in E. coli stand for?",
+      "answer": "Escherichia",
+      "decoys": [
+        "Enterica",
+        "Endo",
+        "Epsilon"
+      ],
+      "suggestions": [
+        "Eukaryota",
+        "Entero",
+        "Erythro"
+      ],
+      "fact": "It is named after Theodor Escherich, who described it in 1885."
+    },
+    {
+      "category": "micro",
+      "for": "kids",
+      "question": "Yeast is what kind of living thing?",
+      "answer": "A fungus",
+      "decoys": [
+        "A bacterium",
+        "A plant",
+        "An alga"
+      ],
+      "suggestions": [
+        "A mold spore",
+        "A protein",
+        "A virus"
+      ]
+    },
+    {
+      "category": "micro",
+      "for": "kids",
+      "question": "Antibiotics kill bacteria. What do they do nothing against?",
+      "answer": "Viruses",
+      "decoys": [
+        "Fungal spores",
+        "Parasites",
+        "Toxins"
+      ],
+      "suggestions": [
+        "Allergies",
+        "Old bacteria",
+        "Germs in food"
+      ]
+    },
+    {
+      "category": "tech",
+      "for": "kids",
+      "question": "Which AI company does this man run?",
+      "answer": "Anthropic",
+      "decoys": [
+        "OpenAI",
+        "Google DeepMind",
+        "Perplexity"
+      ],
+      "suggestions": [
+        "Amazon",
+        "Tesla",
+        "Zoom"
+      ],
+      "fact": "He is Dario Amodei, co-founder and CEO of Anthropic, the maker of Claude.",
+      "wikipedia": "Dario Amodei"
+    },
+    {
+      "category": "tech",
+      "for": "kids",
+      "question": "This CEO was born in Ghaziabad. Which cybersecurity company does he run?",
+      "answer": "Palo Alto Networks",
+      "decoys": [
+        "CrowdStrike",
+        "Fortinet",
+        "Cloudflare"
+      ],
+      "suggestions": [
+        "Norton",
+        "Okta",
+        "McAfee"
+      ],
+      "fact": "He is Nikesh Arora, formerly a top executive at Google and SoftBank.",
+      "wikipedia": "Nikesh Arora"
+    },
+    {
+      "category": "tech",
+      "for": "kids",
+      "question": "This CEO runs one of the most visited websites in the world. Which one?",
+      "answer": "YouTube",
+      "decoys": [
+        "Reddit",
+        "Wikipedia",
+        "LinkedIn"
+      ],
+      "suggestions": [
+        "Twitch",
+        "Pinterest",
+        "Yahoo"
+      ],
+      "fact": "He is Neal Mohan, CEO of YouTube since 2023.",
+      "wikipedia": "Neal Mohan"
+    },
+    {
+      "category": "tech",
+      "for": "kids",
+      "question": "This CEO grew up in Hyderabad. Which company does he run?",
+      "answer": "Adobe",
+      "decoys": [
+        "Salesforce",
+        "Dell",
+        "PayPal"
+      ],
+      "suggestions": [
+        "Amazon",
+        "Tesla",
+        "Zoom"
+      ],
+      "fact": "He is Shantanu Narayen.",
+      "wikipedia": "Shantanu Narayen"
+    },
+    {
+      "category": "tech",
+      "for": "kids",
+      "question": "This CEO studied at IIT Kanpur. Which company does he run?",
+      "answer": "IBM",
+      "decoys": [
+        "HP",
+        "Qualcomm",
+        "Micron"
+      ],
+      "suggestions": [
+        "Amazon",
+        "Tesla",
+        "Zoom"
+      ],
+      "fact": "He is Arvind Krishna.",
+      "wikipedia": "Arvind Krishna"
+    },
+    {
+      "category": "tech",
+      "for": "kids",
+      "question": "This CEO was born in Kanpur and co-founded SanDisk. Which chip company does he run now?",
+      "answer": "Micron",
+      "decoys": [
+        "Intel",
+        "Qualcomm",
+        "Broadcom"
+      ],
+      "suggestions": [
+        "Texas Instruments",
+        "Western Digital",
+        "Seagate"
+      ],
+      "fact": "He is Sanjay Mehrotra.",
+      "wikipedia": "Sanjay Mehrotra"
+    },
+    {
+      "category": "tech",
+      "for": "kids",
+      "question": "Which chip company does this CEO run?",
+      "answer": "AMD",
+      "decoys": [
+        "Intel",
+        "Nvidia",
+        "Qualcomm"
+      ],
+      "suggestions": [
+        "Amazon",
+        "Tesla",
+        "Zoom"
+      ],
+      "fact": "She is Lisa Su.",
+      "wikipedia": "Lisa Su"
+    },
+    {
+      "category": "tech",
+      "for": "kids",
+      "question": "Vinod Khosla, born in Pune, co-founded which computer company in 1982?",
+      "answer": "Sun Microsystems",
+      "decoys": [
+        "Compaq",
+        "Dell",
+        "Silicon Graphics"
+      ],
+      "suggestions": [
+        "Oracle",
+        "Netscape",
+        "Cisco"
+      ],
+      "fact": "Sun created the Java programming language."
+    }
+  ]
+}

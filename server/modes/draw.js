@@ -48,9 +48,26 @@ function matches(guess, targets) {
 // ctx.turn counts drawing turns in this round, so the pen passes around.
 function prepare(raw, ctx) {
   const players = ctx.players.filter((p) => p.connected);
-  const pool = players.length ? players : ctx.players;
+  let pool = players.length ? players : ctx.players;
+  const teamed = raw.aloud && pool.some((p) => p.side === 0) && pool.some((p) => p.side === 1);
+  if (teamed) {
+    // Teams take turns: one from each side, back and forth.
+    const a = pool.filter((p) => p.side === 0);
+    const b = pool.filter((p) => p.side !== 0);
+    const order = [];
+    for (let i = 0; i < Math.max(a.length, b.length); i += 1) {
+      if (a.length) order.push(a[i % a.length]);
+      if (b.length) order.push(b[i % b.length]);
+    }
+    pool = order;
+  }
   const artist = pool.length ? pool[ctx.turn % pool.length] : null;
+  // Who is guessing: the artist's team, or everyone if there are no teams.
+  const team = artist ? ctx.players.filter((p) => p.id !== artist.id && (!teamed || p.side === artist.side)) : [];
   return {
+    aloud: Boolean(raw.aloud),
+    side: teamed && artist ? artist.side : null,
+    teamIds: team.map((p) => p.id),
     artistId: artist ? artist.id : '',
     strokes: [], // each { color, size, points: [x, y, x, y, ...] } with 0..1 coordinates
     correct: new Map(), // playerId -> elapsedMs
@@ -59,13 +76,16 @@ function prepare(raw, ctx) {
 }
 
 function seconds(q, settings) {
-  return q.raw.timeSeconds || settings.timers.drawSeconds;
+  return q.raw.timeSeconds || (q.raw.aloud ? settings.timers.pictionarySeconds : settings.timers.drawSeconds);
 }
 
 function publicView(q) {
   return {
     text: 'What is being drawn?',
     artistId: q.data.artistId,
+    aloud: q.data.aloud,
+    side: q.data.side,
+    teamIds: q.data.teamIds,
     letters: q.raw.word.replace(/[A-Za-z0-9]/g, '_'), // blanks, so people know the length
     misses: q.data.misses.slice(-6),
   };
@@ -73,6 +93,14 @@ function publicView(q) {
 
 function submit(q, playerId, payload, elapsedMs) {
   const d = q.data;
+  if (d.aloud) {
+    // Guesses are shouted out. The artist or a teammate taps once it's been said.
+    if (playerId !== d.artistId && !d.teamIds.includes(playerId)) return { error: 'The other team is guessing this one.' };
+    if (!(payload || {}).gotIt) return { error: 'Tap the button when the word has been guessed.' };
+    if (d.correct.size) return { error: 'Already marked as guessed.' };
+    for (const id of d.teamIds) d.correct.set(id, elapsedMs);
+    return { correct: true };
+  }
   if (playerId === d.artistId) return { error: "You're drawing this one." };
   if (d.correct.has(playerId)) return { error: 'You already got it.' };
   const guess = String((payload || {}).text || '')
@@ -93,12 +121,13 @@ function submit(q, playerId, payload, elapsedMs) {
 const answered = (q) => Array.from(q.data.correct.keys());
 
 // The artist doesn't guess, so don't wait for them.
-const expected = (q, players) => players.filter((p) => p.id !== q.data.artistId);
+const expected = (q, players) =>
+  q.data.aloud ? players.filter((p) => q.data.teamIds.includes(p.id)) : players.filter((p) => p.id !== q.data.artistId);
 
 function privateView(q, playerId) {
   const d = q.data;
-  if (playerId === d.artistId) return { artist: true, word: q.raw.word };
-  return { artist: false, correct: d.correct.has(playerId) };
+  if (playerId === d.artistId) return { artist: true, word: q.raw.word, aloud: d.aloud, correct: d.correct.size > 0 };
+  return { artist: false, correct: d.correct.has(playerId), aloud: d.aloud, onTeam: d.teamIds.includes(playerId) };
 }
 
 // A stroke from the artist's phone. Returns the cleaned stroke to pass on.
@@ -139,7 +168,10 @@ function finish(q, settings) {
     const timeLeft = Math.max(0, 1 - elapsedMs / q.totalMs);
     gains[playerId] = drawGuessed + Math.round((drawSpeedBonusMax * timeLeft) / 10) * 10;
   }
-  if (d.artistId && d.correct.size) gains[d.artistId] = drawArtistPerGuess * d.correct.size;
+  if (d.artistId && d.correct.size) {
+    // Pictionary: the artist earns the same as the teammates who got it.
+    gains[d.artistId] = d.aloud ? Math.max(...Object.values(gains)) : drawArtistPerGuess * d.correct.size;
+  }
   return {
     gains,
     reveal: { word: q.raw.word, artistId: d.artistId, guessed: Array.from(d.correct.keys()) },

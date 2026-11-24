@@ -136,6 +136,11 @@
     $('#teams-help').textContent = state.teams
       ? `${state.teams.names[0]} vs ${state.teams.names[1]}. Use "Switch team" below to move someone.`
       : 'Points still count per player and add up for each team.';
+    $('#pick-toggle').checked = Boolean(state.pickGames);
+    $('#pick-help').textContent = state.pickGames
+      ? 'Before every game, everyone votes on their phone from the rounds ticked above.'
+      : 'The ticked rounds are played once each, in order.';
+    $('#rounds-heading').textContent = state.pickGames ? 'Games on the menu' : 'Rounds to play';
     drawStart();
   }
 
@@ -154,7 +159,8 @@
     const button = $('#start-button');
     const rounds = pickedRounds().length;
     button.disabled = state.players.length === 0 || rounds === 0;
-    button.textContent = rounds > 1 ? `Start game (${rounds} rounds)` : 'Start game';
+    button.textContent =
+      rounds > 1 ? `Start game (${rounds} ${state.pickGames ? 'games on the menu' : 'rounds'})` : 'Start game';
   }
 
   $('#start-button').addEventListener('click', () => {
@@ -168,6 +174,7 @@
   });
   $('#reload-button').addEventListener('click', () => act({ type: 'reload' }));
   $('#teams-toggle').addEventListener('change', (event) => act({ type: 'teams', on: event.target.checked }));
+  $('#pick-toggle').addEventListener('change', (event) => act({ type: 'pickGames', on: event.target.checked }));
 
   // ---------- Game: status and controls ----------
 
@@ -188,19 +195,48 @@
     if (phase === 'reveal' && g.question) {
       label = g.question.number < round.questionCount ? 'Next question' : 'Show the scores';
     } else if (phase === 'scores') {
-      label = round.number < round.count ? 'Next round' : 'Show the winner';
+      label = g.pick ? 'Back to the game menu' : round.number < round.count ? 'Next round' : 'Show the winner';
+    } else if (phase === 'intro' && g.pick) {
+      label = 'Show the game menu';
+    } else if (phase === 'menu') {
+      label = g.menu && g.menu.chosenId ? 'Start it now' : g.answered.length ? 'Go with the votes so far' : 'Surprise us';
     }
+    drawMenuPicks(g, phase);
     const next = $('#next-button');
     next.textContent = label;
     next.classList.toggle('quiet', phase === 'final');
 
-    const running = phase !== 'final' && phase !== 'intro';
+    const running = phase !== 'final' && phase !== 'intro' && phase !== 'menu';
     $('#pad').hidden = phase === 'final';
     $('#pause-button').disabled = !running;
     $('#pause-button').textContent = g && g.paused ? 'Resume' : 'Pause';
     $('#skip-question').disabled = !['question', 'locked', 'reveal'].includes(phase);
     $('#skip-round').disabled = !running;
+    $('#end-game').textContent = g && g.pick ? 'End game, show the winner' : 'End game';
     drawStatus();
+  }
+
+  // While the menu is up, the host can pick a game directly.
+  let menuKey = '';
+  function drawMenuPicks(g, phase) {
+    const open = phase === 'menu' && g.menu && !g.menu.chosenId;
+    $('#menu-picks').hidden = !open;
+    const key = open ? JSON.stringify([g.menu.options, g.menu.votes]) : '';
+    if (key === menuKey) return;
+    menuKey = key;
+    if (!open) return;
+    const tally = {};
+    for (const id of Object.values(g.menu.votes)) tally[id] = (tally[id] || 0) + 1;
+    $('#menu-pick-list').replaceChildren(
+      ...g.menu.options.map((option) =>
+        h(
+          'button',
+          { type: 'button', onclick: () => act({ type: 'pickRound', roundId: option.id }) },
+          `${option.icon ? `${option.icon} ` : ''}${option.title}`,
+          h('small', null, `${tally[option.id] || 0} vote${tally[option.id] === 1 ? '' : 's'}${option.played ? ', played' : ''}`)
+        )
+      )
+    );
   }
 
   function drawStatus() {
@@ -212,7 +248,10 @@
     let line = '';
     if (phase === 'intro') line = 'Meeting the players';
     else if (phase === 'final') line = 'Winner screen';
-    else if (phase === 'roundIntro') line = `Round ${round.number} of ${round.count}: ${round.title}`;
+    else if (phase === 'menu') {
+      const picked = g.menu && g.menu.options.find((o) => o.id === g.menu.chosenId);
+      line = picked ? `Next up: ${picked.title}` : 'Game menu: players are voting';
+    } else if (phase === 'roundIntro') line = `${round.count ? `Round ${round.number} of ${round.count}` : `Game ${round.number}`}: ${round.title}`;
     else if (phase === 'scores') line = `Scores after ${round.title}`;
     else if (g.question) line = `${round.title}, question ${g.question.number} of ${round.questionCount}`;
     $('#status-line').textContent = line;
@@ -220,13 +259,15 @@
     const parts = [];
     if (g.paused) parts.push('Paused.');
     if (phase === 'question') parts.push(`${g.answered.length} of ${state.players.length} answered.`);
+    if (phase === 'menu' && !(g.menu && g.menu.chosenId)) parts.push(`${g.answered.length} of ${state.players.length} voted.`);
     if (phase === 'locked') parts.push('Answers are closed.');
-    if (phase === 'reveal') parts.push('Showing the answer.');
+    if (phase === 'reveal') parts.push('Showing the answer. Use Mark right or Mark wrong below to overrule it.');
+    if (phase === 'roundIntro' && round && round.howTo && round.howTo.length) parts.push('Instructions are on the TV.');
     const left = clock.left(g);
     if (left != null && phase !== 'locked') {
       const seconds = Math.ceil(left / 1000);
       parts.push(phase === 'question' ? `${seconds}s left.` : `Moves on in ${seconds}s.`);
-    } else if (!g.timer && !['intro', 'final', 'question', 'locked'].includes(phase)) {
+    } else if (!g.timer && !['intro', 'final', 'question', 'locked', 'menu'].includes(phase)) {
       parts.push('Waiting for you to press the button.');
     }
     $('#status-sub').textContent = parts.join(' ');
@@ -302,6 +343,12 @@
             ),
             state.teams
               ? h('button', { type: 'button', onclick: () => act({ type: 'switchTeam', playerId: player.id }) }, 'Switch team')
+              : null,
+            state.phase === 'reveal'
+              ? h('button', { type: 'button', onclick: () => act({ type: 'overrule', playerId: player.id, correct: true }) }, 'Mark right')
+              : null,
+            state.phase === 'reveal'
+              ? h('button', { type: 'button', onclick: () => act({ type: 'overrule', playerId: player.id, correct: false }) }, 'Mark wrong')
               : null,
             h(
               'button',

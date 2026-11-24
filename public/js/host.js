@@ -13,6 +13,7 @@
   let viewKey = ''; // which stage view is built, so we only rebuild when it changes
   let lastTick = null; // last whole second we played a tick for
   let mapData = null; // US state shapes, for Map It
+  const maps = { usa: null, world: null }; // maps to drop pins on
   let muted = store.get('gobble.muted') === true;
   let clipKey = ''; // which question's song clip is loaded
 
@@ -20,6 +21,13 @@
     .then((res) => res.json())
     .then((data) => {
       mapData = data;
+      maps.usa = data;
+    })
+    .catch(() => {});
+  fetch('/data/world.json')
+    .then((res) => res.json())
+    .then((data) => {
+      maps.world = data;
     })
     .catch(() => {});
 
@@ -125,7 +133,7 @@
   }
 
   // What every view needs to draw players and maps.
-  const viewContext = () => ({ state, characters: characterMap(), mapData });
+  const viewContext = () => ({ state, characters: characterMap(), mapData, maps });
 
   const teamTotals = () =>
     state.teams
@@ -144,6 +152,7 @@
     if (was !== now) {
       if (now === 'intro') Sfx.start();
       else if (now === 'roundIntro') Sfx.round();
+      else if (now === 'menu') Sfx.scores();
       else if (now === 'question') Sfx.question();
       else if (now === 'locked') state.game.lockReason === 'time' ? Sfx.timeUp() : Sfx.allIn();
       else if (now === 'reveal') Sfx.reveal();
@@ -151,9 +160,18 @@
       else if (now === 'final') Sfx.final();
       return;
     }
+    if (now === 'menu' && previous.game && previous.game.menu && state.game.menu) {
+      if (state.game.menu.chosenId && !previous.game.menu.chosenId) Sfx.reveal();
+      else if (state.game.answered.length > previous.game.answered.length) Sfx.lockIn();
+      return;
+    }
     if (now !== 'question' || !previous.game || !previous.game.question) return;
     const before = previous.game.question;
     const q = state.game.question;
+    if (q.type === 'headsup' && before.results && q.results.length > before.results.length) {
+      q.results[q.results.length - 1].right ? Sfx.lockIn() : Sfx.miss();
+      return;
+    }
     if (before.stage !== q.stage) Sfx.round(); // bluff: writing is over, time to vote
     else if (state.game.answered.length > previous.game.answered.length) Sfx.lockIn();
     else if (q.misses && before.misses && q.misses.length !== before.misses.length) Sfx.miss();
@@ -240,20 +258,24 @@
     $('#stage').dataset.phase = phase;
 
     const round = g.round;
-    $('#round-name').textContent = phase === 'final' ? state.title : round ? round.title : '';
+    $('#round-name').textContent = phase === 'final' || phase === 'menu' ? state.title : round ? round.title : '';
     $('#progress').textContent =
       phase === 'final'
         ? 'Final scores'
-        : g.question
-          ? `Question ${g.question.number} of ${round.questionCount}`
-          : round
-            ? `Round ${round.number} of ${round.count}`
-            : '';
+        : phase === 'menu'
+          ? `Game ${g.rounds.length + 1}`
+          : g.question
+            ? `Question ${g.question.number} of ${round.questionCount}${g.question.category ? `: ${CATEGORY[g.question.category] || g.question.category}` : ''}`
+            : round
+              ? roundLabel(round)
+              : '';
 
     // Question, locked and reveal share one view, so the answer tiles stay
     // put and only change state.
     const key =
-      phase === 'roundIntro'
+      phase === 'menu'
+        ? `menu:${g.rounds.length}`
+        : phase === 'roundIntro'
         ? `intro:${round.number}`
         : g.question
           ? `q:${g.question.key}`
@@ -265,7 +287,8 @@
       viewKey = key;
       lastTick = null;
       const main = $('#stage-main');
-      if (phase === 'roundIntro') main.replaceChildren(buildRoundIntro(round));
+      if (phase === 'menu') main.replaceChildren(buildMenu(g.menu));
+      else if (phase === 'roundIntro') main.replaceChildren(buildRoundIntro(round));
       else if (g.question) {
         const view = Views.forType(g.question.type);
         const root = view.build(g.question, viewContext());
@@ -282,6 +305,7 @@
 
     const root = $('#stage-main .q');
     if (g.question && root) Views.forType(g.question.type).update(root, g, viewContext());
+    if (phase === 'menu' && g.menu) updateMenu(g.menu);
     drawTeamBar();
     drawStrip(g);
     $('#paused').hidden = !g.paused;
@@ -302,15 +326,98 @@
     );
   }
 
+  // Labels for the question categories in a mixed game.
+  const CATEGORY = {
+    'ohio-state': 'Ohio State',
+    'usa-map': 'USA map',
+    'world-map': 'World map',
+    food: 'World food',
+    pittsburgh: 'Pittsburgh',
+    world: 'World trivia',
+    slang: 'Gen Z slang',
+    celebs: 'Famous faces',
+    retro: 'Before your time',
+    singers: 'Bollywood legends',
+    micro: "Mom's lab",
+    tech: "Dad's world",
+  };
+
+  // "Round 2 of 7", or "Game 2" when players pick as they go.
+  const roundLabel = (round) => (round.count ? `Round ${round.number} of ${round.count}` : `Game ${round.number}`);
+
+  // The game menu: one card per game. Voters' plates land on the card they picked.
+  function buildMenu(menu) {
+    return h(
+      'div',
+      { class: 'menu' },
+      h('h2', { class: 'menu-title' }, 'Pick the next game'),
+      h('p', { class: 'menu-help', id: 'menu-help' }, ''),
+      h(
+        'ul',
+        { class: `menu-grid n${menu.options.length}` },
+        ...menu.options.map((option) =>
+          h(
+            'li',
+            { class: 'menu-card', 'data-id': option.id },
+            h('span', { class: 'menu-icon', 'aria-hidden': 'true' }, option.icon || '🎲'),
+            h('span', { class: 'menu-name' }, option.title),
+            option.played ? h('span', { class: 'menu-played' }, option.played > 1 ? `Played ${option.played} times` : 'Played') : null,
+            h('span', { class: 'menu-votes' })
+          )
+        )
+      )
+    );
+  }
+
+  function updateMenu(menu) {
+    const characters = characterMap();
+    const chosen = menu.options.find((o) => o.id === menu.chosenId);
+    const voted = Object.keys(menu.votes).length;
+    const help = $('#menu-help');
+    if (!help) return;
+    help.textContent = chosen
+      ? `Next up: ${chosen.title}`
+      : voted === 0
+        ? 'Vote on your phone. Most votes wins.'
+        : `${voted} of ${state.players.length} voted. A tie is settled by chance.`;
+    help.classList.toggle('decided', Boolean(chosen));
+    document.querySelectorAll('.menu-card').forEach((card) => {
+      const id = card.dataset.id;
+      card.classList.toggle('chosen', menu.chosenId === id);
+      card.classList.toggle('passed', Boolean(menu.chosenId) && menu.chosenId !== id);
+      const voters = state.players.filter((p) => menu.votes[p.id] === id);
+      const slot = card.querySelector('.menu-votes');
+      const sig = voters.map((p) => p.id).join(',');
+      if (slot.dataset.sig === sig) return; // only redraw a card when its votes change
+      slot.dataset.sig = sig;
+      slot.replaceChildren(...voters.map((p) => plate(characters.get(p.characterId))));
+    });
+  }
+
   function buildRoundIntro(round) {
     const count = round.questionCount;
     return h(
       'div',
-      { class: 'round-card' },
+      { class: `round-card${round.howTo && round.howTo.length ? ' with-how' : ''}` },
       round.icon ? h('p', { class: 'round-icon', 'aria-hidden': 'true' }, round.icon) : null,
-      h('p', { class: 'round-num' }, `Round ${round.number} of ${round.count}`),
+      h('p', { class: 'round-num' }, roundLabel(round)),
       h('h2', { class: 'round-title' }, round.title),
       round.tagline ? h('p', { class: 'round-tag' }, round.tagline) : null,
+      round.howTo && round.howTo.length
+        ? h('ol', { class: 'how-to' }, ...round.howTo.map((line) => h('li', null, line)))
+        : null,
+      round.sides
+        ? h(
+            'p',
+            { class: 'deal' },
+            ...round.sides.names.map((name, i) => {
+              const members = state.players.filter((p) => round.sides.of[p.id] === i).map((p) => p.name);
+              const chip = h('span', { class: 'deal-team' }, h('b', null, name), members.join(' and ') || 'nobody');
+              chip.style.setProperty('--team', round.sides.colors[i]);
+              return chip;
+            })
+          )
+        : null,
       h('p', { class: 'round-count' }, `${count} question${count === 1 ? '' : 's'}`)
     );
   }
@@ -323,7 +430,7 @@
     $('#strip').replaceChildren(
       ...state.players.map((player) => {
         const gain = phase === 'reveal' && g.reveal ? g.reveal.gains[player.id] : 0;
-        const showCheck = (phase === 'question' || phase === 'locked') && answered.has(player.id);
+        const showCheck = (phase === 'question' || phase === 'locked' || phase === 'menu') && answered.has(player.id);
         return h(
           'li',
           { class: `strip-seat${player.connected ? '' : ' away'}` },
@@ -369,6 +476,16 @@
       { class: teams ? 'with-teams' : '' },
       h('h2', { class: 'board-title' }, `Scores after ${round.title}`),
       teamBlock,
+      state.game.sidePoints
+        ? h(
+            'p',
+            { class: 'side-line' },
+            Object.entries(state.game.sidePoints)
+              .map(([side, total]) => `${state.settings.groups[side] || side} ${points(total)}`)
+              .join('   vs   '),
+            ' in this game'
+          )
+        : null,
       h(
         'ol',
         { class: 'board' },
