@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const http = require('http');
 const express = require('express');
 const { Server } = require('socket.io');
@@ -26,6 +27,22 @@ app.get('/', page('play.html'));
 app.get('/play', page('play.html'));
 app.get('/host', page('host.html'));
 app.get('/remote', page('remote.html'));
+// GIFs or pictures dropped into public/media/reactions/win and /lose pop up
+// on the TV when an answer is revealed.
+app.get('/api/reactions', (_req, res) => {
+  const list = (kind) => {
+    try {
+      return fs
+        .readdirSync(path.join(__dirname, '..', 'public', 'media', 'reactions', kind))
+        .filter((name) => /\.(gif|png|jpe?g|webp)$/i.test(name))
+        .map((name) => `/media/reactions/${kind}/${encodeURIComponent(name)}`);
+    } catch (err) {
+      return [];
+    }
+  };
+  res.json({ win: list('win'), lose: list('lose') });
+});
+
 app.get('/health', (req, res) => res.json({ ok: true, rooms: rooms.count() }));
 app.get('/api/info', (req, res) => {
   try {
@@ -153,6 +170,10 @@ function hostAction(room, action) {
       return {};
     case 'overrule':
       return engine.overrule(room, action.playerId, action.correct);
+    case 'replay':
+      return engine.replay(room);
+    case 'exitRound':
+      return engine.exitRound(room);
     case 'pickRound':
       return engine.pickRound(room, action.roundId);
     case 'pickGames':

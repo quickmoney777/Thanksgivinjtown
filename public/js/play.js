@@ -282,6 +282,7 @@
       return (role === 'both' || role === 'guesser') && !(my && my.voteId);
     }
     if (q.type === 'pin') return !(my && my.pin);
+    if (q.type === 'number') return !(my && my.number != null);
     if (q.type === 'headsup') return Boolean(my && my.holder);
     if (q.type === 'draw' && q.aloud) return Boolean(my && (my.artist || my.onTeam) && !my.correct);
     if (q.type === 'draw') return !(my && (my.artist || my.correct));
@@ -293,6 +294,7 @@
     if (!my) return 'open';
     if (q.type === 'bluff') return `${my.role || ''}${my.lie ? 'L' : ''}${my.voteId ? 'V' : ''}${my.ownOptionId}${my.image ? 'P' : ''}`;
     if (q.type === 'pin') return my.pin ? 'pinned' : 'open';
+    if (q.type === 'number') return my.number != null ? 'guessed' : 'open';
     if (q.type === 'headsup') return `${my.holder ? 'H' : 'C'}:${my.stage}:${my.index}`;
     if (q.type === 'draw' && q.aloud) return my.artist ? 'artist' : `${my.onTeam ? 'team' : 'other'}${my.correct ? ':got' : ''}`;
     if (q.type === 'draw') return my.artist ? 'artist' : my.correct ? 'got' : 'open';
@@ -321,6 +323,7 @@
     if (!q) return [h('p', { class: 'lede' }, 'Watch the TV.')];
     if (q.type === 'bluff') return buildBluff(me, g, phase, q, my);
     if (q.type === 'pin') return buildPin(me, g, phase, q, my);
+    if (q.type === 'number') return buildNumber(me, g, phase, q, my);
     if (q.type === 'headsup') return buildHeadsUp(me, g, phase, q, my);
     if (q.type === 'draw') return buildDraw(me, g, phase, q, my);
     return buildChoice(me, g, phase, q, my);
@@ -429,6 +432,47 @@
     });
   }
 
+  // ----- Closest Guess -----
+
+  function buildNumber(me, g, phase, q, my) {
+    const sent = my && my.number != null;
+    const show = (n) => Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
+    if (phase === 'question' && !sent) {
+      const input = h('input', { type: 'text', id: 'number-input', inputmode: 'decimal', autocomplete: 'off', enterkeyhint: 'send', maxlength: 14 });
+      const button = h('button', { class: 'action', type: 'submit' }, 'Lock in my guess');
+      const form = h(
+        'form',
+        {
+          onsubmit: (event) => {
+            event.preventDefault();
+            const value = input.value.replace(/[, ]/g, '');
+            if (value === '' || !Number.isFinite(Number(value))) {
+              problem = 'Type a number first.';
+              note('#game-note', problem);
+              return;
+            }
+            send({ number: Number(value) }, [button]);
+          },
+        },
+        h('label', { for: 'number-input' }, q.unit ? `Your guess, in ${q.unit}` : 'Your guess'),
+        input,
+        button
+      );
+      return [h('p', { class: 'ask' }, q.text), h('p', { class: 'lede' }, 'No choices. The closest guess wins.'), form];
+    }
+    if (phase === 'question' || phase === 'locked') {
+      if (!sent) return [h('h1', null, "Time's up"), h('p', { class: 'lede' }, 'No guess from you this time. Watch the TV.')];
+      return [h('h1', null, 'Guess in'), h('p', { class: 'quote' }, show(my.number)), h('p', { class: 'lede' }, 'Watch the TV.')];
+    }
+    if (!g.reveal) return [];
+    const mine = g.reveal.guesses.find((guess) => guess.playerId === me.id);
+    return [
+      h('h1', { class: g.reveal.gains[me.id] ? 'good' : '' }, g.reveal.gains[me.id] ? 'Close enough!' : 'Not the closest'),
+      h('p', { class: 'lede' }, `The answer was ${show(g.reveal.number)}${g.reveal.unit ? ` ${g.reveal.unit}` : ''}.${mine ? ` You were off by ${show(mine.off)}.` : ''}`),
+      gainLine(me, g),
+    ];
+  }
+
   // ----- Pin drop -----
 
   function buildPin(me, g, phase, q, my) {
@@ -507,18 +551,66 @@
   let tiltAction = null; // set while a Heads Up word is on this phone
   let tiltArmed = false; // the phone must come back upright between words
   let tiltListening = false;
+  let tiltSmooth = 0; // smoothed reading, so a jolt or a nod doesn't count
+  let uprightSince = 0; // how long the phone has been held upright
+  let tiltSince = 0; // how long it has been held tipped
+  let tiltQuietUntil = 0; // no new tilt until this time (after each word)
+  const TILT_ON = 8.2; // out of 9.8: the screen has to face nearly straight up or down
+  const TILT_OFF = 3; // back to roughly upright
+  const TILT_HOLD_MS = 280; // tipped for this long before it counts
+  const UPRIGHT_MS = 450; // upright for this long before the next word can be scored
   function onMotion(event) {
     const a = event.accelerationIncludingGravity;
     if (!a || a.z == null || !tiltAction) return;
     // Android reports +z with the screen facing up; iPhones report the opposite.
     const z = IOS ? -a.z : a.z;
-    if (Math.abs(z) < 3.5) {
-      tiltArmed = true;
+    tiltSmooth = tiltSmooth * 0.8 + z * 0.2;
+    const now = Date.now();
+    const size = Math.abs(tiltSmooth);
+    if (size < TILT_OFF) {
+      tiltSince = 0;
+      if (!uprightSince) uprightSince = now;
+      if (now - uprightSince >= UPRIGHT_MS) tiltArmed = true;
       return;
     }
-    if (!tiltArmed || Math.abs(z) < 6.5) return;
+    uprightSince = 0;
+    if (!tiltArmed || now < tiltQuietUntil || size < TILT_ON) {
+      tiltSince = 0;
+      return;
+    }
+    if (!tiltSince) tiltSince = now;
+    if (now - tiltSince < TILT_HOLD_MS) return;
     tiltArmed = false;
-    tiltAction(z > 0 ? 'right' : 'pass');
+    tiltSince = 0;
+    tiltQuietUntil = now + 1200;
+    tiltAction(tiltSmooth > 0 ? 'right' : 'pass');
+  }
+
+  // A short beep from the phone: iPhones can't vibrate from a web page.
+  let beeper = null;
+  function beep(right) {
+    try {
+      const Ctor = window.AudioContext || window.webkitAudioContext;
+      if (!Ctor) return;
+      if (!beeper) beeper = new Ctor();
+      if (beeper.state === 'suspended') beeper.resume();
+      const notes = right ? [660, 990] : [300, 220];
+      notes.forEach((freq, i) => {
+        const osc = beeper.createOscillator();
+        const gain = beeper.createGain();
+        osc.type = right ? 'triangle' : 'sawtooth';
+        osc.frequency.value = freq;
+        const at = beeper.currentTime + i * 0.13;
+        gain.gain.setValueAtTime(0.0001, at);
+        gain.gain.exponentialRampToValueAtTime(0.35, at + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.16);
+        osc.connect(gain).connect(beeper.destination);
+        osc.start(at);
+        osc.stop(at + 0.18);
+      });
+    } catch (err) {
+      /* no sound on this phone */
+    }
   }
   async function startTilt() {
     if (tiltListening) return true;
@@ -568,6 +660,7 @@
       const button = h('button', { class: 'action', type: 'button' }, "I'm ready");
       const warn = h('p', { class: 'lede tight' }, '');
       button.addEventListener('click', async () => {
+        beep(true); // a tap is what lets the phone make sound later
         const ok = await startTilt();
         if (!ok) warn.textContent = "Tilting isn't available on this phone, so use the two buttons instead.";
         send({ ready: true }, [button]);
@@ -580,8 +673,9 @@
           { class: 'how-to' },
           h('li', null, 'Turn your phone sideways and hold it to your forehead, screen facing everyone else.'),
           h('li', null, 'They give you clues. You guess the word on the screen.'),
-          h('li', null, 'Tip the screen UP to the ceiling when you get it right.'),
-          h('li', null, 'Tip it DOWN to the floor to pass.')
+          h('li', null, 'Tip the screen all the way UP to the ceiling when you get it right, and hold it a moment.'),
+          h('li', null, 'Tip it all the way DOWN to the floor to pass.'),
+          h('li', null, 'Bring it back upright before the next word. Small nods are ignored.')
         ),
         button,
         warn,
@@ -597,13 +691,18 @@
       if (sent) return;
       sent = true;
       card.classList.add(result === 'right' ? 'flash-right' : 'flash-pass');
-      if (navigator.vibrate) navigator.vibrate(result === 'right' ? 60 : [40, 60, 40]);
-      send({ result }, [right, pass]);
+      card.querySelector('.headsup-word').textContent = result === 'right' ? 'Right!' : 'Pass';
+      if (navigator.vibrate) navigator.vibrate(result === 'right' ? 180 : [90, 70, 90]);
+      beep(result === 'right');
+      // Hold the result on screen for a beat before the next word.
+      setTimeout(() => send({ result }, [right, pass]), 650);
     };
     right.addEventListener('click', () => answer('right'));
     pass.addEventListener('click', () => answer('pass'));
     tiltAction = answer;
     tiltArmed = false; // wait for the phone to come back upright first
+    uprightSince = 0;
+    tiltSince = 0;
     startTilt();
     return [card, h('div', { class: 'headsup-btns' }, right, pass)];
   }

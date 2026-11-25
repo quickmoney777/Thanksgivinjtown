@@ -81,6 +81,41 @@
       "map": "world",
       "lat": 1.3521,
       "lon": 103.8198
+    },
+    {
+      "question": "Where are the Pyramids of Giza?",
+      "answer": "Giza, Egypt",
+      "map": "world",
+      "lat": 29.9792,
+      "lon": 31.1342
+    },
+    {
+      "question": "Where is Sydney?",
+      "answer": "Sydney, Australia",
+      "map": "world",
+      "lat": -33.8688,
+      "lon": 151.2093
+    },
+    {
+      "question": "Where is Rio de Janeiro?",
+      "answer": "Rio de Janeiro, Brazil",
+      "map": "world",
+      "lat": -22.9068,
+      "lon": -43.1729
+    },
+    {
+      "question": "Where is Dubai?",
+      "answer": "Dubai, United Arab Emirates",
+      "map": "world",
+      "lat": 25.2048,
+      "lon": 55.2708
+    },
+    {
+      "question": "Where is London?",
+      "answer": "London, England",
+      "map": "world",
+      "lat": 51.5074,
+      "lon": -0.1278
     }
   ]
 }

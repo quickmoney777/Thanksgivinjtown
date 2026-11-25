@@ -1010,9 +1010,27 @@
   max-width: calc(var(--u) * 92);
 }
 
+.menu-grid.n11,
+.menu-grid.n12 {
+  grid-template-columns: repeat(6, 1fr);
+  gap: calc(var(--u) * 2.4) calc(var(--u) * 1.1);
+  max-width: calc(var(--u) * 94);
+}
+
 .menu-grid.n9 .menu-name,
 .menu-grid.n10 .menu-name {
   font-size: calc(var(--u) * 1.8);
+}
+
+.menu-grid.n11 .menu-name,
+.menu-grid.n12 .menu-name {
+  font-size: calc(var(--u) * 1.55);
+}
+
+.menu-grid.n11 .menu-card,
+.menu-grid.n12 .menu-card {
+  padding-left: calc(var(--u) * 0.5);
+  padding-right: calc(var(--u) * 0.5);
 }
 
 .menu-grid.n1,
@@ -1407,4 +1425,165 @@
 .hu-words li.pass {
   background: var(--crust);
   color: var(--gray);
+}
+
+/* ---------- Host can click a game ---------- */
+
+.menu-card {
+  cursor: pointer;
+}
+
+.menu-card:hover,
+.menu-card:focus-visible {
+  border-color: var(--pumpkin);
+  transform: translateY(calc(var(--u) * -0.4));
+  outline: none;
+}
+
+/* ---------- Reactions at the reveal ---------- */
+
+.reaction {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.reaction i {
+  position: absolute;
+  left: var(--x);
+  bottom: -12%;
+  font-style: normal;
+  font-size: calc(var(--u) * 5);
+  animation: floatUp var(--d) ease-out var(--delay) both;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(var(--u) * -62)) rotate(var(--spin)) scale(1.25);
+    opacity: 0;
+  }
+}
+
+.reaction-line {
+  position: absolute;
+  top: calc(var(--u) * 1.6);
+  left: 50%;
+  margin: 0;
+  padding: 0.25em 0.9em;
+  border-radius: 99px;
+  background: var(--mustard);
+  color: var(--roast);
+  font: 400 calc(var(--u) * 2.6) / 1.1 var(--display);
+  white-space: nowrap;
+  transform: translateX(-50%) rotate(-2deg);
+  animation: lineIn 3s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.reaction-line.none {
+  background: var(--scarlet);
+  color: var(--cream);
+}
+
+@keyframes lineIn {
+  0% {
+    transform: translateX(-50%) rotate(-2deg) scale(0.3);
+    opacity: 0;
+  }
+  12%,
+  82% {
+    transform: translateX(-50%) rotate(-2deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) rotate(-2deg) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.reaction-gif {
+  position: absolute;
+  right: calc(var(--u) * 3);
+  top: calc(var(--u) * 8);
+  width: calc(var(--u) * 20);
+  max-height: calc(var(--u) * 20);
+  object-fit: cover;
+  border-radius: calc(var(--u) * 1.4);
+  border: calc(var(--u) * 0.5) solid var(--cream);
+  transform: rotate(3deg);
+  animation: lineIn 4s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reaction i {
+    animation: none;
+    display: none;
+  }
+}
+
+/* ---------- Closest Guess ---------- */
+
+.number-q {
+  text-align: center;
+}
+
+.number-big {
+  margin: calc(var(--u) * 1) 0;
+  font: 400 calc(var(--u) * 8) / 1 var(--display);
+  color: var(--crust);
+}
+
+.number-big.solved {
+  color: var(--mustard);
+  animation: stamp 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+.number-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: calc(var(--u) * 60);
+  display: grid;
+  gap: calc(var(--u) * 0.7);
+}
+
+.number-list li {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.2);
+  padding: calc(var(--u) * 0.5) calc(var(--u) * 1.4);
+  border-radius: calc(var(--u) * 1.2);
+  background: var(--gravy);
+  font-size: calc(var(--u) * 2);
+  font-weight: 800;
+}
+
+.number-list li.scored {
+  background: var(--crust);
+  box-shadow: inset 0 0 0 calc(var(--u) * 0.3) var(--mustard);
+}
+
+.number-list .plate {
+  --size: calc(var(--u) * 3.4);
+}
+
+.number-guess {
+  font-family: var(--display);
+  font-weight: 400;
+}
+
+.q.emoji-q .q-text {
+  margin: calc(var(--u) * 1) 0 calc(var(--u) * 3);
+  font-size: calc(var(--u) * 9);
+  line-height: 1.1;
+  text-align: center;
+  letter-spacing: 0.08em;
 }

@@ -155,7 +155,10 @@
       else if (now === 'menu') Sfx.scores();
       else if (now === 'question') Sfx.question();
       else if (now === 'locked') state.game.lockReason === 'time' ? Sfx.timeUp() : Sfx.allIn();
-      else if (now === 'reveal') Sfx.reveal();
+      else if (now === 'reveal') {
+        Sfx.reveal();
+        react();
+      }
       else if (now === 'scores') Sfx.scores();
       else if (now === 'final') Sfx.final();
       return;
@@ -358,7 +361,22 @@
         ...menu.options.map((option) =>
           h(
             'li',
-            { class: 'menu-card', 'data-id': option.id },
+            {
+              class: 'menu-card',
+              'data-id': option.id,
+              role: 'button',
+              tabindex: '0',
+              title: `Play ${option.title}`,
+              // The host can click a game on the laptop instead of waiting for votes.
+              onclick: () => act({ type: 'pickRound', roundId: option.id }),
+              onkeydown: (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.stopPropagation();
+                  event.preventDefault();
+                  act({ type: 'pickRound', roundId: option.id });
+                }
+              },
+            },
             h('span', { class: 'menu-icon', 'aria-hidden': 'true' }, option.icon || '🎲'),
             h('span', { class: 'menu-name' }, option.title),
             option.played ? h('span', { class: 'menu-played' }, option.played > 1 ? `Played ${option.played} times` : 'Played') : null,
@@ -378,7 +396,7 @@
     help.textContent = chosen
       ? `Next up: ${chosen.title}`
       : voted === 0
-        ? 'Vote on your phone. Most votes wins.'
+        ? 'Vote on your phone, or the host clicks a game here.'
         : `${voted} of ${state.players.length} voted. A tie is settled by chance.`;
     help.classList.toggle('decided', Boolean(chosen));
     document.querySelectorAll('.menu-card').forEach((card) => {
@@ -628,6 +646,53 @@
     return [makeConfetti(), body];
   }
 
+  // ---------- Reactions: a burst of emoji, a line, and a GIF if you've added some ----------
+
+  const REACT = {
+    all: { emoji: ['🎉', '🙌', '🔥', '⭐', '🥳'], lines: ['Clean sweep!', 'Everybody eats!', 'Too easy for this family.', 'Full marks all round!'] },
+    none: { emoji: ['😬', '🦗', '💀', '🙈', '🤷'], lines: ['Nobody?!', 'Crickets.', 'Well, that was awkward.', 'The turkey knew that one.'] },
+    some: { emoji: ['👏', '😎', '🦃', '✨', '🥧'], lines: ['Somebody did the reading.', 'Points on the board!', 'Not everyone, but someone.', 'Carrying the family.'] },
+  };
+  let gifs = { win: [], lose: [] };
+  fetch('/api/reactions')
+    .then((res) => res.json())
+    .then((data) => {
+      gifs = data;
+    })
+    .catch(() => {});
+  const pick = (list) => list[Math.floor(Math.random() * list.length)];
+  let reactTimer = null;
+
+  function react() {
+    const g = state.game;
+    if (!g || !g.reveal || !g.question) return;
+    const scored = Object.keys(g.reveal.gains).length;
+    // Who was meant to score: everyone, or just one side or one player.
+    const able = g.question.type === 'headsup' ? 1 : g.question.guessers ? g.question.guessers.length : g.question.teamIds ? g.question.teamIds.length + 1 : state.players.length;
+    const mood = scored === 0 ? 'none' : scored >= able ? 'all' : 'some';
+    const set = REACT[mood];
+    const gif = pick(mood === 'none' ? gifs.lose : gifs.win);
+    const box = $('#reaction');
+    box.replaceChildren(
+      ...Array.from({ length: 16 }, (_, i) => {
+        const bit = h('i', null, pick(set.emoji));
+        bit.style.setProperty('--x', `${4 + Math.random() * 92}%`);
+        bit.style.setProperty('--d', `${1.6 + Math.random() * 1.6}s`);
+        bit.style.setProperty('--delay', `${Math.random() * 0.6}s`);
+        bit.style.setProperty('--spin', `${Math.round(Math.random() * 80 - 40)}deg`);
+        return bit;
+      }),
+      h('p', { class: `reaction-line ${mood}` }, pick(set.lines)),
+      ...(gif ? [h('img', { class: 'reaction-gif', src: gif, alt: '' })] : [])
+    );
+    box.hidden = false;
+    clearTimeout(reactTimer);
+    reactTimer = setTimeout(() => {
+      box.hidden = true;
+      box.replaceChildren();
+    }, gif ? 4200 : 3200);
+  }
+
   // ---------- Clock: the pie timer, the top bar and the last-seconds tick ----------
 
   function frame() {
@@ -688,7 +753,11 @@
       clip.pause();
       if (wantClip) {
         clip.src = q.audio;
-        clip.currentTime = 0;
+        // Start part-way in when the file asks, so the famous opening isn't a giveaway.
+        const startAt = q.audioStart || 0;
+        clip.loop = true;
+        if (startAt) clip.addEventListener('loadedmetadata', () => { clip.currentTime = Math.min(startAt, Math.max(0, clip.duration - 12)); }, { once: true });
+        else clip.currentTime = 0;
       }
     }
     if (clipKey) {
@@ -734,6 +803,13 @@
     pause.hidden = !inGame;
     pause.textContent = state.game && state.game.paused ? 'Resume' : 'Pause';
     $('#btn-new').hidden = phase !== 'lobby';
+    const playing = ['roundIntro', 'question', 'locked', 'reveal', 'scores'].includes(phase);
+    $('#btn-again').hidden = phase !== 'scores';
+    $('#btn-exit').hidden = !playing;
+    $('#btn-exit').textContent = state.game && state.game.pick ? 'Exit to game menu' : 'Skip this round';
+    $('#btn-end').hidden = !state.game || phase === 'final' || phase === 'intro';
+    // On the scoreboard and the menu the buttons stay up, so the host can click.
+    document.body.classList.toggle('hold-controls', phase === 'scores' || phase === 'menu');
     $('#btn-mute').textContent = muted ? 'Sound on' : 'Mute';
   }
 
@@ -777,6 +853,13 @@
 
   $('#btn-phase').addEventListener('click', mainAction);
   $('#btn-pause').addEventListener('click', togglePause);
+  $('#btn-again').addEventListener('click', () => act({ type: 'replay' }));
+  $('#btn-exit').addEventListener('click', () => {
+    if (window.confirm('Leave this game? Points scored so far are kept.')) act({ type: 'exitRound' });
+  });
+  $('#btn-end').addEventListener('click', () => {
+    if (window.confirm('End the whole game now and show the winner?')) act({ type: 'endGame' });
+  });
   $('#btn-mute').addEventListener('click', toggleMute);
   $('#btn-remote').addEventListener('click', () => showRemote(true));
   $('#remote-close').addEventListener('click', () => showRemote(false));

@@ -95,6 +95,8 @@ rounds once each, in order, the way a quiz night runs.
 | Name the Artist | `name-the-artist.json` | A 30-second clip plays on the TV. The cover slides out at the reveal. |
 | Heads Up | `headsup.json` | One player holds their phone to their forehead with a word on it; everyone else gives clues. Tip the phone up for right, down to pass. One minute each, a different deck per player. Tilting needs the Render address (phones only allow it on a secure page); on the laptop's own address use the two buttons. |
 | Pictionary | `sketch.json` | Two random teams. One player draws a secret word on their phone, their team shouts guesses, and a tap on "We got it!" stops the clock. One minute per drawing. Remove `"guessing": "aloud"` from the file to go back to typed guesses. |
+| Closest Guess | `closest-guess.json` | Every answer is a number and there are no choices. Everyone types a guess; the closest wins. |
+| Emoji Movies | `emoji-movies.json` | A movie told in emoji. Pick the title. |
 | Bluff Round | `bluff.json` | Everyone types a fake answer, then votes for the one they think is real. |
 | Bollywood Bonus | `bollywood.json` | Multiple choice with song clips. Off unless you tick it. |
 
@@ -104,6 +106,12 @@ up for 20 seconds, or until you press Next.
 The older `buckeyes-keystone.json`, `map-it.json` and `around-the-world.json`
 files are still in the folder but are no longer in `roundOrder`; their best
 questions moved into Trivia.
+
+**From the laptop.** On the game menu the host can click a game to start it. Move the mouse during a game for **Exit to game menu** and **End, show winner**; on the scoreboard, **Play it again** starts the same game with new questions.
+
+**Reactions.** When an answer is revealed the TV shows a burst of emoji and a one-liner. Drop your own GIFs or pictures into `public/media/reactions/win` and `public/media/reactions/lose` and one pops up too.
+
+**Song clips.** `"clipStartSeconds": 10` at the top of `name-the-artist.json` starts every clip ten seconds in. Apple only provides a 30-second preview of each song, so that is the part the game can play.
 
 **Who is on which side.** In `characters.json`, each family character has
 `"group": "parents"` or `"group": "kids"`. Generation Gap uses that to decide

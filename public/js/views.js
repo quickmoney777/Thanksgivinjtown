@@ -74,6 +74,8 @@ window.Views = (() => {
       const classes = ['q'];
       if (mediaEl) classes.push('has-media');
       if (q.text.length > (mediaEl ? 60 : 95)) classes.push('long');
+      // A question made only of emoji (Emoji Movies) is shown huge.
+      if (!/[A-Za-z0-9]/.test(q.text)) classes.push('emoji-q');
 
       const choices = h(
         'ol',
@@ -418,8 +420,53 @@ window.Views = (() => {
     },
   };
 
+  // ---------- Closest Guess ----------
+
+  const fmt = (n) => Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
+
+  const numberView = {
+    build(q) {
+      return h(
+        'div',
+        { class: 'q number-q' },
+        h('h2', { class: 'q-text' }, q.text),
+        h('p', { class: 'number-big' }, '?'),
+        h('ol', { class: 'number-list' }),
+        h('p', { class: 'q-foot' })
+      );
+    },
+
+    update(root, g, ctx) {
+      const phase = ctx.state.phase;
+      const q = g.question;
+      const foot = root.querySelector('.q-foot');
+      if (phase === 'question') foot.textContent = `No choices. Type your best guess${q.unit ? ` in ${q.unit}` : ''} on your phone. Closest wins.`;
+      else if (phase === 'locked') foot.textContent = g.lockReason === 'time' ? "Time's up." : 'All guesses are in.';
+      else if (phase === 'reveal' && g.reveal) {
+        foot.textContent = g.reveal.fact || '';
+        if (root.dataset.shown) return;
+        root.dataset.shown = '1';
+        const big = root.querySelector('.number-big');
+        big.textContent = `${fmt(g.reveal.number)}${g.reveal.unit ? ` ${g.reveal.unit}` : ''}`;
+        big.classList.add('solved');
+        root.querySelector('.number-list').replaceChildren(
+          ...g.reveal.guesses.map((guess, i) =>
+            h(
+              'li',
+              { class: g.reveal.gains[guess.playerId] ? 'scored' : '' },
+              plateFor(ctx, guess.playerId),
+              h('span', { class: 'pin-who' }, nameOf(ctx, guess.playerId)),
+              h('span', { class: 'number-guess' }, fmt(guess.guess)),
+              h('span', { class: 'pin-miles' }, guess.off === 0 ? 'Spot on!' : `off by ${fmt(guess.off)}`)
+            )
+          )
+        );
+      }
+    },
+  };
+
   const forType = (type) =>
-    type === 'bluff' ? bluffView : type === 'draw' ? drawView : type === 'pin' ? pinView : type === 'headsup' ? headsUpView : choiceView;
+    type === 'number' ? numberView : type === 'bluff' ? bluffView : type === 'draw' ? drawView : type === 'pin' ? pinView : type === 'headsup' ? headsUpView : choiceView;
 
   return { forType, mapSvg };
 })();

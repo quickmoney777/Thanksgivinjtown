@@ -10,7 +10,7 @@ const DIR = path.join(__dirname, '..', 'content');
 
 // Round types the engine can play. Each has a module in server/modes.
 const CHOICE_TYPES = ['multiple-choice', 'poster-reveal', 'name-the-artist', 'map-it'];
-const QUESTION_TYPES = [...CHOICE_TYPES, 'bluff', 'draw', 'pin', 'headsup']; // kinds of question
+const QUESTION_TYPES = [...CHOICE_TYPES, 'bluff', 'draw', 'pin', 'headsup', 'number']; // kinds of question
 const SUPPORTED_TYPES = [...QUESTION_TYPES, 'mixed']; // kinds of round file
 
 function readJson(file) {
@@ -74,6 +74,7 @@ const SETTING_DEFAULTS = {
     headsUpReadySeconds: 30,
     headsUpSeconds: 60,
     pinSeconds: 30,
+    numberSeconds: 30,
     menuSeconds: 20,
     menuChosenSeconds: 4,
     questionSeconds: 20,
@@ -99,6 +100,11 @@ const SETTING_DEFAULTS = {
     drawArtistPerGuess: 300,
     bluffSpeedBonusMax: 500,
     headsUpRight: 200,
+    artistCorrect: 250,
+    artistSpeedBonusMax: 1000,
+    numberClosest: 1000,
+    numberSecond: 500,
+    numberExactBonus: 500,
     pinMax: 750,
     pinClosestBonus: 250,
   },
@@ -262,6 +268,12 @@ function normalizeOne(q, where, id, type) {
     };
   }
 
+  if (type === 'number') {
+    const number = Number(q.answer);
+    if (!Number.isFinite(number)) return { error: `${where}: the "answer" must be a number.` };
+    return { question: { id, text: prompt, answer, number, unit: text(q.unit), fact: text(q.fact), timeSeconds: 0 } };
+  }
+
   if (type === 'pin') {
     const lat = Number(q.lat);
     const lon = Number(q.lon);
@@ -296,6 +308,7 @@ function normalizeOne(q, where, id, type) {
     image: text(q.image),
     revealImage: text(q.revealImage),
     audio: text(q.audio),
+    audioStart: Math.max(0, Number(q.clipStartSeconds) || 0), // seconds into the clip to start playing from
     lookup: lookupSpec(q.itunes, q.wikipedia),
     map: map && text(map.state)
       ? {
@@ -363,6 +376,10 @@ function loadRounds(settings) {
       else {
         // Pictionary style: guesses are shouted out, and a tap says "got it".
         if (type === 'draw' && raw.guessing === 'aloud') result.question.aloud = true;
+        // A file can start every clip part-way in, so the famous opening isn't a giveaway.
+        if (raw.clipStartSeconds && result.question.audioStart === 0) {
+          result.question.audioStart = Math.max(0, Number(raw.clipStartSeconds) || 0);
+        }
         questions.push(result.question);
       }
     });

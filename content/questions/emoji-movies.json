@@ -1,0 +1,174 @@
+{
+  "title": "Emoji Movies",
+  "type": "multiple-choice",
+  "icon": "🍿",
+  "tagline": "A movie told in emoji. Name it.",
+  "howTo": [
+    "A few emoji appear. They spell out a famous movie.",
+    "Tap the movie. Faster right answers score more."
+  ],
+  "questions": [
+    {
+      "question": "🦁👑",
+      "answer": "The Lion King",
+      "wrong": [
+        "Madagascar",
+        "Tarzan",
+        "The Jungle Book"
+      ]
+    },
+    {
+      "question": "🚢🧊💔",
+      "answer": "Titanic",
+      "wrong": [
+        "Poseidon",
+        "Cast Away",
+        "The Perfect Storm"
+      ]
+    },
+    {
+      "question": "🦈🏖️",
+      "answer": "Jaws",
+      "wrong": [
+        "Finding Nemo",
+        "Sharknado",
+        "The Meg"
+      ]
+    },
+    {
+      "question": "👽🚲🌕",
+      "answer": "E.T.",
+      "wrong": [
+        "Close Encounters",
+        "Men in Black",
+        "Super 8"
+      ]
+    },
+    {
+      "question": "🧙‍♂️💍🌋",
+      "answer": "The Lord of the Rings",
+      "wrong": [
+        "Harry Potter",
+        "The Hobbit",
+        "Eragon"
+      ]
+    },
+    {
+      "question": "🏠👦🪤🎄",
+      "answer": "Home Alone",
+      "wrong": [
+        "Elf",
+        "The Grinch",
+        "Jingle All the Way"
+      ]
+    },
+    {
+      "question": "🐀👨‍🍳🇫🇷",
+      "answer": "Ratatouille",
+      "wrong": [
+        "Chef",
+        "Julie & Julia",
+        "Flushed Away"
+      ]
+    },
+    {
+      "question": "🦖🏝️🚙",
+      "answer": "Jurassic Park",
+      "wrong": [
+        "King Kong",
+        "Godzilla",
+        "Lost World"
+      ]
+    },
+    {
+      "question": "👻🚫",
+      "answer": "Ghostbusters",
+      "wrong": [
+        "Casper",
+        "Beetlejuice",
+        "Scooby-Doo"
+      ]
+    },
+    {
+      "question": "🤖❤️🌱",
+      "answer": "WALL-E",
+      "wrong": [
+        "Big Hero 6",
+        "The Iron Giant",
+        "Robots"
+      ]
+    },
+    {
+      "question": "🥊🇺🇸🪜",
+      "answer": "Rocky",
+      "wrong": [
+        "Raging Bull",
+        "Creed",
+        "Cinderella Man"
+      ]
+    },
+    {
+      "question": "❄️👸⛄",
+      "answer": "Frozen",
+      "wrong": [
+        "Tangled",
+        "Brave",
+        "Moana"
+      ]
+    },
+    {
+      "question": "🕷️🧑🏙️",
+      "answer": "Spider-Man",
+      "wrong": [
+        "Ant-Man",
+        "Batman",
+        "Venom"
+      ]
+    },
+    {
+      "question": "🏏🇮🇳🌧️",
+      "answer": "Lagaan",
+      "wrong": [
+        "Chak De! India",
+        "Dangal",
+        "Swades"
+      ]
+    },
+    {
+      "question": "👨‍👧🤼‍♀️🥇",
+      "answer": "Dangal",
+      "wrong": [
+        "Sultan",
+        "Mary Kom",
+        "Bhaag Milkha Bhaag"
+      ]
+    },
+    {
+      "question": "🚗⚡⏰",
+      "answer": "Back to the Future",
+      "wrong": [
+        "Cars",
+        "The Time Machine",
+        "Speed"
+      ]
+    },
+    {
+      "question": "🧸🤠🚀",
+      "answer": "Toy Story",
+      "wrong": [
+        "Up",
+        "Cars",
+        "Monsters, Inc."
+      ]
+    },
+    {
+      "question": "🍫🏭🎫",
+      "answer": "Willy Wonka & the Chocolate Factory",
+      "wrong": [
+        "Chocolat",
+        "Matilda",
+        "James and the Giant Peach"
+      ]
+    }
+  ]
+}

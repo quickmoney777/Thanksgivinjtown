@@ -896,6 +896,108 @@
         "Cisco"
       ],
       "fact": "Sun created the Java programming language."
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “sus” mean?",
+      "answer": "Suspicious or shady",
+      "decoys": [
+        "Very tired",
+        "Suspended from school",
+        "A type of sushi"
+      ],
+      "suggestions": [
+        "Super sweet",
+        "Sad for no reason",
+        "Showing off"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “GOAT” mean?",
+      "answer": "Greatest of all time",
+      "decoys": [
+        "A stubborn person",
+        "Someone who eats a lot",
+        "Go on a trip"
+      ],
+      "suggestions": [
+        "Getting old and tired",
+        "Good at talking",
+        "A messy eater"
+      ]
+    },
+    {
+      "category": "slang",
+      "for": "parents",
+      "question": "In Gen Z slang, what does “low-key” mean?",
+      "answer": "Quietly, or a little bit",
+      "decoys": [
+        "Feeling sad",
+        "In a deep voice",
+        "Cheap or on a budget"
+      ],
+      "suggestions": [
+        "Locked out",
+        "Off-key singing",
+        "Short on money"
+      ]
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "What did this machine do?",
+      "answer": "Recorded phone messages",
+      "decoys": [
+        "Played cassette singles",
+        "Sent faxes",
+        "Printed receipts"
+      ],
+      "suggestions": [
+        "Recorded radio shows",
+        "Dialed numbers for you",
+        "Blocked sales calls"
+      ],
+      "fact": "An answering machine. It recorded callers on a little tape when nobody was home.",
+      "wikipedia": "Answering machine"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "Every home had one of these thick books. What was it for?",
+      "answer": "Looking up phone numbers",
+      "decoys": [
+        "Looking up word meanings",
+        "Ordering from a catalog",
+        "Finding TV listings"
+      ],
+      "suggestions": [
+        "Recording family history",
+        "Checking train times",
+        "Looking up zip codes"
+      ],
+      "fact": "The phone book listed everyone's name, address and number.",
+      "wikipedia": "Telephone directory"
+    },
+    {
+      "category": "retro",
+      "for": "kids",
+      "question": "What was this thin dark paper used for?",
+      "answer": "Making a copy as you wrote or typed",
+      "decoys": [
+        "Wrapping sandwiches",
+        "Developing photos",
+        "Tracing sewing patterns"
+      ],
+      "suggestions": [
+        "Covering school books",
+        "Cleaning typewriter keys",
+        "Blocking sunlight"
+      ],
+      "fact": "Carbon paper. It is why emails still say “cc”, for carbon copy.",
+      "wikipedia": "Carbon paper"
     }
   ]
 }

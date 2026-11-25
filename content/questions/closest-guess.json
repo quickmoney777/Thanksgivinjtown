@@ -1,0 +1,96 @@
+{
+  "title": "Closest Guess",
+  "type": "number",
+  "icon": "🎯",
+  "tagline": "No choices. Type a number. Closest wins.",
+  "howTo": [
+    "Every answer is a number, and there are no choices.",
+    "Type your best guess on your phone.",
+    "The closest guess gets 1,000 points and second closest gets 500. Spot on earns a 500 bonus."
+  ],
+  "questions": [
+    {
+      "question": "How many keys are on a standard piano?",
+      "answer": 88,
+      "unit": "keys"
+    },
+    {
+      "question": "How many bones are in the adult human body?",
+      "answer": 206,
+      "unit": "bones"
+    },
+    {
+      "question": "How many states share a border with Pennsylvania?",
+      "answer": 6,
+      "unit": "states",
+      "fact": "New York, New Jersey, Delaware, Maryland, West Virginia and Ohio."
+    },
+    {
+      "question": "In what year did the Beatles first play The Ed Sullivan Show?",
+      "answer": 1964,
+      "unit": ""
+    },
+    {
+      "question": "How many floors does the Empire State Building have?",
+      "answer": 102,
+      "unit": "floors"
+    },
+    {
+      "question": "In what year was the feast at Plymouth that we call the first Thanksgiving?",
+      "answer": 1621,
+      "unit": ""
+    },
+    {
+      "question": "How tall is Mount Everest, in feet?",
+      "answer": 29032,
+      "unit": "feet"
+    },
+    {
+      "question": "How many time zones does Russia cover?",
+      "answer": 11,
+      "unit": "time zones"
+    },
+    {
+      "question": "How many countries are there in Africa?",
+      "answer": 54,
+      "unit": "countries",
+      "fact": "That is the number of African members of the United Nations."
+    },
+    {
+      "question": "How many episodes of Friends were made?",
+      "answer": 236,
+      "unit": "episodes"
+    },
+    {
+      "question": "In what year was the Johnstown Flood?",
+      "answer": 1889,
+      "unit": ""
+    },
+    {
+      "question": "How many US presidents were born in Ohio?",
+      "answer": 7,
+      "unit": "presidents",
+      "fact": "Grant, Hayes, Garfield, Benjamin Harrison, McKinley, Taft and Harding."
+    },
+    {
+      "question": "How many elements are on the periodic table?",
+      "answer": 118,
+      "unit": "elements"
+    },
+    {
+      "question": "In what year did Pink Floyd release The Dark Side of the Moon?",
+      "answer": 1973,
+      "unit": ""
+    },
+    {
+      "question": "How many minutes are there in a day?",
+      "answer": 1440,
+      "unit": "minutes"
+    },
+    {
+      "question": "How many players does a cricket team have on the field?",
+      "answer": 11,
+      "unit": "players"
+    }
+  ]
+}

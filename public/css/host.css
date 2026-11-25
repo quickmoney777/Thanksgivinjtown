@@ -397,3 +397,10 @@ body.show-controls .controls,
   color: var(--roast);
   font-weight: 700;
 }
+
+/* Buttons stay visible on the game menu and scoreboard, where the host clicks. */
+body.hold-controls .controls {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}

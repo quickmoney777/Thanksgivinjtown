@@ -2,10 +2,13 @@
   "title": "Name the Artist",
   "type": "name-the-artist",
   "icon": "🎸",
-  "tagline": "A clip plays. Tell us who recorded it.",
+  "tagline": "A clip plays from the middle of the song. Name who recorded it, fast.",
+  "clipStartSeconds": 10,
   "howTo": [
-    "A song clip plays on the TV.",
-    "Tap who recorded it. Faster right answers score more."
+    "A song clip plays on the TV, starting part-way in.",
+    "Tap who recorded it.",
+    "Speed is most of the score: 250 for being right, plus up to 1,000 the faster you answer.",
+    "Play again for five new songs."
   ],
   "questions": [
     {
@@ -13,9 +16,9 @@
       "listenQuestion": "Who is this?",
       "answer": "The Beatles",
       "wrong": [
-        "The Rolling Stones",
-        "The Beach Boys",
-        "The Kinks"
+        "The Hollies",
+        "The Zombies",
+        "Badfinger"
       ],
       "itunes": {
         "kind": "song",
@@ -28,9 +31,9 @@
       "listenQuestion": "Who is this?",
       "answer": "Pink Floyd",
       "wrong": [
-        "Led Zeppelin",
-        "The Who",
-        "Genesis"
+        "Yes",
+        "Genesis",
+        "King Crimson"
       ],
       "itunes": {
         "kind": "song",
@@ -43,9 +46,9 @@
       "listenQuestion": "Who is this?",
       "answer": "Eagles",
       "wrong": [
-        "Fleetwood Mac",
-        "The Doobie Brothers",
-        "America"
+        "America",
+        "Poco",
+        "The Doobie Brothers"
       ],
       "itunes": {
         "kind": "song",
@@ -59,8 +62,8 @@
       "answer": "Queen",
       "wrong": [
         "Electric Light Orchestra",
-        "David Bowie",
-        "Elton John"
+        "Sparks",
+        "10cc"
       ],
       "itunes": {
         "kind": "song",
@@ -73,9 +76,9 @@
       "listenQuestion": "Who is this?",
       "answer": "Neil Diamond",
       "wrong": [
-        "Barry Manilow",
-        "Tom Jones",
-        "Kenny Rogers"
+        "Glen Campbell",
+        "Engelbert Humperdinck",
+        "B.J. Thomas"
       ],
       "itunes": {
         "kind": "song",
@@ -89,8 +92,8 @@
       "answer": "The McCoys",
       "wrong": [
         "The Kingsmen",
-        "The Monkees",
-        "The Turtles"
+        "Tommy James and the Shondells",
+        "The Standells"
       ],
       "itunes": {
         "kind": "song",
@@ -103,9 +106,9 @@
       "listenQuestion": "Who is this?",
       "answer": "Fleetwood Mac",
       "wrong": [
-        "Eagles",
         "Heart",
-        "Steely Dan"
+        "Little River Band",
+        "Stevie Nicks solo"
       ],
       "itunes": {
         "kind": "song",
@@ -119,8 +122,8 @@
       "answer": "Bruce Springsteen",
       "wrong": [
         "Bob Seger",
-        "John Mellencamp",
-        "Tom Petty"
+        "Southside Johnny",
+        "John Mellencamp"
       ],
       "itunes": {
         "kind": "song",
@@ -134,8 +137,8 @@
       "answer": "Led Zeppelin",
       "wrong": [
         "Deep Purple",
-        "Black Sabbath",
-        "The Who"
+        "Uriah Heep",
+        "Cream"
       ],
       "itunes": {
         "kind": "song",
@@ -148,9 +151,9 @@
       "listenQuestion": "Who is this?",
       "answer": "Stevie Wonder",
       "wrong": [
-        "Marvin Gaye",
-        "Ray Charles",
-        "James Brown"
+        "Billy Preston",
+        "Sly and the Family Stone",
+        "Curtis Mayfield"
       ],
       "itunes": {
         "kind": "song",
@@ -165,7 +168,7 @@
       "wrong": [
         "Elton John",
         "Harry Chapin",
-        "James Taylor"
+        "Jim Croce"
       ],
       "itunes": {
         "kind": "song",
@@ -179,7 +182,7 @@
       "answer": "Pink Floyd",
       "wrong": [
         "The Moody Blues",
-        "Yes",
+        "Genesis",
         "Rush"
       ],
       "itunes": {
@@ -194,8 +197,8 @@
       "answer": "The Beatles",
       "wrong": [
         "Cream",
-        "The Doors",
-        "The Rolling Stones"
+        "The Kinks",
+        "The Yardbirds"
       ],
       "itunes": {
         "kind": "song",
@@ -209,8 +212,8 @@
       "answer": "The White Stripes",
       "wrong": [
         "The Black Keys",
-        "The Strokes",
-        "Foo Fighters"
+        "The Raconteurs",
+        "The Hives"
       ],
       "itunes": {
         "kind": "song",
@@ -223,9 +226,9 @@
       "listenQuestion": "Who is this?",
       "answer": "The Killers",
       "wrong": [
-        "Fall Out Boy",
         "Franz Ferdinand",
-        "Arctic Monkeys"
+        "The Bravery",
+        "Interpol"
       ],
       "itunes": {
         "kind": "song",
@@ -239,7 +242,7 @@
       "answer": "Journey",
       "wrong": [
         "Foreigner",
-        "Boston",
+        "Styx",
         "REO Speedwagon"
       ],
       "itunes": {
@@ -247,6 +250,278 @@
         "term": "Don't Stop Believin' Journey"
       },
       "fact": "\"Don't Stop Believin'\"."
+    },
+    {
+      "question": "Who recorded \"Dream On\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Aerosmith",
+      "wrong": [
+        "Guns N' Roses",
+        "Bad Company",
+        "Mötley Crüe"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Dream On Aerosmith",
+        "match": "Dream On",
+        "artist": "Aerosmith"
+      },
+      "fact": "\"Dream On\" by Aerosmith."
+    },
+    {
+      "question": "Who recorded \"More Than a Feeling\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Boston",
+      "wrong": [
+        "Kansas",
+        "Styx",
+        "Foreigner"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "More Than a Feeling Boston",
+        "match": "More Than a Feeling",
+        "artist": "Boston"
+      },
+      "fact": "\"More Than a Feeling\" by Boston."
+    },
+    {
+      "question": "Who recorded \"Carry On Wayward Son\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Kansas",
+      "wrong": [
+        "Boston",
+        "Styx",
+        "Rush"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Carry On Wayward Son Kansas",
+        "match": "Carry On Wayward Son",
+        "artist": "Kansas"
+      },
+      "fact": "\"Carry On Wayward Son\" by Kansas."
+    },
+    {
+      "question": "Who recorded \"Livin' on a Prayer\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Bon Jovi",
+      "wrong": [
+        "Def Leppard",
+        "Europe",
+        "Poison"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Livin' on a Prayer Bon Jovi",
+        "match": "Livin",
+        "artist": "Jovi"
+      },
+      "fact": "\"Livin' on a Prayer\" by Bon Jovi."
+    },
+    {
+      "question": "Who recorded \"Sweet Home Alabama\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Lynyrd Skynyrd",
+      "wrong": [
+        "The Allman Brothers Band",
+        "ZZ Top",
+        "Creedence Clearwater Revival"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Sweet Home Alabama Lynyrd Skynyrd",
+        "match": "Sweet Home Alabama",
+        "artist": "Skynyrd"
+      },
+      "fact": "\"Sweet Home Alabama\" by Lynyrd Skynyrd."
+    },
+    {
+      "question": "Who recorded \"Free Fallin'\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Tom Petty",
+      "wrong": [
+        "Bryan Adams",
+        "Don Henley",
+        "John Mellencamp"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Free Fallin' Tom Petty",
+        "match": "Free Fallin",
+        "artist": "Petty"
+      },
+      "fact": "\"Free Fallin'\" by Tom Petty."
+    },
+    {
+      "question": "Who recorded \"Africa\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Toto",
+      "wrong": [
+        "Chicago",
+        "Asia",
+        "Supertramp"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Africa Toto",
+        "match": "Africa",
+        "artist": "Toto"
+      },
+      "fact": "\"Africa\" by Toto."
+    },
+    {
+      "question": "Who recorded \"Take On Me\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "a-ha",
+      "wrong": [
+        "Duran Duran",
+        "Tears for Fears",
+        "Pet Shop Boys"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Take On Me a-ha",
+        "match": "Take On Me",
+        "artist": "a-ha"
+      },
+      "fact": "\"Take On Me\" by a-ha."
+    },
+    {
+      "question": "Who recorded \"Billie Jean\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Michael Jackson",
+      "wrong": [
+        "Prince",
+        "Lionel Richie",
+        "Rick James"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Billie Jean Michael Jackson",
+        "match": "Billie Jean",
+        "artist": "Jackson"
+      },
+      "fact": "\"Billie Jean\" by Michael Jackson."
+    },
+    {
+      "question": "Who recorded \"Every Breath You Take\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "The Police",
+      "wrong": [
+        "Dire Straits",
+        "U2",
+        "Genesis"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Every Breath You Take The Police",
+        "match": "Every Breath You Take",
+        "artist": "Police"
+      },
+      "fact": "\"Every Breath You Take\" by The Police."
+    },
+    {
+      "question": "Who recorded \"Wish You Were Here\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Pink Floyd",
+      "wrong": [
+        "Dire Straits",
+        "Yes",
+        "Supertramp"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Wish You Were Here Pink Floyd",
+        "match": "Wish You Were Here",
+        "artist": "Floyd"
+      },
+      "fact": "\"Wish You Were Here\" by Pink Floyd."
+    },
+    {
+      "question": "Who recorded \"Let It Be\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "The Beatles",
+      "wrong": [
+        "Simon & Garfunkel",
+        "The Bee Gees",
+        "Wings"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Let It Be The Beatles",
+        "match": "Let It Be",
+        "artist": "Beatles"
+      },
+      "fact": "\"Let It Be\" by The Beatles."
+    },
+    {
+      "question": "Who recorded \"Imagine\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "John Lennon",
+      "wrong": [
+        "George Harrison",
+        "Cat Stevens",
+        "Paul Simon"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Imagine John Lennon",
+        "match": "Imagine",
+        "artist": "Lennon"
+      },
+      "fact": "\"Imagine\" by John Lennon, 1971."
+    },
+    {
+      "question": "Who recorded \"American Pie\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Don McLean",
+      "wrong": [
+        "Jim Croce",
+        "Cat Stevens",
+        "Gordon Lightfoot"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "American Pie Don McLean",
+        "match": "American Pie",
+        "artist": "McLean"
+      },
+      "fact": "\"American Pie\" by Don McLean."
+    },
+    {
+      "question": "Who recorded \"Brown Eyed Girl\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Van Morrison",
+      "wrong": [
+        "The Lovin' Spoonful",
+        "Neil Diamond",
+        "Tommy James and the Shondells"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Brown Eyed Girl Van Morrison",
+        "match": "Brown Eyed Girl",
+        "artist": "Morrison"
+      },
+      "fact": "\"Brown Eyed Girl\" by Van Morrison."
+    },
+    {
+      "question": "Who recorded \"Fortunate Son\"?",
+      "listenQuestion": "Who is this?",
+      "answer": "Creedence Clearwater Revival",
+      "wrong": [
+        "Lynyrd Skynyrd",
+        "The Guess Who",
+        "Steppenwolf"
+      ],
+      "itunes": {
+        "kind": "song",
+        "term": "Fortunate Son Creedence Clearwater Revival",
+        "match": "Fortunate Son",
+        "artist": "Revival"
+      },
+      "fact": "\"Fortunate Son\" by Creedence Clearwater Revival."
     }
   ]
 }

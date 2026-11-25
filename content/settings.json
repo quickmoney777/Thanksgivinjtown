@@ -12,6 +12,8 @@
     "generations",
     "headsup",
     "sketch",
+    "closest-guess",
+    "emoji-movies",
     "bluff",
     "poster-reveal",
     "name-the-artist"
@@ -37,7 +39,8 @@
     "pinSeconds": 30,
     "pictionarySeconds": 60,
     "headsUpReadySeconds": 30,
-    "headsUpSeconds": 60
+    "headsUpSeconds": 60,
+    "numberSeconds": 30
   },
   "points": {
     "correct": 500,
@@ -52,7 +55,12 @@
     "pinMax": 750,
     "pinClosestBonus": 250,
     "bluffSpeedBonusMax": 500,
-    "headsUpRight": 200
+    "headsUpRight": 200,
+    "artistCorrect": 250,
+    "artistSpeedBonusMax": 1000,
+    "numberClosest": 1000,
+    "numberSecond": 500,
+    "numberExactBonus": 500
   },
   "teams": {
     "names": [

@@ -50,6 +50,7 @@ function publicView(q) {
     image: q.raw.image,
     blur: q.type === 'poster-reveal',
     audio: q.raw.audio,
+    audioStart: q.raw.audioStart || 0,
     map: q.raw.map ? { show: q.raw.map.show, state: q.raw.map.show === 'blank' ? '' : q.raw.map.state } : null,
   };
 }
@@ -74,8 +75,9 @@ function privateView(q, playerId) {
 function finish(q, settings) {
   const p = settings.points;
   const poster = q.type === 'poster-reveal';
-  const base = poster ? p.posterCorrect : p.correct;
-  const bonus = poster ? p.posterSpeedBonusMax : p.speedBonusMax;
+  const song = q.type === 'name-the-artist'; // speed counts for much more here too
+  const base = poster ? p.posterCorrect : song ? p.artistCorrect : p.correct;
+  const bonus = poster ? p.posterSpeedBonusMax : song ? p.artistSpeedBonusMax : p.speedBonusMax;
   const gains = {};
   const picks = {};
   for (const [playerId, s] of q.data.submissions) {

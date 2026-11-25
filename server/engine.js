@@ -29,6 +29,7 @@ const MODES = {
   draw: require('./modes/draw'),
   pin: require('./modes/pin'),
   headsup: require('./modes/headsup'),
+  number: require('./modes/number'),
 };
 
 // Tests set TIMER_SCALE (for example 0.02) to race through a whole game.
@@ -559,6 +560,31 @@ function skipRound(room) {
   beginRound(room, g.roundIndex + 1);
 }
 
+// Play the game that just finished again, with new questions.
+function replay(room) {
+  const g = room.game;
+  if (!g || room.phase !== 'scores') return { error: 'You can do this from the scoreboard after a game.' };
+  const done = g.rounds[g.roundIndex];
+  const round = g.library.find((r) => r.id === done.id);
+  if (!round) return { error: 'That game is not available.' };
+  g.paused = false;
+  g.played[round.id] = (g.played[round.id] || 0) + 1;
+  g.rounds.splice(g.roundIndex + 1, 0, buildRound(room, round));
+  beginRound(room, g.roundIndex + 1);
+  return {};
+}
+
+// Leave the game being played. With the game menu on, go back to it;
+// otherwise move to the next round.
+function exitRound(room) {
+  const g = room.game;
+  if (!g || !['roundIntro', 'question', 'locked', 'reveal', 'scores'].includes(room.phase)) return { error: 'No game is being played.' };
+  g.paused = false;
+  if (g.pick) beginMenu(room);
+  else beginRound(room, g.roundIndex + 1);
+  return {};
+}
+
 function endGame(room) {
   if (!room.game || room.phase === 'final') return;
   finishGame(room);
@@ -669,6 +695,8 @@ module.exports = {
   skipQuestion,
   skipRound,
   pickRound,
+  replay,
+  exitRound,
   overrule,
   endGame,
   submit,

@@ -676,6 +676,57 @@
         "Chile and Argentina",
         "India and Bangladesh"
       ]
+    },
+    {
+      "category": "world",
+      "question": "Which country has the longest coastline in the world?",
+      "answer": "Canada",
+      "wrong": [
+        "Australia",
+        "Russia",
+        "Indonesia"
+      ]
+    },
+    {
+      "category": "world",
+      "question": "What is the capital of Turkey?",
+      "answer": "Ankara",
+      "wrong": [
+        "Istanbul",
+        "Izmir",
+        "Antalya"
+      ]
+    },
+    {
+      "category": "world",
+      "question": "What is the capital of Switzerland?",
+      "answer": "Bern",
+      "wrong": [
+        "Zurich",
+        "Geneva",
+        "Basel"
+      ]
+    },
+    {
+      "category": "world",
+      "question": "Which desert covers much of Botswana?",
+      "answer": "The Kalahari",
+      "wrong": [
+        "The Namib",
+        "The Sahara",
+        "The Gobi"
+      ]
+    },
+    {
+      "category": "world",
+      "question": "Which is the driest continent on Earth?",
+      "answer": "Antarctica",
+      "wrong": [
+        "Africa",
+        "Australia",
+        "Asia"
+      ],
+      "fact": "It gets less rain or snow than the Sahara."
     }
   ]
 }

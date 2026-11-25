@@ -838,5 +838,165 @@
     "artist": "Taiwanese and American business executive (born 1969)",
     "id": 0,
     "fetchedAt": "2026-11-24"
+  },
+  "wiki:answering machine": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Panasonic-Anrufbeantworter.jpg/500px-Panasonic-Anrufbeantworter.jpg",
+    "audio": "",
+    "title": "Answering machine",
+    "artist": "Telephone answering device",
+    "id": 0,
+    "fetchedAt": "2026-11-25"
+  },
+  "wiki:telephone directory": {
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Singapore_Yellow_Pages_2.jpg/500px-Singapore_Yellow_Pages_2.jpg",
+    "audio": "",
+    "title": "Telephone directory",
+    "artist": "Book that lists phone numbers of people and businesses",
+    "id": 0,
+    "fetchedAt": "2026-11-25"
+  },
+  "wiki:carbon paper": {
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Carbon_paper.jpg",
+    "audio": "",
+    "title": "Carbon paper",
+    "artist": "Paper used to make copies",
+    "id": 0,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:dream on aerosmith": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/e2/87/d9/e287d987-7b92-7749-737f-b5b8a6913f88/22UM1IM38560.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f8/96/43/f89643b7-3efa-9f43-0a78-394abf12864b/mzaf_3399344087154345151.plus.aac.p.m4a",
+    "title": "Dream On",
+    "artist": "Aerosmith",
+    "id": 1658644941,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:more than a feeling boston": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/e3/08/9a/e3089ac9-a820-5ee9-64be-39500ad8a5e2/886444824972.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ec/d4/d6/ecd4d62c-c9b7-ceca-1e17-91a053231b2d/mzaf_1747289863060511720.plus.aac.p.m4a",
+    "title": "More Than a Feeling",
+    "artist": "Boston",
+    "id": 913902137,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:carry on wayward son kansas": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music/56/5b/88/mzi.hpnqhyuu.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/71/4e/97/714e9707-b396-30a2-83ee-9a0a411a77dc/mzaf_17771455412700079863.plus.aac.p.m4a",
+    "title": "Carry On Wayward Son",
+    "artist": "Kansas",
+    "id": 190655992,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:livin' on a prayer bon jovi": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/40/16/3e/40163e24-6985-b785-d4ea-cbae07d74812/06UMGIM05422.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/75/15/30/75153020-b7c4-7958-8907-4aa1b965dc24/mzaf_2377504467597068152.plus.aac.p.m4a",
+    "title": "Livin' On a Prayer",
+    "artist": "Bon Jovi",
+    "id": 1422955211,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:sweet home alabama lynyrd skynyrd": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/cc/ff/39/ccff392e-ec9d-1ffd-6c1b-d21978bca939/06UMGIM02061.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3c/6d/b5/3c6db5f7-9d5f-0207-f0ae-c64a70ffd186/mzaf_17818188901638567993.plus.aac.p.m4a",
+    "title": "Sweet Home Alabama",
+    "artist": "Lynyrd Skynyrd",
+    "id": 1413948381,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:free fallin' tom petty": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/78/61/dd/7861dd44-f796-08ea-c8ff-7f8a12a86db1/15UMGIM69649.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/44/c0/72/44c07271-f94b-ce4e-551d-196815e86be9/mzaf_5317652767711059486.plus.aac.p.m4a",
+    "title": "Free Fallin'",
+    "artist": "Tom Petty",
+    "id": 1469579716,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:africa toto": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/69/ce/d2/69ced240-07a7-2a04-bbab-2afbacf30809/074643772822.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bb/3d/07/bb3d07a3-b3af-2c99-5c9f-eb72796268c2/mzaf_11871467005041854011.plus.aac.p.m4a",
+    "title": "Africa",
+    "artist": "Toto",
+    "id": 185717604,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:take on me a-ha": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music/c6/e1/c8/mzi.ixgzfcmc.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/f2/03/4f/f2034f41-707f-7111-bc63-e5d3cf7f2240/mzaf_17215043934336702540.plus.aac.p.m4a",
+    "title": "Take On Me",
+    "artist": "a-ha",
+    "id": 380907765,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:billie jean michael jackson": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/32/4f/fd/324ffda2-9e51-8f6a-0c2d-c6fd2b41ac55/074643811224.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/dc/bc/8a/dcbc8a3e-4ce1-c00d-cc02-eda2212053c7/mzaf_8347559338388601510.plus.aac.p.m4a",
+    "title": "Billie Jean",
+    "artist": "Michael Jackson",
+    "id": 269573364,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:every breath you take the police": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/42/b7/db/42b7dbe1-d13f-c600-5b78-daa57c5d0f08/06UMGIM50761.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/6c/b4/79/6cb47947-0860-8788-95b1-a2b0a908f342/mzaf_4654925634744235278.plus.aac.p.m4a",
+    "title": "Every Breath You Take",
+    "artist": "The Police",
+    "id": 1440882897,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:wish you were here pink floyd": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/aa/e0/ab/aae0ab6a-d906-a189-81bf-70b56aa43f7a/886445635843.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ca/73/b0/ca73b075-9f43-5ba2-4a9c-494d2e2b1d6e/mzaf_16835053037302358726.plus.aac.p.m4a",
+    "title": "Wish You Were Here",
+    "artist": "Pink Floyd",
+    "id": 1065973980,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:let it be the beatles": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ae/98/4c/ae984c7a-cd06-a7cd-e8bf-32cb15ba698d/00602567705475.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/60/76/fd/6076fd8f-422a-d5e3-7b02-5953bc93cfbd/mzaf_3945462995290301839.plus.aac.p.m4a",
+    "title": "Let It Be",
+    "artist": "The Beatles",
+    "id": 1441164738,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:baba o'riley the who": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/9c/01/10/9c01101e-8775-111e-a090-d6aa76ff1850/22UMGIM57055.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/52/5f/5b/525f5bdf-1f1e-e435-28ce-e0936dbdf140/mzaf_17372016312631142105.plus.aac.p.m4a",
+    "title": "Baba O'Riley (Original Demo / Remastered 2022)",
+    "artist": "The Who",
+    "id": 1698564695,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:american pie don mclean": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/1a/54/65/1a546518-5709-5c11-3f30-90528331fbf6/15UMGIM65659.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/63/dd/79/63dd791d-7e2e-1d3a-f2fa-01c5be6b9d5e/mzaf_8148438283557855281.plus.aac.p.m4a",
+    "title": "American Pie (Full Length Version)",
+    "artist": "Don Mclean",
+    "id": 1440834619,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:brown eyed girl van morrison": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/dd/0e/bc/dd0ebcee-9d50-fe99-4ef8-c0fb79932511/886445621334_Cover.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b8/5e/01/b85e0137-21d0-a265-b2e1-40d3c67a5d94/mzaf_1618708767076233365.plus.aac.p.m4a",
+    "title": "Brown Eyed Girl",
+    "artist": "Van Morrison",
+    "id": 1838782096,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:fortunate son creedence clearwater revival": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/a1/47/ba/a147ba91-31cd-ef4d-d785-040036d14598/12CMGIM34362.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/67/c7/56/67c7568e-3bca-4c8a-9efd-801faae2bd2c/mzaf_3192164342694681383.plus.aac.p.m4a",
+    "title": "Fortunate Son",
+    "artist": "Creedence Clearwater Revival",
+    "id": 1440956152,
+    "fetchedAt": "2026-11-25"
+  },
+  "song:imagine john lennon": {
+    "image": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/21/e3/b0/21e3b048-c917-92c4-bd7d-ace44797b388/13UABIM52808.rgb.jpg/600x600bb.jpg",
+    "audio": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/7d/4e/8c/7d4e8ced-a37b-fab9-c66a-f3b4d6f043cb/mzaf_1566428042492234227.plus.aac.p.m4a",
+    "title": "Imagine",
+    "artist": "John Lennon",
+    "id": 1440853776,
+    "fetchedAt": "2026-11-25"
   }
 }

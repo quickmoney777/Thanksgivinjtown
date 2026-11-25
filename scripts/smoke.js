@@ -132,7 +132,13 @@ async function main() {
         await waitFor(() => answer && answerKey === q.key, 'the remote to be told the answer');
         check(state.game.reveal === null, `[${q.type} ${q.key}${q.stage ? ` ${q.stage}` : ''}] nothing revealed while answers are open`);
 
-        if (q.type === 'pin') {
+        if (q.type === 'number') {
+          check(!q.choices, '  a closest-guess question has no choices');
+          check(!(await players[0].socket.ask('player:answer', { number: 'lots' })).ok, '  a guess that is not a number is refused');
+          await players[0].socket.ask('player:answer', { number: Number(answer.replace(/[^0-9.-]/g, '')) });
+          await players[1].socket.ask('player:answer', { number: 1 });
+          await players[2].socket.ask('player:answer', { number: 999999999 });
+        } else         if (q.type === 'pin') {
           check(!q.choices && ['usa', 'world'].includes(q.mapKind), '  a pin question has a map and no choices');
           check((await players[0].socket.ask('player:answer', { x: 0.5, y: 0.45 })).ok, '  a pin is accepted');
           check(!(await players[0].socket.ask('player:answer', { x: 0.2, y: 0.2 })).ok, '  moving a locked pin is refused');
@@ -259,7 +265,9 @@ async function main() {
         const q = state.game.question;
         lastKey = `r:${q.key}`;
         const gains = state.game.reveal.gains;
-        if (q.type === 'pin') {
+        if (q.type === 'number') {
+          check(gains[players[0].id] === 1500 && gains[players[1].id] === 500 && !gains[players[2].id], '  spot on scores 1,500, second closest 500, furthest nothing');
+        } else         if (q.type === 'pin') {
           const r = state.game.reveal;
           check(r.target && r.pins[players[0].id].miles >= 0 && r.closestId, '  pins are measured in miles and the closest is named');
           check((gains[r.closestId] || 0) >= 250, '  the closest pin scores');
@@ -297,7 +305,7 @@ async function main() {
     check(sawSlow, 'played a slow-reveal photo question');
     check(sawHeadsUp, 'played a Heads Up turn');
     check(state.game.rounds.find((r) => r.id === 'trivia') && true, 'the Trivia game was played');
-    for (const type of ['multiple-choice', 'poster-reveal', 'name-the-artist', 'pin', 'bluff', 'draw', 'headsup']) {
+    for (const type of ['multiple-choice', 'poster-reveal', 'name-the-artist', 'pin', 'bluff', 'draw', 'headsup', 'number']) {
       check(seenTypes.has(type), `played a ${type} round`);
     }
     const scores = state.players.map((p) => `${p.name} ${p.score}`).join(', ');
@@ -336,10 +344,21 @@ async function main() {
     check(!(await players[0].socket.ask('player:answer', { roundId: 'sketch' })).ok, 'votes close once the game is picked');
     await waitFor(() => state.phase === 'roundIntro', 'the chosen round');
     check(state.game.round.id === 'trivia' && state.game.round.count === 0, 'the chosen game starts');
-    await remote.ask('host:action', { type: 'skipRound' });
+    await remote.ask('host:action', { type: 'next' });
+    await waitFor(() => state.phase === 'question', 'a question');
+    check((await remote.ask('host:action', { type: 'exitRound' })).ok, 'the host can exit a game part-way through');
     await waitFor(() => state.phase === 'menu', 'menu again');
     check(state.game.menu.options.find((o) => o.id === 'trivia').played === 1, 'after the round the menu comes back and marks it played');
     const forced = await remote.ask('host:action', { type: 'pickRound', roundId: 'bluff' });
+    await waitFor(() => state.phase === 'roundIntro', 'host pick intro');
+    await remote.ask('host:action', { type: 'skipQuestion' }).catch(() => {});
+    while (state.phase !== 'scores') {
+      await remote.ask('host:action', { type: state.phase === 'question' ? 'skipQuestion' : 'next' });
+      await wait(30);
+    }
+    const before2 = state.game.rounds.length;
+    check((await remote.ask('host:action', { type: 'replay' })).ok, 'the host can play the same game again from the scoreboard');
+    await waitFor(() => state.phase === 'roundIntro' && state.game.rounds.length === before2 + 1, 'replay');
     await waitFor(() => state.phase === 'roundIntro', 'host pick');
     check(forced.ok && state.game.round.id === 'bluff', 'the host can pick the game from the remote');
     await remote.ask('host:action', { type: 'skipRound' });

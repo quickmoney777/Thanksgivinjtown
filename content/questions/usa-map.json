@@ -80,6 +80,41 @@
       "map": "usa",
       "lat": 28.3852,
       "lon": -81.5639
+    },
+    {
+      "question": "Where is Nashville?",
+      "answer": "Nashville, Tennessee",
+      "map": "usa",
+      "lat": 36.1627,
+      "lon": -86.7816
+    },
+    {
+      "question": "Where is Niagara Falls?",
+      "answer": "Niagara Falls, New York",
+      "map": "usa",
+      "lat": 43.0962,
+      "lon": -79.0377
+    },
+    {
+      "question": "Where is New Orleans?",
+      "answer": "New Orleans, Louisiana",
+      "map": "usa",
+      "lat": 29.9511,
+      "lon": -90.0715
+    },
+    {
+      "question": "Drop your pin on Pittsburgh.",
+      "answer": "Pittsburgh, Pennsylvania",
+      "map": "usa",
+      "lat": 40.4406,
+      "lon": -79.9959
+    },
+    {
+      "question": "Where is Mount St. Helens?",
+      "answer": "Mount St. Helens, Washington",
+      "map": "usa",
+      "lat": 46.1914,
+      "lon": -122.1956
     }
   ]
 }
