@@ -21,13 +21,16 @@ function shuffle(list) {
 
 // Two answers are "the same" if they match ignoring case, spacing and
 // punctuation. Stops "a rafter" and "Rafter!" being listed twice.
-const norm = (s) =>
-  String(s)
+const norm = (s) => {
+  const plain = String(s)
     .toLowerCase()
     .replace(/[^a-z0-9 ]+/g, '')
     .replace(/\b(a|an|the)\b/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+  // Emoji or another alphabet: compare the text as typed.
+  return plain || String(s).trim().toLowerCase();
+};
 
 // A question marked "for": "parents" (or "kids") is answered by that side
 // only, and the other side writes the fakes. Without both sides at the
@@ -35,7 +38,7 @@ const norm = (s) =>
 function prepare(raw, ctx) {
   const players = (ctx && ctx.players) || [];
   const guessers = raw.for ? players.filter((p) => p.group === raw.for).map((p) => p.id) : [];
-  const writers = raw.for ? players.filter((p) => p.group && p.group !== raw.for).map((p) => p.id) : [];
+  const writers = raw.for ? players.filter((p) => p.group !== raw.for).map((p) => p.id) : [];
   const sided = guessers.length > 0 && writers.length > 0;
   const groups = (ctx && ctx.settings && ctx.settings.groups) || {};
   return {

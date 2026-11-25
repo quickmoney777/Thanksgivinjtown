@@ -88,6 +88,7 @@
       if (params.get('room') !== code) history.replaceState(null, '', `/?room=${code}`);
       meId = res.playerId;
       mine = res.mine || null;
+      if (meId) keepAwake();
       if (!meId && seat) {
         // The seat is gone (removed while away). Start over in this room.
         store.del(seatKey(code));
@@ -175,7 +176,21 @@
       note('#join-note', 'That character was just taken. Pick another.');
     }
     const full = state.players.length >= state.characters.length;
-    if (full) note('#join-note', 'Every seat is taken. Ask the host to free one up.');
+
+    // Seats whose phone has dropped off can be taken back with one tap.
+    const away = state.players.filter((p) => !p.connected);
+    $('#rejoin').hidden = away.length === 0;
+    $('#rejoin-list').replaceChildren(
+      ...away.map((player) =>
+        h(
+          'button',
+          { class: 'pick', type: 'button', onclick: () => reclaim(player) },
+          plate(characterOf(player)),
+          h('span', null, h('span', { class: 'pick-name' }, `I'm ${player.name}`), h('span', { class: 'pick-sub' }, `${points(player.score)} points. Take this seat back.`))
+        )
+      )
+    );
+    if (full) note('#join-note', away.length ? 'Every seat is taken. Tap your name above to get back in.' : 'Every seat is taken. Ask the host to free one up.');
 
     drawPicker($('#join-picker'), {
       selected: pick,
@@ -186,6 +201,45 @@
       },
     });
     updateJoinButton();
+  }
+
+  function reclaim(player) {
+    if (!window.confirm(`Are you ${player.name}? This takes over ${player.name}'s seat and score.`)) return;
+    socket.emit('player:reclaim', { playerId: player.id }, (res) => {
+      if (!res || !res.ok) {
+        if (res && res.error === 'no-room') return leaveRoom(`Room ${code} isn't open. Check the code on the TV.`);
+        note('#join-note', (res && res.error) || 'Could not get that seat. Try again.');
+        return undefined;
+      }
+      seat = { playerId: res.playerId, token: res.token };
+      store.set(seatKey(code), seat);
+      meId = res.playerId;
+      mine = res.mine || null;
+      pick = null;
+      note('#join-note', '');
+      keepAwake();
+      return apply(res.state);
+    });
+  }
+
+  // Change your name, from the lobby or the game menu.
+  function rename() {
+    const me = state && state.players.find((p) => p.id === meId);
+    if (!me) return;
+    const typed = window.prompt('Your name', me.name);
+    if (typed == null || !typed.trim() || typed.trim() === me.name) return;
+    socket.emit('player:rename', { name: typed }, (res) => {
+      if (res && res.ok) {
+        store.set(LAST_NAME, res.name);
+        problem = '';
+        note('#lobby-note', '');
+      } else {
+        const message = (res && res.error) || 'Could not change your name. Try again.';
+        problem = message;
+        note('#lobby-note', message);
+        note('#game-note', message);
+      }
+    });
   }
 
   function updateJoinButton() {
@@ -363,6 +417,7 @@
       h('h1', null, myVote ? 'Vote in' : 'Pick the next game'),
       h('p', { class: 'lede' }, myVote ? 'Tap another game to change your vote.' : 'Most votes wins.'),
       h('div', { class: 'game-picks' }, ...buttons),
+      h('button', { class: 'link-button', type: 'button', onclick: rename }, 'Change my name'),
     ];
   }
 
@@ -418,9 +473,22 @@
 
   // Send an answer. Buttons are frozen while it's on its way.
   function send(payload, controls, onDone) {
+    if (!socket.connected) {
+      // Mid-reconnect: don't send into the void, and say why nothing happened.
+      problem = 'Reconnecting. Try again in a second.';
+      note('#game-note', problem);
+      return;
+    }
     controls.forEach((c) => (c.disabled = true));
-    socket.emit('player:answer', payload, (res) => {
+    // If no reply comes back (a phone waking from sleep), free the buttons again.
+    socket.timeout(5000).emit('player:answer', payload, (err, res) => {
       controls.forEach((c) => (c.disabled = false));
+      if (err) {
+        problem = 'That did not go through. Try again.';
+        note('#game-note', problem);
+        if (!socket.connected) socket.connect();
+        return;
+      }
       if (res && res.ok) {
         mine = res.mine || mine;
         problem = '';
@@ -436,7 +504,7 @@
 
   function buildNumber(me, g, phase, q, my) {
     const sent = my && my.number != null;
-    const show = (n) => Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
+    const show = (n) => Number(n).toLocaleString('en-US', { maximumFractionDigits: 2, useGrouping: Boolean(q.unit) });
     if (phase === 'question' && !sent) {
       const input = h('input', { type: 'text', id: 'number-input', inputmode: 'decimal', autocomplete: 'off', enterkeyhint: 'send', maxlength: 14 });
       const button = h('button', { class: 'action', type: 'submit' }, 'Lock in my guess');
@@ -703,7 +771,17 @@
     tiltArmed = false; // wait for the phone to come back upright first
     uprightSince = 0;
     tiltSince = 0;
-    startTilt();
+    // iPhones only switch tilting on from a tap. If the turn started before
+    // "I'm ready" was tapped, one tap on the word does it.
+    const hint = h('p', { class: 'headsup-hint', hidden: tiltListening }, 'Tap the word once to switch on tilting');
+    card.append(hint);
+    card.addEventListener('click', async () => {
+      if (tiltListening) return;
+      beep(true);
+      if (await startTilt()) hint.hidden = true;
+      else hint.textContent = 'Tilting is off on this phone. Use the buttons.';
+    });
+    if (!IOS) startTilt().then((ok) => { if (ok) hint.hidden = true; });
     return [card, h('div', { class: 'headsup-btns' }, right, pass)];
   }
 
@@ -1074,6 +1152,15 @@
 
   $('#code-input').addEventListener('input', (event) => {
     event.target.value = cleanCode(event.target.value);
+  });
+
+  $('#rename-button').addEventListener('click', rename);
+  $('#banner-retry').addEventListener('click', () => {
+    if (socket.connected) hello();
+    else {
+      socket.disconnect();
+      socket.connect();
+    }
   });
 
   $('#code-form').addEventListener('submit', (event) => {

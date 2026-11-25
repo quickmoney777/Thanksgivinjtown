@@ -341,6 +341,17 @@
               },
               `+ ${step}`
             ),
+            h(
+              'button',
+              {
+                type: 'button',
+                onclick: () => {
+                  const typed = window.prompt(`New name for ${player.name}`, player.name);
+                  if (typed && typed.trim()) act({ type: 'renamePlayer', playerId: player.id, name: typed });
+                },
+              },
+              'Rename'
+            ),
             state.teams
               ? h('button', { type: 'button', onclick: () => act({ type: 'switchTeam', playerId: player.id }) }, 'Switch team')
               : null,

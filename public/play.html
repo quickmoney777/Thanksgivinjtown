@@ -13,7 +13,10 @@
 </head>
 <body>
   <main class="phone">
-    <div class="banner" id="banner" role="status" hidden>Reconnecting…</div>
+    <div class="banner" id="banner" role="status" hidden>
+      <span>Reconnecting…</span>
+      <button id="banner-retry" type="button">Try now</button>
+    </div>
 
     <header class="masthead">
       <strong id="game-title">Party trivia</strong>
@@ -38,6 +41,12 @@
       <h1>Take a seat</h1>
       <p class="lede">Add your name and pick a character.</p>
       <p class="note" id="join-note" role="alert" hidden></p>
+      <div class="rejoin" id="rejoin" hidden>
+        <h2>Were you already playing?</h2>
+        <p class="fine">Tap your name to get your seat and score back.</p>
+        <div class="rejoin-list" id="rejoin-list"></div>
+        <h2 class="rejoin-or">Or take a new seat</h2>
+      </div>
       <form id="join-form" autocomplete="off">
         <div class="field">
           <label for="name-input">Your name</label>
@@ -55,6 +64,7 @@
       <h1>You're in</h1>
       <p class="lede">Watch the TV. The host starts the game when everyone has a seat.</p>
       <div class="me cloth" id="lobby-me"></div>
+      <button class="link-button" id="rename-button" type="button">Change my name</button>
       <p class="note" id="lobby-note" role="alert" hidden></p>
       <h2 id="swap-label">Switch character</h2>
       <ul class="picker" id="lobby-picker" aria-labelledby="swap-label"></ul>

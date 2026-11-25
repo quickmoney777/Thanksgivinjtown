@@ -38,7 +38,7 @@
     "instructionsSeconds": 20,
     "pinSeconds": 30,
     "pictionarySeconds": 60,
-    "headsUpReadySeconds": 30,
+    "headsUpReadySeconds": 90,
     "headsUpSeconds": 60,
     "numberSeconds": 30
   },

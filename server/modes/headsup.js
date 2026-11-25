@@ -15,9 +15,15 @@ function shuffle(list) {
 }
 
 function prepare(raw, ctx) {
-  const players = ctx.players.filter((p) => p.connected);
-  const pool = players.length ? players : ctx.players;
-  const holder = pool.length ? pool[ctx.turn % pool.length] : null;
+  // Everyone keeps their place in the order. If it's the turn of someone
+  // whose phone is away, the next connected player goes instead.
+  const all = ctx.players;
+  let holder = null;
+  for (let k = 0; k < all.length && !holder; k += 1) {
+    const candidate = all[(ctx.turn + k) % all.length];
+    if (candidate.connected) holder = candidate;
+  }
+  if (!holder && all.length) holder = all[ctx.turn % all.length];
   return {
     holderId: holder ? holder.id : '',
     stage: 'ready',

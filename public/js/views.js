@@ -133,7 +133,7 @@ window.Views = (() => {
           const shape = ctx.mapData.states[g.reveal.map.state];
           map.replaceChildren(
             mapSvg(ctx.mapData, 'highlight', g.reveal.map.state, g.reveal.map.also || []),
-            shape ? h('p', { class: 'map-label' }, shape.name) : null
+            ...(shape ? [h('p', { class: 'map-label' }, shape.name)] : [])
           );
         }
       }
@@ -422,7 +422,8 @@ window.Views = (() => {
 
   // ---------- Closest Guess ----------
 
-  const fmt = (n) => Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
+  // Years (questions with no unit) are shown without a thousands comma.
+  const fmt = (n, unit = 'x') => Number(n).toLocaleString('en-US', { maximumFractionDigits: 2, useGrouping: Boolean(unit) });
 
   const numberView = {
     build(q) {
@@ -447,7 +448,7 @@ window.Views = (() => {
         if (root.dataset.shown) return;
         root.dataset.shown = '1';
         const big = root.querySelector('.number-big');
-        big.textContent = `${fmt(g.reveal.number)}${g.reveal.unit ? ` ${g.reveal.unit}` : ''}`;
+        big.textContent = `${fmt(g.reveal.number, g.reveal.unit)}${g.reveal.unit ? ` ${g.reveal.unit}` : ''}`;
         big.classList.add('solved');
         root.querySelector('.number-list').replaceChildren(
           ...g.reveal.guesses.map((guess, i) =>
@@ -456,7 +457,7 @@ window.Views = (() => {
               { class: g.reveal.gains[guess.playerId] ? 'scored' : '' },
               plateFor(ctx, guess.playerId),
               h('span', { class: 'pin-who' }, nameOf(ctx, guess.playerId)),
-              h('span', { class: 'number-guess' }, fmt(guess.guess)),
+              h('span', { class: 'number-guess' }, fmt(guess.guess, g.reveal.unit)),
               h('span', { class: 'pin-miles' }, guess.off === 0 ? 'Spot on!' : `off by ${fmt(guess.off)}`)
             )
           )

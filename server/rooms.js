@@ -98,6 +98,27 @@ function addPlayer(room, { name, characterId }) {
   return { player };
 }
 
+// A player fixes or changes their name, at any point in the game.
+function renamePlayer(room, player, name) {
+  const clean = cleanName(name, room.settings.nameMaxLength);
+  if (!clean) return { error: 'Type a name first.' };
+  for (const p of room.players.values()) {
+    if (p.id !== player.id && p.name.toLowerCase() === clean.toLowerCase()) return { error: 'That name is taken. Try another.' };
+  }
+  player.name = clean;
+  return { player };
+}
+
+// Someone whose phone lost its seat (new browser, cleared data, a borrowed
+// phone) takes it back. Only a seat nobody is connected to can be taken.
+function reclaimSeat(room, playerId) {
+  const player = room.players.get(playerId);
+  if (!player) return { error: 'That seat is gone. Pick a seat to join again.' };
+  if (player.sockets.size > 0) return { error: `${player.name} is still connected on another phone.` };
+  player.token = secret(); // the old phone's key stops working
+  return { player };
+}
+
 function changeCharacter(room, player, characterId) {
   if (room.phase !== 'lobby') return { error: 'Characters are locked once the game starts.' };
   if (!room.characters.some((c) => c.id === characterId)) return { error: 'Pick a character.' };
@@ -194,6 +215,8 @@ module.exports = {
   touch,
   addPlayer,
   changeCharacter,
+  renamePlayer,
+  reclaimSeat,
   setTeams,
   switchTeam,
   findByToken,

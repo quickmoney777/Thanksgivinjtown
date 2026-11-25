@@ -827,6 +827,8 @@
 
   function togglePause() {
     if (!state || !state.game) return;
+    // Nothing to pause on the menu or the intro, and a stray space bar would block voting.
+    if (['menu', 'intro', 'final'].includes(state.phase) && !state.game.paused) return;
     act({ type: state.game.paused ? 'resume' : 'pause' });
   }
 

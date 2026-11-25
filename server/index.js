@@ -202,6 +202,12 @@ function hostAction(room, action) {
       player.score += delta;
       return {};
     }
+    case 'renamePlayer': {
+      const player = room.players.get(action.playerId);
+      if (!player) return { error: 'That player already left.' };
+      const result = rooms.renamePlayer(room, player, action.name);
+      return result.error ? { error: result.error } : {};
+    }
     case 'removePlayer': {
       const player = room.players.get(action.playerId);
       if (!player) return { error: 'That player already left.' };
@@ -326,6 +332,40 @@ io.on('connection', (socket) => {
     socket.data.playerId = player.id;
     broadcast(room);
     reply({ ok: true, playerId: player.id, token: player.token, state: rooms.publicState(room) });
+  });
+
+  socket.on('player:rename', (payload, ack) => {
+    const reply = fn(ack);
+    const room = rooms.getRoom(socket.data.code);
+    const player = room && room.players.get(socket.data.playerId);
+    if (!player) return reply({ ok: false, error: 'Join the game first.' });
+    const result = rooms.renamePlayer(room, player, (payload || {}).name);
+    if (result.error) return reply({ ok: false, error: result.error });
+    broadcast(room);
+    reply({ ok: true, name: player.name });
+  });
+
+  // "That's me": take back a seat whose phone has dropped off.
+  socket.on('player:reclaim', (payload, ack) => {
+    const reply = fn(ack);
+    if (socket.data.kind !== 'player') return reply({ ok: false, error: 'no-room' });
+    const room = rooms.getRoom(socket.data.code);
+    if (!room) return reply({ ok: false, error: 'no-room' });
+    if (socket.data.playerId) return reply({ ok: false, error: 'You already have a seat.' });
+    const result = rooms.reclaimSeat(room, (payload || {}).playerId);
+    if (result.error) return reply({ ok: false, error: result.error });
+    const { player } = result;
+    player.sockets.add(socket.id);
+    socket.data.playerId = player.id;
+    broadcast(room);
+    engine.presenceChanged(room);
+    reply({
+      ok: true,
+      playerId: player.id,
+      token: player.token,
+      state: rooms.publicState(room),
+      mine: engine.privateView(room, player.id),
+    });
   });
 
   socket.on('player:character', (payload, ack) => {

@@ -46,7 +46,8 @@ function finish(q, settings) {
   return { gains, reveal: { number: target, unit: q.raw.unit, guesses: list, fact: q.raw.fact } };
 }
 
-const peek = (q) => `${q.raw.number.toLocaleString('en-US')}${q.raw.unit ? ` ${q.raw.unit}` : ''}`;
+// Years have no unit and are shown without a thousands comma.
+const peek = (q) => `${q.raw.number.toLocaleString('en-US', { useGrouping: Boolean(q.raw.unit) })}${q.raw.unit ? ` ${q.raw.unit}` : ''}`;
 const fullPoints = (settings) => settings.points.numberClosest;
 
 module.exports = { prepare, seconds, publicView, submit, answered, privateView, finish, peek, fullPoints };

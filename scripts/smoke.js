@@ -92,6 +92,24 @@ async function main() {
     check(!(await dupe.ask('player:join', { name: 'Eve', characterId: characters[0] })).ok, 'a taken character is refused');
     check(!(await dupe.ask('player:join', { name: 'dad', characterId: characters[4] })).ok, 'a taken name is refused');
     dupe.disconnect();
+
+    // ----- Changing a name, and getting a lost seat back -----
+    check((await players[3].socket.ask('player:rename', { name: 'Annie' })).ok, 'a player can change their name');
+    check(!(await players[3].socket.ask('player:rename', { name: 'dad' })).ok, 'a name someone else has is refused');
+    await remote.ask('host:action', { type: 'renamePlayer', playerId: players[3].id, name: 'Anna' });
+    await waitFor(() => state.players.find((p) => p.id === players[3].id).name === 'Anna', 'host rename');
+    check(true, 'the host can rename a player from the remote');
+    const stranger = await connect();
+    stranger.on('mine', (m) => (players[2].mine = m));
+    await stranger.ask('player:hello', { code });
+    check(!(await stranger.ask('player:reclaim', { playerId: players[2].id })).ok, 'a seat that is still connected cannot be taken');
+    players[2].socket.disconnect();
+    await waitFor(() => !state.players.find((p) => p.id === players[2].id).connected, 'Jake away');
+    const back2 = await stranger.ask('player:reclaim', { playerId: players[2].id });
+    check(back2.ok && back2.playerId === players[2].id && back2.token !== players[2].token, 'a new phone can take back a seat whose phone dropped off');
+    players[2].token = back2.token;
+    players[2].socket = stranger;
+    await waitFor(() => state.players.find((p) => p.id === players[2].id).connected, 'Jake back');
     check(!JSON.stringify(state).includes(players[0].token) && !JSON.stringify(state).includes(hostKey), 'no secrets in what screens receive');
 
     // ----- Teams -----

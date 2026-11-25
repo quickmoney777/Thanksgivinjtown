@@ -47,13 +47,12 @@ function matches(guess, targets) {
 
 // ctx.turn counts drawing turns in this round, so the pen passes around.
 function prepare(raw, ctx) {
-  const players = ctx.players.filter((p) => p.connected);
-  let pool = players.length ? players : ctx.players;
-  const teamed = raw.aloud && pool.some((p) => p.side === 0) && pool.some((p) => p.side === 1);
+  let pool = ctx.players;
+  let teamed = raw.aloud && pool.some((p) => p.side === 0) && pool.some((p) => p.side === 1);
   if (teamed) {
     // Teams take turns: one from each side, back and forth.
     const a = pool.filter((p) => p.side === 0);
-    const b = pool.filter((p) => p.side !== 0);
+    const b = pool.filter((p) => p.side === 1);
     const order = [];
     for (let i = 0; i < Math.max(a.length, b.length); i += 1) {
       if (a.length) order.push(a[i % a.length]);
@@ -61,7 +60,16 @@ function prepare(raw, ctx) {
     }
     pool = order;
   }
-  const artist = pool.length ? pool[ctx.turn % pool.length] : null;
+  // Everyone keeps their place in the order. If the artist's phone is away,
+  // the next connected player draws instead.
+  let artist = null;
+  for (let k = 0; k < pool.length && !artist; k += 1) {
+    const candidate = pool[(ctx.turn + k) % pool.length];
+    if (candidate.connected) artist = candidate;
+  }
+  if (!artist && pool.length) artist = pool[ctx.turn % pool.length];
+  // An artist with no teammates (three players, or a late arrival) draws for everyone.
+  if (teamed && artist && !ctx.players.some((p) => p.id !== artist.id && p.side === artist.side)) teamed = false;
   // Who is guessing: the artist's team, or everyone if there are no teams.
   const team = artist ? ctx.players.filter((p) => p.id !== artist.id && (!teamed || p.side === artist.side)) : [];
   return {

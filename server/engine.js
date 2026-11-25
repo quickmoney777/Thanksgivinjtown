@@ -435,7 +435,13 @@ function presenceChanged(room) {
     return;
   }
   if (!g || room.phase !== 'question' || g.paused || !g.current) return;
-  if (everyoneAnswered(room)) stageDone(room, 'all-in');
+  if (everyoneAnswered(room)) return stageDone(room, 'all-in');
+  // The only people this step was waiting for have gone (the Heads Up
+  // holder, the artist's team, one whole side): don't sit in silence.
+  const q = g.current;
+  const here = playerList(room).filter((p) => p.connected);
+  if (q.mode.expected && here.length && q.mode.expected(q, here).length === 0) stageDone(room, 'host');
+  return undefined;
 }
 
 // Answers close. A short beat of suspense, then the reveal.
@@ -474,7 +480,13 @@ function overrule(room, playerId, correct) {
   if (!player) return { error: 'That player already left.' };
   const mode = g.current.mode;
   const p = room.settings.points;
-  const full = mode.fullPoints ? mode.fullPoints(room.settings) : g.current.type === 'poster-reveal' ? p.posterCorrect : p.correct;
+  const full = mode.fullPoints
+    ? mode.fullPoints(room.settings)
+    : g.current.type === 'poster-reveal'
+      ? p.posterCorrect
+      : g.current.type === 'name-the-artist'
+        ? p.artistCorrect
+        : p.correct;
   const had = g.result.gains[playerId] || 0;
   const now = correct ? Math.max(had, full) : 0;
   player.score += now - had;

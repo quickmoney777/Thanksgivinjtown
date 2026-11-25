@@ -866,3 +866,60 @@ form + .lede {
     border-radius: 0;
   }
 }
+
+/* ---------- Getting back in, and the reconnect banner ---------- */
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.banner[hidden] {
+  display: none;
+}
+
+.banner button {
+  min-height: 36px;
+  padding: 4px 14px;
+  border: 0;
+  border-radius: 99px;
+  background: var(--cream);
+  color: var(--roast);
+  font-weight: 800;
+}
+
+.rejoin {
+  margin-bottom: 18px;
+}
+
+.rejoin-list {
+  display: grid;
+  gap: 10px;
+  margin: 10px 0 20px;
+}
+
+.rejoin .pick {
+  border-color: var(--pumpkin);
+  color: var(--cream);
+}
+
+.rejoin-or {
+  margin-top: 8px;
+}
+
+.headsup-card {
+  position: relative;
+}
+
+.headsup-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--crust);
+}
